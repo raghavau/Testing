@@ -13,47 +13,120 @@
                 top: 0;
                 left: 0;
             }
+            .page-header{
+                /* IE10+ */ 
+                background-image: -ms-linear-gradient(bottom, #FCFCFC 10%, #F7F7F7 100%);
+
+                /* Mozilla Firefox */ 
+                background-image: -moz-linear-gradient(bottom, #FCFCFC 10%, #F7F7F7 100%);
+
+                /* Opera */ 
+                background-image: -o-linear-gradient(bottom, #FCFCFC 10%, #F7F7F7 100%);
+
+                /* Webkit (Safari/Chrome 10) */ 
+                background-image: -webkit-gradient(linear, left bottom, left top, color-stop(10, #FCFCFC), color-stop(100, #F7F7F7));
+
+                /* Webkit (Chrome 11+) */ 
+                background-image: -webkit-linear-gradient(bottom, #FCFCFC 10%, #F7F7F7 100%);
+
+                /* W3C Markup */ 
+                background-image: linear-gradient(to top, #FCFCFC 10%, #F7F7F7 100%);
+                background-attachment:fixed;
+            }
             .footer{
                 border: 0px;
                 border-top-color: darkgrey;
                 border-top-style: solid;
                 border-top-width: 1px;
                 background-color: white;
+                padding: 3px;
             }
             table{
                 width: 100%;
             }
             td{
                 padding: 3px;
+                width: 50%;
             }
-            p{
-                background-color: #396CAE;
-                height: 90%;
+            .inner{
+                background-color: #396CAE;/*396CAE,eeeeee*/
+                height: 100%;
+                border-radius: 0%;
             }
             label{
                 color: white;
                 font-size: 16px;
+            }
+            .block{
+                /* IE10+ */
+                background-image: -ms-radial-gradient(center, ellipse farthest-corner, #FAFAFA 0%, #EDEDED 100%);
+
+                /* Mozilla Firefox */ 
+                background-image: -moz-radial-gradient(center, ellipse farthest-corner, #FAFAFA 0%, #EDEDED 100%);
+
+                /* Opera */ 
+                background-image: -o-radial-gradient(center, ellipse farthest-corner, #FAFAFA 0%, #EDEDED 100%);
+
+                /* Webkit (Safari/Chrome 10) */ 
+                background-image: -webkit-gradient(radial, center center, 0, center center, 286, color-stop(0, #FAFAFA), color-stop(100, #EDEDED));
+
+                /* Webkit (Chrome 11+) */ 
+                background-image: -webkit-radial-gradient(center, ellipse farthest-corner, #FAFAFA 0%, #EDEDED 100%);
+
+                /* W3C Markup */ 
+                background-image: radial-gradient(ellipse farthest-corner at center, #FAFAFA 0%, #EDEDED 100%);
+                
+                border: 1px solid #DADADA; 
+                padding: 5px;
+                border-radius: 2%; 
+                vertical-align: middle;
+                align-self: center;
+                text-align: center;
+            }
+            .circle{
+                background-color: #396CAE;/*396CAE,eeeeee*/
+                border-radius: 100%;
+                width: 110px;
+                -webkit-box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.25);
+                -moz-box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.25);
+                box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.25);
             }
         </style>
     </head>
     <body>
         <div class="container text-center">
             <div class="page-header">
-                <img alt="logo" src="img/KPCT.PNG" height="75px" width="150px">
+                <img alt="logo" src="img/KPCT.PNG" height="50px" width="150px">
             </div>
             <table>
                 <tr>
                     <td>
-                        <p>
-                            <br><a href="page1.html"><img src="img/container_red_256.png" height="100px"><br><br>
-                            <label>Container Search</label></a>
-                        </p>
+                        <div class="block">
+                            <!--<div class="inner">
+                                <br><a href="page1.html"><img src="img/container_red_256.png" height="70px"><br><br>
+                                <label>Container Search</label></a>
+                            </div>-->
+                            <center>
+                                <div class="circle">
+                                    <br><a href="page1.html"><img src="img/container_red_256.png" height="70px"></a><br><br>
+                                </div>
+                            </center><br>
+                            <label style="color: black">Container Search</label>
+                        </div>
                     </td>
                     <td>
-                        <p>
-                            <br><a href="page1.html"><img src="img/Vessel256x256.PNG" height="100px"><br><br>
-                            <label>Vessel Schedule</label></a>
-                        </p>
+                        <div class="block">
+                            <!--<div class="inner">
+                                <br><a href="page1.html"><img src="img/Vessel256x256.PNG" height="70px"><br><br>
+                                <label>Vessel Schedule</label></a>
+                            </div>-->
+                            <center>
+                                <div class="circle">
+                                    <br><a href="page1.html"><img src="img/Vessel256x256.PNG" height="70px"></a><br><br>
+                                </div>
+                            </center><br>
+                            <label style="color: black">Vessel Schedule</label>
+                        </div>
                     </td>
                 </tr>
             </table>

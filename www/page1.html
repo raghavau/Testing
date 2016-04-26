@@ -22,15 +22,20 @@
             label{
                 color: #428bca;
             }
+            .header{
+                color: black;
+                font-size: 23px;
+                font-weight: normal;
+            }
             input[type='text']{
                 border: 0px;
-                border-bottom: 2px solid #428bca;
+                border-bottom: 1px solid #428bca;
                 width: 100%;
                 outline: none;
             }
             textarea{
                 border: 0px;
-                border-bottom: 2px solid #428bca;
+                border-bottom: 1px solid #428bca;
                 width: 100%;
                 outline: none;
                 height: 100px;
@@ -47,6 +52,27 @@
                 border-radius: 1px;
                 font-weight: bold;
             }
+            .page-header{
+                /* IE10+ */ 
+                background-image: -ms-linear-gradient(bottom, #FCFCFC 10%, #F7F7F7 100%);
+
+                /* Mozilla Firefox */ 
+                background-image: -moz-linear-gradient(bottom, #FCFCFC 10%, #F7F7F7 100%);
+
+                /* Opera */ 
+                background-image: -o-linear-gradient(bottom, #FCFCFC 10%, #F7F7F7 100%);
+
+                /* Webkit (Safari/Chrome 10) */ 
+                background-image: -webkit-gradient(linear, left bottom, left top, color-stop(10, #FCFCFC), color-stop(100, #F7F7F7));
+
+                /* Webkit (Chrome 11+) */ 
+                background-image: -webkit-linear-gradient(bottom, #FCFCFC 10%, #F7F7F7 100%);
+
+                /* W3C Markup */ 
+                background-image: linear-gradient(to top, #FCFCFC 10%, #F7F7F7 100%);
+                background-attachment:fixed;
+                padding-bottom: 0px;
+            }
         </style>
     </head>
     <body>
@@ -59,7 +85,7 @@
         <div class="container text-center">
             <br>
             <div class="page-header text-left">
-                <h3>Visitor Information</h3>
+                <label class="header">Visitor Information</label>
             </div>
             <form class="form-horizontal text-left" role="form">
                 <div class="form-group">
