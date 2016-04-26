@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sample Web Page for Testing Index</title>
+        <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"/>
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css">
+        <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+        <style type="text/css">
+            body{
+                margin: 0;
+                top: 0;
+                left: 0;
+            }
+            .block{
+                background-color: #396CAE;
+                border-radius: 1px;
+                height: 250px;
+                width: 100%;
+            }
+            label{
+                color: #428bca;
+            }
+            input[type='text']{
+                border: 0px;
+                border-bottom: 2px solid #428bca;
+                width: 100%;
+                outline: none;
+            }
+            textarea{
+                border: 0px;
+                border-bottom: 2px solid #428bca;
+                width: 100%;
+                outline: none;
+                height: 100px;
+            }
+            .navbar{
+                padding: 5px;
+                border: 0px;
+                /*border-bottom-color: darkgrey;
+                border-bottom-style: solid;
+                border-bottom-width: 1px;*/
+                background-color: #428bca;
+            }
+            .btn{
+                border-radius: 1px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <img alt="logo" class="img-circle" src="img/KPCL.png" height="40" width="40">
+                <strong><span style="font-size: 23px; color: white;">KRISHNAPATNAM PORT</span></strong>
+            </div>
+        </nav>
+        <div class="container text-center">
+            <br>
+            <div class="page-header text-left">
+                <h3>Visitor Information</h3>
+            </div>
+            <form class="form-horizontal text-left" role="form">
+                <div class="form-group">
+                    <label for="firstname" class="col-lg-2 control-label">First Name</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="firstname" placeholder="Enter First Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastname" class="col-lg-2 control-label">Last Name</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="lastname" placeholder="Enter Last Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dob" class="col-lg-2 control-label">DOB</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="dob" placeholder="Enter Date of Birth">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address" class="col-lg-2 control-label">Address</label>
+                    <div class="col-lg-10">
+                        <textarea id="address" placeholder="Enter Address"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="mobileno" class="col-lg-2 control-label">Mobile No</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="mobileno" placeholder="Enter Mobile No">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-lg-2 control-label">Email</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="email" placeholder="Enter Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12"><input id="btnSubmit" type="button" class="btn btn-primary btn-block" value="Submit"></div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function (){
+        $("#firstname").focusin(function(){
+            $("#firstname").attr('placeholder', '');
+        });
+        $("#firstname").focusout(function(){
+            $("#firstname").attr('placeholder', 'Enter First Name');
+        });
+        $("#lastname").focusin(function(){
+            $("#lastname").attr('placeholder', '');
+        });
+        $("#lastname").focusout(function(){
+            $("#lastname").attr('placeholder', 'Enter Last Name');
+        });
+        $("#dob").focusin(function(){
+            $("#dob").attr('placeholder', '');
+        });
+        $("#dob").focusout(function(){
+            $("#dob").attr('placeholder', 'Enter Date of Birth');
+        });
+        $("#address").focusin(function(){
+            $("#address").attr('placeholder', '');
+        });
+        $("#address").focusout(function(){
+            $("#address").attr('placeholder', 'Enter Address');
+        });
+        $("#mobileno").focusin(function(){
+            $("#mobileno").attr('placeholder', '');
+        });
+        $("#mobileno").focusout(function(){
+            $("#mobileno").attr('placeholder', 'Enter Mobile No');
+        });
+        $("#email").focusin(function(){
+            $("#email").attr('placeholder', '');
+        });
+        $("#email").focusout(function(){
+            $("#email").attr('placeholder', 'Enter Email');
+        });
+        
+        $("#btnSubmit").click(function(){
+           window.location.href = 'index.html';
+        });
+    });
+</script>
