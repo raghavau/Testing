@@ -45,7 +45,7 @@
                     function (result) {
                         if (!result.cancelled) {
                             alert(result.format);
-                            if (result.format == "QR_CODE") {
+                            //if (result.format == "QR_CODE") {
                                 navigator.notification.prompt("Please enter name of data", function (input) {
                                     var name = input.input1;
                                     var value = result.text;
@@ -59,7 +59,7 @@
 
                                     alert("Done");
                                 });
-                            }
+                            //}
                         }
                     },
                     function (error) {
