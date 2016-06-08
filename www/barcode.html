@@ -40,15 +40,13 @@
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript">
-            function scan()
-            {
+            function scan() {
                 cordova.plugins.barcodeScanner.scan(
                     function (result) {
-                        if(!result.cancelled)
-                        {
-                            if(result.format == "QR_CODE")
-                            {
-                                navigator.notification.prompt("Please enter name of data",  function(input){
+                        if (!result.cancelled) {
+                            alert(result.format);
+                            if (result.format == "QR_CODE") {
+                                navigator.notification.prompt("Please enter name of data", function (input) {
                                     var name = input.input1;
                                     var value = result.text;
 
@@ -70,7 +68,7 @@
                );
             }
 
-            $(document).on("pagebeforeshow", "#display", function() {
+            $(document).on("pagebeforeshow", "#display", function () {
                 $("table#allTable tbody").empty();
 
                 var data = localStorage.getItem("LocalData");
@@ -79,8 +77,7 @@
 
                 var html = "";
 
-                for(var count = 0; count < data.length; count++)
-                {
+                for (var count = 0; count < data.length; count++) {
                     html = html + "<tr><td>" + data[count][0] + "</td><td><a href='javascript:openURL(\"" + data[count][1] + "\")'>" + data[count][1] + "</a></td></tr>";
                 }
 
@@ -88,14 +85,12 @@
 
             });
 
-            function openURL(url)
-            {
+            function openURL(url) {
                 window.open(url, '_blank', 'location=yes');
             }
 
             //initialize
-            if(localStorage.getItem("LocalData") == null)
-            {
+            if (localStorage.getItem("LocalData") == null) {
                 var data = [];
                 data = JSON.stringify(data);
                 localStorage.setItem("LocalData", data);
