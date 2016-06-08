@@ -15,6 +15,7 @@
                 <p>
                     <a target="_blank" href="javascript:scan();" style="text-decoration: none"><button>Scan</button></a>
                     <a target="_blank" href="#display" style="text-decoration: none"><button>Display Scanned Data</button></a>
+                    <input type="text" id="txtValue">
                 </p>
             </div>
         </div>
@@ -46,19 +47,21 @@
                         if (!result.cancelled) {
                             alert(result.format);
                             //if (result.format == "QR_CODE") {
-                                navigator.notification.prompt("Please enter name of data", function (input) {
-                                    var name = input.input1;
-                                    var value = result.text;
+                            navigator.notification.prompt("Please enter name of data", function (input) {
+                                var name = input.input1;
+                                var value = result.text;
 
-                                    var data = localStorage.getItem("LocalData");
-                                    console.log(data);
-                                    data = JSON.parse(data);
-                                    data[data.length] = [name, value];
+                                $("#txtValue").val(value);
 
-                                    localStorage.setItem("LocalData", JSON.stringify(data));
+                                var data = localStorage.getItem("LocalData");
+                                console.log(data);
+                                data = JSON.parse(data);
+                                data[data.length] = [name, value];
 
-                                    alert("Done");
-                                });
+                                localStorage.setItem("LocalData", JSON.stringify(data));
+
+                                alert("Done");
+                            });
                             //}
                         }
                     },
