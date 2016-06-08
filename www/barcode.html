@@ -94,4 +94,11 @@
     function openURL(url) {
         window.open(url, '_blank', 'location=yes');
     }
+
+    //initialize
+    if (localStorage.getItem("LocalData") == null) {
+        var data = [];
+        data = JSON.stringify(data);
+        localStorage.setItem("LocalData", data);
+    }
 </script>
