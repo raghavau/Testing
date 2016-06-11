@@ -16,8 +16,7 @@
     <body>
         <br>
         <div class="container text-center">
-            <button id="btnScan" class="btn btn-danger">Scan</button>
-            <textarea id="scandata" style="height: 200px; width: 100%;"></textarea>
+            <button id="btnScan" class="btn btn-danger btn-block">Scan</button>
             <form role="form" class="form-horizontal text-left">
                 <div class="form-group">
                     <label for="productid" class="col-lg-2 control-label">Product Id</label>
@@ -89,9 +88,7 @@
                 cordova.plugins.barcodeScanner.scan(
                     function (result) {
                         if (!result.cancelled) {
-                            var value = result.text;
-                            $("#scandata").val(value);
-                            var Obj = JSON.parse(value);
+                            var Obj = JSON.parse(result.text);
 
                             $("#productid").val(Obj.ProductID);
                             $("#productname").val(Obj.ProductName);
