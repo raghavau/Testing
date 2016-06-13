@@ -7,9 +7,11 @@
         <title>QRCode Reader APP</title>
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
         <style type="text/css">
-            textarea{
+            #txtData {
                 resize: none;
                 overflow: auto;
+                height: 200px;
+                width: fill-available;
             }
             .img-thumbnail {
                 box-shadow: 2px 2px 3px #e1e1e1;
@@ -20,6 +22,9 @@
         <br>
         <div class="container text-center">
             <img alt="scan" class="img-thumbnail" src="img/scan.PNG" width="36px" height="36px" id="btnScan" />
+            <br><br>
+            <textarea id="txtData" class="form-control text-left">
+            </textarea>
             <br><br>
             <form role="form" class="form-horizontal text-left">
                 <div class="form-group">
