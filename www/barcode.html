@@ -37,10 +37,9 @@
     <body>
         <br>
         <div class="container text-center">
-            <img alt="scan" class="img-thumbnail" src="img/scan.PNG" width="36px" height="36px" id="btnScan" />
+            <img alt="scan" class="img-thumbnail" src="img/scan.PNG" width="50px" height="50px" id="btnScan" />
             <br><br>
-            <textarea id="txtData" class="form-control text-left">
-            </textarea>
+            <textarea id="txtData" class="form-control text-left"></textarea>
             <br><br>
             <form role="form" class="form-horizontal text-left">
                 <div class="form-group">
@@ -113,7 +112,7 @@
                 cordova.plugins.barcodeScanner.scan(
                     function (result) {
                         if (!result.cancelled) {
-                            $("#txtData").val();
+                            $("#txtData").val("");
                             var res = result.text.split(",");
                             for (i = 0; i <= res.length - 1; i++) {
                                 $("#txtData").val($("#txtData").val() + res[i] + "\n");
