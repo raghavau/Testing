@@ -97,11 +97,12 @@
                 cordova.plugins.barcodeScanner.scan(
                     function (result) {
                         if (!result.cancelled) {
+                            $("#txtData").val();
                             var res = result.text.split(",");
-
                             for (i = 0; i <= res.length - 1; i++) {
                                 $("#txtData").val($("#txtData").val() + res[i] + "\n");
                             }
+
                             var Obj = JSON.parse(result.text);
                             $("#productid").val(Obj.ProductID);
                             $("#productname").val(Obj.ProductName);
