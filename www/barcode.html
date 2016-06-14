@@ -114,10 +114,10 @@
                             $("#txtData").val("");
                             var res = result.text.split(",");
                             var Obj = JSON.parse(result.text);
-
+                            alert(Obj);
                             for (i = 0; i <= res.length - 1; i++) {
                                 $("#txtData").val($("#txtData").val() + res[i] + "\n");
-                            }                            
+                            }
                             $("#productid").val(Obj.ProductID);
                             $("#productname").val(Obj.ProductName);
                             $("#supplierid").val(Obj.SupplierID);
