@@ -14,6 +14,12 @@
     background-color: #aaa;
 }
 
+.backbar{
+    width: 100%; 
+    padding: 5px; 
+    border-bottom: 1px solid #ccc;
+}
+
 .back {
     border-radius: 30%;
 }
