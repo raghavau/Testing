@@ -11,4 +11,32 @@
 </html>
 <script type="text/javascript">
     var smsPlugin = cordova.require('cordova/plugin/smsplugin');
+
+    smsPlugin.isSupported((function (supported) {
+        if (supported)
+            alert("SMS supported !");
+        else
+            alert("SMS not supported");
+    }), function () {
+        alert("Error while checking the SMS support");
+    });
+
+    smsPlugin.startReception(function (msg) {
+        alert(msg[smsPlugin.COLS.BODY]);
+    }, function () {
+        alert("Error while receiving messages");
+    });
+
+    smsPlugin.stopReception(function () {
+        alert("Correctly stopped");
+    }, function () {
+        alert("Error while stopping the SMS receiver");
+    });
+
+    // Fetches all unread SMS messages.
+    smsPlugin.getSmsByCustomCriteria(-1, smsPlugin.COLS.READ + '=0', null, function (msg) {
+        alert(msg[smsPlugin.COLS.BODY]);
+    }, function () {
+        alert("Error while reading SMS");
+    });
 </script>
