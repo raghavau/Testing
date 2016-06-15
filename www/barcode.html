@@ -6,6 +6,7 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <title>QRCode Reader APP</title>
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
         <style type="text/css">
             #txtData {
                 resize: none;
@@ -16,25 +17,13 @@
             .img-thumbnail {
                 box-shadow: 2px 2px 3px #e1e1e1;
             }
-            ::-webkit-scrollbar {
-                width: 5px;
-            }
-            ::-webkit-scrollbar-track {
-                background-color: #eaeaea;
-                border-left: 0px solid #ccc;
-                border-radius: 10px;
-            }
-            ::-webkit-scrollbar-thumb {
-                background-color: #ccc;
-                border-radius: 10px;
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background-color: #aaa;
-            }
+            
         </style>
     </head>
     <body>
-        <br>
+        <div style="width: 100%; padding: 5px; border-bottom: 1px solid #ccc;">
+        <a class="btn btn-default btn-xs back" href="index.html"><span class="glyphicon glyphicon-menu-left"></span></a>
+        </div>
         <div class="container text-center">
             <img alt="scan" class="img-thumbnail" src="img/scan.PNG" width="50px" height="50px" id="btnScan" />
             <br><br>
