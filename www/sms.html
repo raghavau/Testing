@@ -3,40 +3,44 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title></title>
+        <title>SMS checking</title>
     </head>
     <body>
         
     </body>
 </html>
+<script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="js/SmsPlugin.js"></script>
 <script type="text/javascript">
     var smsPlugin = cordova.require('cordova/plugin/smsplugin');
+    $(document).ready(function () {
+        smsPlugin.isSupported((function (supported) {
+            if (supported)
+                alert("SMS supported !");
+            else
+                alert("SMS not supported");
+        }), function () {
+            alert("Error while checking the SMS support");
+        });
 
-    smsPlugin.isSupported((function (supported) {
-        if (supported)
-            alert("SMS supported !");
-        else
-            alert("SMS not supported");
-    }), function () {
-        alert("Error while checking the SMS support");
-    });
+        smsPlugin.startReception(function (msg) {
+            alert(msg[smsPlugin.COLS.BODY]);
+        }, function () {
+            alert("Error while receiving messages");
+        });
 
-    smsPlugin.startReception(function (msg) {
-        alert(msg[smsPlugin.COLS.BODY]);
-    }, function () {
-        alert("Error while receiving messages");
-    });
+        smsPlugin.stopReception(function () {
+            alert("Correctly stopped");
+        }, function () {
+            alert("Error while stopping the SMS receiver");
+        });
 
-    smsPlugin.stopReception(function () {
-        alert("Correctly stopped");
-    }, function () {
-        alert("Error while stopping the SMS receiver");
-    });
-
-    // Fetches all unread SMS messages.
-    smsPlugin.getSmsByCustomCriteria(-1, smsPlugin.COLS.READ + '=0', null, function (msg) {
-        alert(msg[smsPlugin.COLS.BODY]);
-    }, function () {
-        alert("Error while reading SMS");
+        // Fetches all unread SMS messages.
+        smsPlugin.getSmsByCustomCriteria(-1, smsPlugin.COLS.READ + '=0', null, function (msg) {
+            alert(msg[smsPlugin.COLS.BODY]);
+        }, function () {
+            alert("Error while reading SMS");
+        });
     });
 </script>
