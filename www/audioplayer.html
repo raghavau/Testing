@@ -13,7 +13,7 @@
             // device APIs are available
             //
             function onDeviceReady() {
-                playAudio("http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3");
+                //playAudio("http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3");
                 //playAudio("http://61.0.225.169/Kalimba.mp3");
             }
 
@@ -92,9 +92,15 @@
         </script>
       </head>
       <body>
-        <a href="#" class="btn large" onclick="playAudio('http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3');">Play Audio</a>
-        <a href="#" class="btn large" onclick="pauseAudio();">Pause Playing Audio</a>
-        <a href="#" class="btn large" onclick="stopAudio();">Stop Playing Audio</a>
+        <a href="#" class="btn large" onclick="playAudio('http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3');">
+            <img alt="play" src="img/Play.PNG">
+        </a>
+        <a href="#" class="btn large" onclick="pauseAudio();">
+            <img alt="play" src="img/Pause.PNG">
+        </a>
+        <a href="#" class="btn large" onclick="stopAudio();">
+            <img alt="play" src="img/Play.PNG">
+        </a>
         <p id="audio_position"></p>
       </body>
     </html>
