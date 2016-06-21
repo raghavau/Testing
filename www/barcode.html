@@ -104,7 +104,7 @@
                             var res = result.text.split(",");
                             
                             for (i = 0; i <= res.length - 1; i++) {
-                                $("#txtData").val($("#txtData").val() + res[i] + "\n");
+                                $("#txtData").val($("#txtData").val() + res[i] + "\n\r");
                             }
 
                             var Obj = JSON.parse(result.text);
