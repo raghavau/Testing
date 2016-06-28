@@ -25,6 +25,8 @@
             // Play audio
             //
             function playAudio(src) {
+                // Load media name/url from scr
+                $("#lblsong").html(src);
                 // Create Media object from src
                 my_media = new Media(src, onSuccess, onError);
 
@@ -101,6 +103,9 @@
         <a href="#" class="btn large" style="text-decoration-line: none;" onclick="stopAudio();">
             <img alt="play" src="img/Stop.PNG" height="32" width="32">
         </a>
+        <p>
+            <span class="label-warning" id="lblsong"></span>
+        </p>
         <p id="audio_position"></p>
       </body>
     </html>
