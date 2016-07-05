@@ -27,9 +27,9 @@
         <div class="container text-center">
             <img alt="scan" class="img-thumbnail" src="img/scan.PNG" width="50px" height="50px" id="btnScan" />
             <br><br>
-            <textarea id="txtData" class="form-control text-left"></textarea>
+            <textarea id="txtData" class="form-control text-left" style="height: fill-available;"></textarea>
             <br><br>
-            <form role="form" class="form-horizontal text-left">
+            <form role="form" class="form-horizontal text-left" style="display: none;">
                 <div class="form-group">
                     <label for="productid" class="col-lg-2 control-label">Product Id</label>
                     <div class="col-lg-10">
@@ -107,7 +107,7 @@
                                 $("#txtData").val($("#txtData").val() + res[i] + "\n\r");
                             }
 
-                            var Obj = JSON.parse(result.text);
+                            /*var Obj = JSON.parse(result.text);
                             $("#productid").val(Obj.ProductID);
                             $("#productname").val(Obj.ProductName);
                             $("#supplierid").val(Obj.SupplierID);
@@ -117,7 +117,7 @@
                             $("#instock").val(Obj.UnitsInStock);
                             $("#onorder").val(Obj.UnitsOnOrder);
                             $("#reorderlevel").val(Obj.ReorderLevel);
-                            $("#discontinued").val(Obj.Discontinued);
+                            $("#discontinued").val(Obj.Discontinued);*/
                         }
                     },
                     function (error) {
