@@ -5442,6 +5442,30 @@ button.list-group-item-danger.active:focus {
   background-color: #a94442;
   border-color: #a94442;
 }
+
+.list-group-item-disable {
+    color: #808080;
+    background-color: #ececec;
+}
+a.list-group-item-disable, button.list-group-item-disable {
+    color: #808080;
+}
+a.list-group-item-disable .list-group-item-heading, button.list-group-item-disable .list-group-item-heading {
+    color: inherit;
+}
+a.list-group-item-disable:hover, button.list-group-item-disable:hover, 
+a.list-group-item-disable:focus, button.list-group-item-disable:focus {
+    color: #808080;
+    background-color: #ececec;
+}
+a.list-group-item-disable.active, button.list-group-item-disable.active, 
+a.list-group-item-disable.active:hover, button.list-group-item-disable.active:hover, 
+a.list-group-item-disable.active:focus, button.list-group-item-disable.active:focus {
+    color: #fff;
+    background-color: #808080;
+    border-color: #808080;
+}
+
 .list-group-item-heading {
   margin-top: 0;
   margin-bottom: 5px;
