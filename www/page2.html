@@ -13,7 +13,7 @@
             }
             .content {
                 border-radius: 5px;
-                border: 1px solid #c9c9c9;
+                /*border: 1px solid #c9c9c9;*/
                 padding: 10px;
                 height: 400px;
                 width: 100%;
@@ -32,10 +32,10 @@
                     <label class="control-label">TruckNo</label>
                 </div>
                 <div class="col-lg-8 text-center">
-                    <input type="text" class="form-control" style="text-transform: capitalize;">
+                    <input type="text" id="truckno" class="form-control" style="text-transform: capitalize;">
                 </div>
                 <div class="col-lg-2 text-left">
-                    <img alt="scan" class="img-thumbnail" src="img/scan.PNG" width="35px" height="35px" id="btnScan" />
+                    <!--<img alt="scan" class="img-thumbnail" src="img/scan.PNG" width="35px" height="35px" id="btnScan" />-->
                     <button class="btn btn-default"><span class="glyphicon glyphicon-qrcode"></span></button>
                 </div>
             </div>
@@ -52,11 +52,7 @@
                             <img alt="image" src="img/bar4.PNG" style="margin-left: -50px; height: 50px; width: 350px; display: inline-block;"><br>
                             <img alt="image" src="img/bar3.PNG" style="margin-left: -50px; height: 50px; width: 350px; display: inline-block;">
                         </div>-->
-                        <ul class="list-group">
-                            <li class="list-group-item list-group-item-success">200 OK: The server successfully processed the request.</li>
-                            <li class="list-group-item list-group-item-danger">200 OK: The server successfully processed the request.</li>
-                            <li class="list-group-item list-group-item-disable">200 OK: The server successfully processed the request.</li>
-                        </ul>
+                        <ul class="list-group" id="ulist" style="width: 75%"></ul>
                     </div>
                 </div>
             </div>
@@ -67,6 +63,25 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        //debugger;
+        $("#truckno").val("AP26T4567");
+        var obj = [
+                { "TruckId": "1", "TruckNo": "AP26T4567", "StageId": "1", "Stage": "CHECK IN", "InDate": "07/07/2016 11:21:18", "OutDate": "07/07/2016 11:31:18" },
+                { "TruckId": "1", "TruckNo": "AP26T4567", "StageId": "2", "Stage": "FIRST TRANSIT", "InDate": "07/07/2016 11:31:18", "OutDate": "07/07/2016 11:43:14" },
+                { "TruckId": "1", "TruckNo": "AP26T4567", "StageId": "3", "Stage": "PARKING", "InDate": "07/07/2016 11:43:14", "OutDate": "07/07/2016 11:56:38" },
+                { "TruckId": "1", "TruckNo": "AP26T4567", "StageId": "4", "Stage": "SECOND TRANSIT", "InDate": "07/07/2016 11:56:38", "OutDate": "07/07/2016 12:06:26" },
+                { "TruckId": "1", "TruckNo": "AP26T4567", "StageId": "5", "Stage": "CT-YARD/WH", "InDate": "07/07/2016 12:06:26", "OutDate": "" },
+                { "TruckId": "", "TruckNo": "", "StageId": "6", "Stage": "SDS OUT", "InDate": "", "OutDate": "" },
+                { "TruckId": "", "TruckNo": "", "StageId": "7", "Stage": "FINAL TRANSIT", "InDate": "", "OutDate": "" },
+                { "TruckId": "", "TruckNo": "", "StageId": "8", "Stage": "EXIT", "InDate": "", "OutDate": ""}];
 
+        for (i = 0; i < obj.length; i++) {
+            if (obj[i].InDate != "" && obj[i].OutDate == "")
+                $("#ulist").append($('<li></li>').attr('class', 'list-group-item list-group-item-danger text-left').append(obj[i].Stage + ' - ' + obj[i].InDate + ' - ' + obj[i].OutDate));
+            else if (obj[i].OutDate == "")
+                $("#ulist").append($('<li></li>').attr('class', 'list-group-item list-group-item-disable text-left').append(obj[i].Stage + ' - ' + obj[i].InDate + ' - ' + obj[i].OutDate));
+            else
+                $("#ulist").append($('<li></li>').attr('class', 'list-group-item list-group-item-success text-left').append(obj[i].Stage + ' - ' + obj[i].InDate + ' - ' + obj[i].OutDate));
+        }
     });
 </script>
