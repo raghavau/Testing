@@ -72,7 +72,8 @@
                 <div class="col-lg-2 text-left"></div>
                 <div class="col-lg-8 text-center">
                     <br>
-                    <button class="btn btn-custom" id="btnSearch"><span class="glyphicon glyphicon-search"></span> Search</button>
+                    <button class="btn btn-custom" id="btnSearch"><span class="glyphicon glyphicon-search"></span> Search</button><br>
+                    <span class="text-info" id="spMsg">Data is fetching please wait.</span>
                 </div>
                 <div class="col-lg-2 text-left"></div>
             </div>
@@ -135,8 +136,16 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#imgtruck").hide();
+        $("#spMsg").hide();
         $("#btnSearch").click(function () {
             //debugger;
+            $("#txtparty").val("");
+            $("#txtloc").val("");
+            $("#txtcargo").val("");
+            $("#txtqty").val("");
+            $("#txtstatus").val("");
+            $("#txtnewstatus").val("");
+            $("#spMsg").show();
             $.ajax({
                 url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetTruckDetails/' + $("#txttruckno").val(),
                 type: 'GET',
@@ -155,9 +164,11 @@
                     404: function () {
                         alert('Failed');
                         $("#imgtruck").hide();
+                        $("#spMsg").hide();
                     }
                 }
             });
+            $("#spMsg").hide();
         });
         $("#imgScan").click(function () {
             scan();
