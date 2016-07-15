@@ -126,7 +126,7 @@ input[type="button"]:focus{
     font-size: 15px;
     font-family: 'Ubuntu', sans-serif;
     width: 100%;
-    padding: 15px;
+    padding: 10px;
     outline: none;
     /* For Safari 3.0+ */
     -webkit-transition-property: border, background;
