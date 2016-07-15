@@ -73,7 +73,7 @@
                 <div class="col-lg-8 text-center">
                     <br>
                     <button class="btn btn-custom" id="btnSearch"><span class="glyphicon glyphicon-search"></span> Search</button><br>
-                    <span class="text-info" id="spMsg">Data is fetching please wait.</span>
+                    <p class="list-group-item-info" id="spMsg">Data is fetching please wait.</p>
                 </div>
                 <div class="col-lg-2 text-left"></div>
             </div>
@@ -139,26 +139,28 @@
         $("#spMsg").hide();
         $("#btnSearch").click(function () {
             //debugger;
+            $("#spMsg").show();
             $("#txtparty").val("");
             $("#txtloc").val("");
             $("#txtcargo").val("");
             $("#txtqty").val("");
             $("#txtstatus").val("");
             $("#txtnewstatus").val("");
-            $("#spMsg").show();
             $.ajax({
                 url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetTruckDetails/' + $("#txttruckno").val(),
                 type: 'GET',
                 data: '{}',
                 dataType: 'json',
                 success: function (result) {
-                    $("#txtparty").val(result[0].Party);
-                    $("#txtloc").val(result[0].Loc);
-                    $("#txtcargo").val(result[0].Cargo);
-                    $("#txtqty").val(result[0].Qty);
-                    $("#txtstatus").val(result[0].Status);
-                    $("#txtnewstatus").val(result[0].NextStatus);
-                    $("#imgtruck").show();
+                    if (result.length > 0) {
+                        $("#txtparty").val(result[0].Party);
+                        $("#txtloc").val(result[0].Loc);
+                        $("#txtcargo").val(result[0].Cargo);
+                        $("#txtqty").val(result[0].Qty);
+                        $("#txtstatus").val(result[0].Status);
+                        $("#txtnewstatus").val(result[0].NextStatus);
+                        $("#imgtruck").show();
+                    }
                 },
                 statusCode: {
                     404: function () {
