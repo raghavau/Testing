@@ -159,7 +159,6 @@
             });
         });
         $("#imgScan").click(function () {
-            alert('Scanning');
             scan();
         });
     });
@@ -167,7 +166,7 @@
         cordova.plugins.barcodeScanner.scan(
             function (result) {
                 if (!result.cancelled) {
-                    $("#txttruckno").val(result);
+                    $("#txttruckno").val(result.text);
                 }
             },
             function (error) {
