@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -24,11 +23,11 @@
                 0% {
                     opacity: 1;
                 }
-
+            
                 50% {
                     opacity: 0;
                 }
-
+            
                 100% {
                     opacity: 1;
                 }
@@ -37,11 +36,18 @@
                 animation: blink 1s;
                 animation-iteration-count: infinite;
             }
+            .readonly-active{
+                background: #fff;
+                border-bottom: 1px solid #808080;
+                border: 0px;
+                border-radius: 0;
+                outline: none;
+            }
         </style>
     </head>
     <body>
         <div class="container-fluid well" style="border-radius: 0;">
-            
+
         </div>
         <div class="container">
             <div class="row">
@@ -49,7 +55,12 @@
                     <label class="control-label">TruckNo</label>
                 </div>
                 <div class="col-lg-8 text-center">
-                    <input type="text" id="truckno" class="form-control" style="text-transform: uppercase;">
+                    <div class="input-group">
+                        <input type="text" id="txttruckno" class="inputtext" style="text-transform: uppercase;">
+                        <span class="input-group-addon">
+                            <img alt="scan" class="img-thumbnail" src="img/scan.PNG" width="25px" height="25px" id="imgScan" />
+                        </span>
+                    </div>
                 </div>
                 <div class="col-lg-2 text-left">
                     <!--<img alt="scan" class="img-thumbnail" src="img/scan.PNG" width="35px" height="35px" id="btnScan" />-->
@@ -59,7 +70,8 @@
             <div class="row">
                 <div class="col-lg-2 text-left"></div>
                 <div class="col-lg-8 text-center">
-                    <button class="btn btn-success" id="btnSearch"><span class="glyphicon glyphicon-search"></span> Search</button>
+                    <br>
+                    <button class="btn btn-custom" id="btnSearch"><span class="glyphicon glyphicon-search"></span> Search</button>
                 </div>
                 <div class="col-lg-2 text-left"></div>
             </div>
@@ -69,40 +81,44 @@
                     <ul class="list-group" id="ulist" style="width: 75%"></ul>
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-lg-2" for="lblparty">Party Name</label>
-                            <div class="col-lg-10" style="border-bottom: 1px solid #d1d1d1;">
-                                <span id="lblparty" class="text-default"></span>
+                            <label class="col-lg-2" for="txtparty">Party Name</label>
+                            <div class="col-lg-10">
+                                <input type="text" id="txtparty" readonly="readonly" class="inputtext-readonly">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2" for="lblloc">Location</label>
-                            <div class="col-lg-10" style="border-bottom: 1px solid #d1d1d1;">
-                                <span id="lblloc" class="text-default"></span>
+                            <label class="col-lg-2" for="txtloc">Location</label>
+                            <div class="col-lg-10">
+                                <input type="text" id="txtloc" readonly="readonly" class="inputtext-readonly">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2" for="lblcargo">Cargo</label>
-                            <div class="col-lg-10" style="border-bottom: 1px solid #d1d1d1;">
-                                <span id="lblcargo" class="text-default"></span>
+                            <label class="col-lg-2" for="txtcargo">Cargo</label>
+                            <div class="col-lg-10">
+                                <input type="text" id="txtcargo" readonly="readonly" class="inputtext-readonly">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2" for="lblqty">Qty</label>
-                            <div class="col-lg-10" style="border-bottom: 1px solid #d1d1d1;">
-                                <span id="lblqty" class="text-default"></span>
+                            <label class="col-lg-2" for="txtqty">Qty</label>
+                            <div class="col-lg-10">
+                                <input type="text" id="txtqty" readonly="readonly" class="inputtext-readonly">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2" for="lblstatus">Current</label>
-                            <div class="col-lg-10" style="border-bottom: 1px solid #d1d1d1;">
-                                <span id="lblstatus" class="text-success"></span>
+                            <label class="col-lg-2" for="txtstatus">Current</label>
+                            <div class="col-lg-10">
+                                <input type="text" id="txtstatus" readonly="readonly" class="inputtext-readonly text-success">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2" for="lblnewstatus">Next</label>
-                            <div class="col-lg-10" style="border-bottom: 1px solid #d1d1d1;">
-                                <span id="lblnewstatus" class="text-danger"></span>
-                                <img id="imgtruck" alt="status" src="img/truck_front.PNG" height="20px" width="20px" />
+                            <label class="col-lg-2" for="txtnewstatus">Next</label>
+                            <div class="col-lg-10">
+                                <div class="input-group">
+                                    <input type="text" id="txtnewstatus" readonly="readonly" class="inputtext-readonly text-danger">
+                                    <span class="input-group-addon">
+                                        <img id="imgtruck" alt="status" src="img/truck_front.PNG" height="20px" width="20px" />
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -114,23 +130,24 @@
 </html>
 <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#imgtruck").hide();
         $("#btnSearch").click(function () {
             //debugger;
             $.ajax({
-                url: 'http://localhost/SampleWebApi/api/TruckDetails/GetTruckDetails/' + $("#truckno").val(),
+                url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetTruckDetails/' + $("#txttruckno").val(),
                 type: 'GET',
                 data: '{}',
                 dataType: 'json',
                 success: function (result) {
-                    $("#lblparty").text(result[0].Party);
-                    $("#lblloc").text(result[0].Loc);
-                    $("#lblcargo").text(result[0].Cargo);
-                    $("#lblqty").text(result[0].Qty);
-                    $("#lblstatus").text(result[0].Status);
-                    $("#lblnewstatus").text(result[0].NextStatus);
+                    $("#txtparty").val(result[0].Party);
+                    $("#txtloc").val(result[0].Loc);
+                    $("#txtcargo").val(result[0].Cargo);
+                    $("#txtqty").val(result[0].Qty);
+                    $("#txtstatus").val(result[0].Status);
+                    $("#txtnewstatus").val(result[0].NextStatus);
                     $("#imgtruck").show();
                 },
                 statusCode: {
@@ -141,5 +158,21 @@
                 }
             });
         });
+        $("#imgScan").click(function () {
+            alert('Scanning');
+            scan();
+        });
     });
+    function scan() {
+        cordova.plugins.barcodeScanner.scan(
+            function (result) {
+                if (!result.cancelled) {
+                    $("#txttruckno").val(result);
+                }
+            },
+            function (error) {
+                alert("Scanning failed: " + error);
+            }
+        );
+    }
 </script>
