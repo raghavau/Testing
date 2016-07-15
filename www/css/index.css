@@ -28,7 +28,7 @@
 }
 
 body {
-    margin-top: 60px;
+    margin-top: 75px;
     font-family: 'Raleway', sans-serif;
 }
 
@@ -126,7 +126,7 @@ input[type="button"]:focus{
     font-size: 15px;
     font-family: 'Ubuntu', sans-serif;
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     outline: none;
     /* For Safari 3.0+ */
     -webkit-transition-property: border, background;
