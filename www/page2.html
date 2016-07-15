@@ -59,7 +59,7 @@
                     <div class="input-group">
                         <input type="text" id="txttruckno" class="inputtext" style="text-transform: uppercase;">
                         <span class="input-group-addon">
-                            <img alt="scan" src="img/scan.PNG" width="30px" height="30px" id="imgScan" />
+                            <img alt="scan" src="img/scan.PNG" width="25px" height="25px" id="imgScan" />
                         </span>
                     </div>
                 </div>
@@ -173,6 +173,12 @@
             $("#spMsg").hide();
         });
         $("#imgScan").click(function () {
+            $("#txtparty").val("");
+            $("#txtloc").val("");
+            $("#txtcargo").val("");
+            $("#txtqty").val("");
+            $("#txtstatus").val("");
+            $("#txtnewstatus").val("");
             scan();
         });
     });
