@@ -136,9 +136,12 @@
     $(document).ready(function () {
         $("#imgtruck").hide();
         $("#spMsg").hide();
+        $("#loading").hide();
         $("#btnSearch").click(function () {
             //debugger;
             $("#spMsg").show();
+            $("#loading").show();
+            $("#imgtruck").hide();
             $("#txtparty").val("");
             $("#txtloc").val("");
             $("#txtcargo").val("");
@@ -146,7 +149,7 @@
             $("#txtstatus").val("");
             $("#txtnewstatus").val("");
             $.ajax({
-                url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetTruckDetails/' + $("#txttruckno").val(),
+                url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetTruckDetails/' + $("#txttruckno").val().trim(),
                 type: 'GET',
                 data: '{}',
                 dataType: 'json',
@@ -166,10 +169,12 @@
                         alert('Failed');
                         $("#imgtruck").hide();
                         $("#spMsg").hide();
+                        $("#loading").hide();
                     }
                 }
             });
             $("#spMsg").hide();
+            $("#loading").hide();
         });
         $("#imgScan").click(function () {
             $("#txtparty").val("");
