@@ -50,7 +50,7 @@
         <div id="loading" class="loading">Loading&#8230;</div>
         <div id="header1" class="headerbar">
             <img alt="logo" class="imglogo" src="img/logo.png"><br>
-            <strong><span class="headertext">KRISHNAPATNAM PORT</span></strong>
+            <!----><strong><span class="headertext">KRISHNAPATNAM PORT</span></strong>
         </div>
         <div class="container">
             <div class="row">
@@ -63,6 +63,9 @@
                         <span class="input-group-addon">
                             <img alt="scan" src="img/scan.PNG" width="25px" height="25px" id="imgScan" />
                         </span>
+                        <span class="input-group-addon">
+                            <img alt="scan" src="#" class="glyphicon glyphicon-search" width="25px" height="25px" id="imgScan" />
+                        </span>
                     </div>
                 </div>
                 <div class="col-lg-2 text-left"></div>
@@ -72,7 +75,6 @@
                 <div class="col-lg-8 text-center">
                     <br>
                     <button class="btn btn-custom" id="btnSearch"><span class="glyphicon glyphicon-search"></span> Search</button><br>
-                    <p class="list-group-item-info" id="spMsg">Data is fetching please wait.</p>
                 </div>
                 <div class="col-lg-2 text-left"></div>
             </div>
@@ -127,6 +129,12 @@
                 <div class="col-lg-2 text-left"></div>
             </div>
         </div>
+        <div class="text-center">
+            <svg width="200" height="200">
+                <circle cx="75" cy="75" r="40" fill="#fff" stroke="#000" stroke-width="13"/>
+                <rect rx="10" ry="50" fill="#000" x="10" y="10" width="85" height="23" transform="rotate(45 -40 180)"/>
+            </svg>
+        </div>
     </body>
 </html>
 <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
@@ -135,11 +143,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#imgtruck").hide();
-        $("#spMsg").hide();
         $("#loading").hide();
         $("#btnSearch").click(function () {
             //debugger;
-            $("#spMsg").show();
             $("#loading").show();
             $("#imgtruck").hide();
             $("#txtparty").val("");
@@ -168,12 +174,10 @@
                     404: function () {
                         alert('Failed');
                         $("#imgtruck").hide();
-                        $("#spMsg").hide();
                         $("#loading").hide();
                     }
                 }
             });
-            $("#spMsg").hide();
             $("#loading").hide();
         });
         $("#imgScan").click(function () {
@@ -183,6 +187,7 @@
             $("#txtqty").val("");
             $("#txtstatus").val("");
             $("#txtnewstatus").val("");
+            $("#imgtruck").hide();
             scan();
         });
     });

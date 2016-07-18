@@ -69,7 +69,7 @@ input[type="button"]:focus{
 }
 
 .headerbar{
-    height: 65px;
+    max-height: 65px;
     position: absolute;
     top: 0;
     left: 0;
@@ -93,7 +93,6 @@ input[type="button"]:focus{
     /* W3C Markup */
     background-image: linear-gradient(to top, #f0f0f0 10%, #f5f5f5 70%);
     background-attachment: fixed;
-    text-align: center;
 }
 
 .footer 
@@ -130,7 +129,7 @@ input[type="button"]:focus{
     outline: none;
     /* For Safari 3.0+ */
     -webkit-transition-property: border, background;
-    -webkit-transition-duration: .7s, .9s;
+    -webkit-transition-duration: .5s, .9s;
     -webkit-animation: ease-in-out;
     /* Standard syntax */
     transition-property: border, background;
@@ -140,7 +139,7 @@ input[type="button"]:focus{
 }
 .inputtext:focus {
     border-bottom: 2px solid #e74c3c; /* f8646e, 56caca */
-    background-color: #f3f3f3;
+    background-color: #f2f2f2;
 }
 
 .inputtext-readonly {
