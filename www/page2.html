@@ -64,8 +64,7 @@
                             <img alt="scan" src="img/scan.PNG" width="25px" height="25px" id="imgScan" />
                         </span>
                         <span class="input-group-addon">
-                            <!----><img alt="Search" src="img/search.PNG" width="20px" height="20px" id="imgSearch" />
-                            <!--<span id="btnSearch" class="glyphicon glyphicon-search"></span>-->
+                            <img alt="Search" src="img/search.PNG" width="20px" height="23px" id="imgSearch" style="cursor: pointer;" />
                         </span>
                     </div>
                 </div>
@@ -73,16 +72,14 @@
             </div>
             <div class="row">
                 <div class="col-lg-2 text-left"></div>
-                <div class="col-lg-8 text-center">
-                    <br>
-                    <button class="btn btn-custom" id="btnSearch"><span class="glyphicon glyphicon-search"></span> Search</button><br>
+                <div class="col-lg-8 text-left">
+                    <label id="txtstatus" class="text-success"></label>
                 </div>
                 <div class="col-lg-2 text-left"></div>
             </div>
             <div class="row">
                 <div class="col-lg-2 text-left"></div>
                 <div class="col-lg-8"><br>
-                    <ul class="list-group" id="ulist" style="width: 75%"></ul>
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label class="col-lg-2" for="txtparty">Party Name</label>
@@ -108,7 +105,7 @@
                                 <input type="text" id="txtqty" readonly="readonly" class="inputtext-readonly">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label class="col-lg-2" for="txtstatus">Current</label>
                             <div class="col-lg-10">
                                 <input type="text" id="txtstatus" readonly="readonly" class="inputtext-readonly text-success">
@@ -124,7 +121,7 @@
                                     </span>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </form>
                 </div>
                 <div class="col-lg-2 text-left"></div>
@@ -139,7 +136,7 @@
     $(document).ready(function () {
         $("#imgtruck").hide();
         $("#loading").hide();
-        $("#btnSearch").click(function () {
+        $("#imgSearch").click(function () {
             //debugger;
             $("#loading").show();
             $("#imgtruck").hide();
@@ -147,8 +144,13 @@
             $("#txtloc").val("");
             $("#txtcargo").val("");
             $("#txtqty").val("");
-            $("#txtstatus").val("");
-            $("#txtnewstatus").val("");
+            $("#txtstatus").text("");
+            if ($("#txttruckno").val() == "") {
+                alert('Please Enter Truck No.');
+                $("#loading").hide();
+                $("#txttruckno").focus();
+                return false;
+            }
             $.ajax({
                 url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetTruckDetails/' + $("#txttruckno").val().trim(),
                 type: 'GET',
@@ -160,9 +162,12 @@
                         $("#txtloc").val(result[0].Loc);
                         $("#txtcargo").val(result[0].Cargo);
                         $("#txtqty").val(result[0].Qty);
-                        $("#txtstatus").val(result[0].Status);
-                        $("#txtnewstatus").val(result[0].NextStatus);
-                        $("#imgtruck").show();
+                        $("#txtstatus").text(result[0].Status);
+                        $("#txtstatus").attr('class', 'text-success');
+                    }
+                    else {
+                        $("#txtstatus").text("No Data Found");
+                        $("#txtstatus").attr('class', 'text-danger');
                     }
                 },
                 statusCode: {
@@ -180,8 +185,7 @@
             $("#txtloc").val("");
             $("#txtcargo").val("");
             $("#txtqty").val("");
-            $("#txtstatus").val("");
-            $("#txtnewstatus").val("");
+            $("#txtstatus").text("");
             $("#imgtruck").hide();
             scan();
         });
