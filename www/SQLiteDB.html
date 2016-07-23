@@ -58,15 +58,15 @@
             tx.executeSql('DROP TABLE IF EXISTS MyTable');
             tx.executeSql('CREATE TABLE MyTable (SampleColumn)');
             tx.executeSql('INSERT INTO MyTable VALUES (?)', ['test-value'], function (tx, resultSet) {
-                console.log('resultSet.insertId: ' + resultSet.insertId);
-                console.log('resultSet.rowsAffected: ' + resultSet.rowsAffected);
+                $("#txtLog").val($("#txtLog").val() + '\n\rresultSet.insertId: ' + resultSet.insertId);
+                $("#txtLog").val($("#txtLog").val() + '\n\rresultSet.rowsAffected: ' + resultSet.rowsAffected);
             }, function (tx, error) {
-                console.log('INSERT error: ' + error.message);
+                $("#txtLog").val($("#txtLog").val() + '\n\rINSERT error: ' + error.message);
             });
         }, function (error) {
-            console.log('transaction error: ' + error.message);
+            $("#txtLog").val($("#txtLog").val() + '\n\rtransaction error: ' + error.message);
         }, function () {
-            console.log('transaction ok');
+            $("#txtLog").val($("#txtLog").val() + '\n\rtransaction ok');
         });
     }
 </script>
