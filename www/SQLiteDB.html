@@ -8,7 +8,44 @@
         <link rel="stylesheet" type="text/css" href="css/loading.css">
     </head>
     <body>
-        <textarea id="txtLog" style="width: 100%; height: 250px;"></textarea>
+        <div id="header1" class="headerbar">
+            <img alt="logo" class="imglogo" src="img/logo.png"><br>
+            <!----><strong><span class="headertext">KRISHNAPATNAM PORT</span></strong>
+        </div>
+        <div class="container">
+            <div class="page-header">User Info</div>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-2">Name</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="txtname" class="inputtext">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2">Address</label>
+                    <div class="col-lg-10">
+                        <textarea id="txtaddress" class="inputtext" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2">Email</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="txtemail" class="inputtext">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2">Mobile No</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="txtmobile" class="inputtext">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <button type="button" class="btn btn-custom">Insert</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </body>
 </html>
 <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
@@ -17,56 +54,6 @@
 <script type="text/javascript">
     document.addEventListener('deviceready', onDeviceReady, false);
     function onDeviceReady() {
-        var db = window.sqlitePlugin.openDatabase({ name: 'my.db', location: 'default' });
-
-        /*db.transaction(function (tx) {
-        tx.executeSql('DROP TABLE IF EXISTS test_table');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
-
-        // demonstrate PRAGMA:
-        db.executeSql("pragma table_info (test_table);", [], function (res) {
-        $("#txtLog").val("PRAGMA res: " + JSON.stringify(res));
-        });
-
-        tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function (tx, res) {
-        $("#txtLog").val($("#txtLog").val() + "\n\rinsertId: " + res.insertId + " -- probably 1");
-        $("#txtLog").val($("#txtLog").val() + "\n\rrowsAffected: " + res.rowsAffected + " -- should be 1");
-
-        db.transaction(function (tx) {
-        tx.executeSql("select count(id) as cnt from test_table;", [], function (tx, res) {
-        $("#txtLog").val($("#txtLog").val() + "\n\rres.rows.length: " + res.rows.length + " -- should be 1");
-        $("#txtLog").val($("#txtLog").val() + "\n\rres.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
-        });
-        });
-
-        }, function (e) {
-        $("#txtLog").val($("#txtLog").val() + "\n\rERROR: " + e.message);
-        });
-        });*/
-
-        /*db.sqlBatch(['DROP TABLE IF EXISTS MyTable',
-        'CREATE TABLE MyTable (SampleColumn)',
-        ['INSERT INTO MyTable VALUES (?)', ['test-value']], ], function () {
-        db.executeSql('SELECT * FROM MyTable', [], function (resultSet) {
-        $("#txtLog").val($("#txtLog").val() + '\n\rSample column value: ' + resultSet.rows.item(0).SampleColumn);
-        });
-        }, function (error) {
-        $("#txtLog").val($("#txtLog").val() + '\n\rPopulate table error: ' + error.message);
-        });*/
-
-        db.transaction(function (tx) {
-            tx.executeSql('DROP TABLE IF EXISTS MyTable');
-            tx.executeSql('CREATE TABLE MyTable (SampleColumn)');
-            tx.executeSql('INSERT INTO MyTable VALUES (?)', ['test-value'], function (tx, resultSet) {
-                $("#txtLog").val($("#txtLog").val() + '\n\rresultSet.insertId: ' + resultSet.insertId);
-                $("#txtLog").val($("#txtLog").val() + '\n\rresultSet.rowsAffected: ' + resultSet.rowsAffected);
-            }, function (tx, error) {
-                $("#txtLog").val($("#txtLog").val() + '\n\rINSERT error: ' + error.message);
-            });
-        }, function (error) {
-            $("#txtLog").val($("#txtLog").val() + '\n\rtransaction error: ' + error.message);
-        }, function () {
-            $("#txtLog").val($("#txtLog").val() + '\n\rtransaction ok');
-        });
+        
     }
 </script>
