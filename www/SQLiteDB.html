@@ -7,9 +7,6 @@
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="css/loading.css">
-        <style type="text/css">
-            .ui-dialog .ui-state-error { padding: .3em; }
-        </style>
     </head>
     <body>
         <div id="header1" class="headerbar">
@@ -83,34 +80,39 @@
         //Create new table
         myDB.transaction(function (transaction) {
             transaction.executeSql('CREATE TABLE IF NOT EXISTS UserDtls (id integer primary key AUTOINCREMENT, name text, address text, email text, mobileno text)', [],
-            function (tx, result) {
-                alert("Table created successfully");
-            },
-            function (error) {
-                alert("Error occurred while creating the table.");
-            });
+                function (tx, result) {
+                    alert("Table created successfully");
+                },
+                function (error) {
+                    alert("Error occurred while creating the table.");
+                });
         });
     }
     $(document).ready(function () {
-        $("#usrdtls").dialog({ modal: false, zIndex: 100000, height: parseInt(document.body.clientHeight) - 10,
-            width: parseInt(document.body.clientWidth) - 20, autoOpen: false
+        $("#usrdtls").dialog({ modal: true, height: parseInt(document.body.clientHeight) - 10,
+            width: parseInt(document.body.clientWidth) - 20, autoOpen: false, 
+            open: function (event, ui) {
+                $('.ui-dialog').css('z-index', 103);
+                $('.ui-widget-overlay').css('z-index', 102);
+            }
         });
         //Insert New Data
         $("#btnInsert").click(function () {
             myDB.transaction(function (transaction) {
                 var executeQuery = "INSERT INTO UserDtls (name, address, email, mobileno) VALUES (?,?,?,?)";
                 transaction.executeSql(executeQuery, [$("#txtname").val(), $("#txtaddress").val(), $("#txtemail").val(), $("#txtmobile").val()],
-                function (tx, result) {
-                    alert('Inserted');
-                },
-                function (error) {
-                    alert('Error occurred');
-                });
+                    function (tx, result) {
+                        alert('Inserted');
+                    },
+                    function (error) {
+                        alert('Error occurred');
+                    });
             });
         });
 
         //Display Table Data
         $("#btnSelect").click(function () {
+            $("#usrdtls").dialog("moveToTop");
             $("#usrdtls").dialog("open");
             $("#usrData").html("");
             myDB.transaction(function (transaction) {
@@ -118,8 +120,8 @@
                     var len = results.rows.length, i;
                     for (i = 0; i < len; i++) {
                         $("#usrData").append("<tr><td>" + results.rows.item(i).id + "</td><td>" + results.rows.item(i).name +
-                        "</td><td>" + results.rows.item(i).address + "</td><td>" + results.rows.item(i).email +
-                        "</td><td>" + results.rows.item(i).mobileno + "</td><td></tr>");
+                            "</td><td>" + results.rows.item(i).address + "</td><td>" + results.rows.item(i).email +
+                            "</td><td>" + results.rows.item(i).mobileno + "</td><td></tr>");
                     }
                 }, null);
             });
@@ -132,9 +134,9 @@
                 var executeQuery = "DELETE FROM UserDtls where id=?";
                 transaction.executeSql(executeQuery, [id],
                 //On Success
-                function (tx, result) { alert('Delete successfully'); },
+                    function (tx, result) { alert('Delete successfully'); },
                 //On Error
-                function (error) { alert('Something went Wrong'); });
+                    function (error) { alert('Something went Wrong'); });
             });
         });
 
@@ -147,9 +149,9 @@
                 var executeQuery = "UPDATE UserDtls SET title=?, desc=? WHERE id=?";
                 transaction.executeSql(executeQuery, [title, desc, id],
                 //On Success
-                function (tx, result) { alert('Updated successfully'); },
+                    function (tx, result) { alert('Updated successfully'); },
                 //On Error
-                function (error) { alert('Something went Wrong'); });
+                    function (error) { alert('Something went Wrong'); });
             });
         });
 
@@ -158,9 +160,9 @@
             myDB.transaction(function (transaction) {
                 var executeQuery = "DROP TABLE  IF EXISTS UserDtls";
                 transaction.executeSql(executeQuery, [],
-                function (tx, result) { alert('Table deleted successfully.'); },
-                function (error) { alert('Error occurred while droping the table.'); }
-            );
+                    function (tx, result) { alert('Table deleted successfully.'); },
+                    function (error) { alert('Error occurred while droping the table.'); }
+                );
             });
         });
     });
