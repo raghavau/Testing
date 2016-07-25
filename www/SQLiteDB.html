@@ -11,8 +11,6 @@
         <div id="header1" class="headerbar">
             <img alt="logo" class="imglogo" src="img/logo.png"><br>
             <strong><span class="headertext">KRISHNAPATNAM PORT</span></strong><!---->
-                <span class="glyphicon glyphicon-earphone"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span class="glyphicon glyphicon-info-sign"></span>
         </div>
         <div class="container">
             <div class="page-header">User Info</div>
@@ -44,7 +42,7 @@
                 <div class="form-group">
                     <label class="col-lg-2"></label>
                     <div class="col-lg-10">
-                        <button type="button" class="btn btn-custom">Insert</button>
+                        <button type="button" id="btnInsert" class="btn btn-custom">Insert</button>
                     </div>
                 </div>
             </form>
@@ -60,23 +58,20 @@
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
         myDB = window.sqlitePlugin.openDatabase({ name: "mySQLite.db", location: 'default' });
-    }
-    $(document).ready(function () {
         //Create new table
-        $("#createTable").click(function () {
-            myDB.transaction(function (transaction) {
-                transaction.executeSql('CREATE TABLE IF NOT EXISTS UserDtls (id integer primary key AUTOINCREMENT, name text, address text, email text, mobileno text)', [],
-                function (tx, result) {
-                    alert("Table created successfully");
-                },
-                function (error) {
-                    alert("Error occurred while creating the table.");
-                });
+        myDB.transaction(function (transaction) {
+            transaction.executeSql('CREATE TABLE IF NOT EXISTS UserDtls (id integer primary key AUTOINCREMENT, name text, address text, email text, mobileno text)', [],
+            function (tx, result) {
+                alert("Table created successfully");
+            },
+            function (error) {
+                alert("Error occurred while creating the table.");
             });
         });
-
+    }
+    $(document).ready(function () {
         //Insert New Data
-        $("#insert").click(function () {
+        $("#btnInsert").click(function () {
             myDB.transaction(function (transaction) {
                 var executeQuery = "INSERT INTO UserDtls (name, address, email, mobileno) VALUES (?,?,?,?)";
                 transaction.executeSql(executeQuery, [$("#txtname").val(), $("#txtaddress").val(), $("#txtemail").val(), $("#txtmobile").val()],
