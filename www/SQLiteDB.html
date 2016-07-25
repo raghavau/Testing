@@ -49,7 +49,7 @@
                 </div>
             </form>
             <div id="usrdtls" title="User Details">
-                <table class="table table-condensed">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -81,7 +81,7 @@
         myDB.transaction(function (transaction) {
             transaction.executeSql('CREATE TABLE IF NOT EXISTS UserDtls (id integer primary key AUTOINCREMENT, name text, address text, email text, mobileno text)', [],
                 function (tx, result) {
-                    alert("Table created successfully");
+                    //alert("Table created successfully");
                 },
                 function (error) {
                     alert("Error occurred while creating the table.");
