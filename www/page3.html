@@ -40,7 +40,18 @@
                 </ul>
             </div>
         </nav>
-        <div id="profile" class="container"><h4>Profile</h4></div>
+        <div id="profile" class="container"><h4>Profile</h4>
+            <table class="table table-condensed">
+                <tr>ID</tr>
+                <tr>Name</tr>
+                <tr>Address</tr>
+                <tr>Email</tr>
+                <tr>Mobile No</tr>
+                <tbody id="usrData">
+
+                </tbody>
+            </table>
+        </div>
         <div id="inbox" class="container"><h4>Inbox</h4></div>
         <div id="drafts" class="container"><h4>Drafts</h4></div>
         <div id="sentitems" class="container"><h4>Sent Items</h4></div>
@@ -56,7 +67,7 @@
         $("#drafts").hide();
         $("#sentitems").hide();
         $("#trash").hide();
-    
+
         $('a[href*=#]:not([href=#])').click(function () {
             //debugger;
             $("#profile").hide();
@@ -67,10 +78,10 @@
             var target = $(this.hash);
             /*target = target.length ? target : $('[name=' + this.hash.substr(1) + ']');
             if (target.length) {
-            $('html,body').animate({
-            scrollTop: target.offset().top
-            }, 1000);
-            return false;
+                $('html,body').animate({
+                    scrollTop: target.offset().top
+                }, 1000);
+                return false;
             }*/
             $("#" + this.hash.substr(1)).show();
         });
