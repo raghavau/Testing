@@ -3,10 +3,13 @@
     <head>
         <meta charset="utf-8" />
         <title>SQLite DB Plugin</title>
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="css/loading.css">
+        <style type="text/css">
+            .ui-dialog .ui-state-error { padding: .3em; }
+        </style>
     </head>
     <body>
         <div id="header1" class="headerbar">
@@ -48,22 +51,27 @@
                     </div>
                 </div>
             </form>
-        </div>
-        <div id="usrdtls" title="User Details">
-            <table class="table table-condensed">
-                <tr>ID</tr>
-                <tr>Name</tr>
-                <tr>Address</tr>
-                <tr>Email</tr>
-                <tr>Mobile No</tr>
-                <tbody id="usrData">
+            <div id="usrdtls" title="User Details">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th>Mobile No</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usrData">
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </body>
 </html>
 <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript">
@@ -84,7 +92,9 @@
         });
     }
     $(document).ready(function () {
-        $("#usrdtls").dialog({ autoOpen: false, modal: true });
+        $("#usrdtls").dialog({ modal: false, zIndex: 100000, height: parseInt(document.body.clientHeight) - 10,
+            width: parseInt(document.body.clientWidth) - 20, autoOpen: false
+        });
         //Insert New Data
         $("#btnInsert").click(function () {
             myDB.transaction(function (transaction) {
@@ -98,10 +108,10 @@
                 });
             });
         });
-    
+
         //Display Table Data
         $("#btnSelect").click(function () {
-            $("#usrdtls").dialog({ modal: true });
+            $("#usrdtls").dialog("open");
             $("#usrData").html("");
             myDB.transaction(function (transaction) {
                 transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
@@ -114,7 +124,7 @@
                 }, null);
             });
         });
-    
+
         //Delete Data from Database
         $(document.body).on('click', '.delete', function () {
             var id = this.id;
@@ -127,7 +137,7 @@
                 function (error) { alert('Something went Wrong'); });
             });
         });
-    
+
         //Delete Tables
         $("#update").click(function () {
             var id = $("#id").text();
@@ -142,7 +152,7 @@
                 function (error) { alert('Something went Wrong'); });
             });
         });
-    
+
         //Drop Tables
         $("#DropTable").click(function () {
             myDB.transaction(function (transaction) {

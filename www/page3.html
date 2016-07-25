@@ -6,8 +6,6 @@
         <title>Page 3</title>
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/loading.css">
-        <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
-        <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     </head>
     <body>
         <nav role="navigation" class="navbar navbar-default">
@@ -41,15 +39,16 @@
             </div>
         </nav>
         <div id="profile" class="container"><h4>Profile</h4>
-            <table class="table table-condensed">
-                <tr>ID</tr>
-                <tr>Name</tr>
-                <tr>Address</tr>
-                <tr>Email</tr>
-                <tr>Mobile No</tr>
-                <tbody id="usrData">
-
-                </tbody>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Row</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+            
             </table>
         </div>
         <div id="inbox" class="container"><h4>Inbox</h4></div>
@@ -59,7 +58,7 @@
     </body>
 </html>
 <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
-<script type="text/javascript" src="js/jquery.serialize-object.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#profile").hide();
