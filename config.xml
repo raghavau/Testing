@@ -44,7 +44,7 @@
   <gap:plugin name="org.apache.cordova.vibration"/>
   <gap:plugin name="com.phonegap.plugins.barcodescanner" />
   <gap:plugin name="com.phonegap.plugin.statusbar" />
-  <plugin name="io.litehelpers.cordova.sqlite" />
+  <plugin name="io.litehelpers.cordova.sqlite" source="pgb" />
   <plugin name="cordova-plugin-whitelist" />
   <icon src="icon.png"/>
   <!--<icon src="www/res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
