@@ -80,9 +80,7 @@
         //Create new table
         myDB.transaction(function (transaction) {
             transaction.executeSql('CREATE TABLE IF NOT EXISTS UserDtls (id integer primary key AUTOINCREMENT, name text, address text, email text, mobileno text)', [],
-                function (tx, result) {
-                    //alert("Table created successfully");
-                },
+                function (tx, result) {},
                 function (error) {
                     alert("Error occurred while creating the table.");
                 });
@@ -96,6 +94,7 @@
                 $('.ui-widget-overlay').css('z-index', 102);
             }
         });
+
         //Insert New Data
         $("#btnInsert").click(function () {
             myDB.transaction(function (transaction) {
@@ -112,7 +111,6 @@
 
         //Display Table Data
         $("#btnSelect").click(function () {
-            $("#usrdtls").dialog("moveToTop");
             $("#usrdtls").dialog("open");
             $("#usrData").html("");
             myDB.transaction(function (transaction) {
@@ -121,7 +119,7 @@
                     for (i = 0; i < len; i++) {
                         $("#usrData").append("<tr><td>" + results.rows.item(i).id + "</td><td>" + results.rows.item(i).name +
                             "</td><td>" + results.rows.item(i).address + "</td><td>" + results.rows.item(i).email +
-                            "</td><td>" + results.rows.item(i).mobileno + "</td><td></tr>");
+                            "</td><td>" + results.rows.item(i).mobileno + "</td></tr>");
                     }
                 }, null);
             });
