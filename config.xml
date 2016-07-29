@@ -3,6 +3,7 @@
   <description>Testing App</description>
   <author href="http://raghavau.blogspot.com" email="raghava.u@gmail.com">IT Professional</author>
   <content src="SQLiteDB.html"/>
+  <preference name="phonegap-version" value="cli-5.2.0" />
   <preference name="permissions" value="none"/>
   <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
@@ -43,7 +44,7 @@
   <gap:plugin name="org.apache.cordova.vibration"/>
   <gap:plugin name="com.phonegap.plugins.barcodescanner" />
   <gap:plugin name="com.phonegap.plugin.statusbar" />
-  <!--<plugin name="io.litehelpers.cordova.sqlite" source="pgb" />-->
+  <plugin name="io.litehelpers.cordova.sqlite" source="pgb" />
   <plugin name="cordova-plugin-whitelist" />
   <icon src="icon.png"/>
   <!--<icon src="www/res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
