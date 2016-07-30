@@ -173,7 +173,6 @@ $(document).ready(function () {
 
     $("#btnSync").click(function () {
         var Adddata = {};
-        alert('');
         myDB.transaction(function (transaction) {
             transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
                 var len = results.rows.length, i;
@@ -185,7 +184,7 @@ $(document).ready(function () {
                 }
             }, null);
         });
-        
+        alert('');
         $.ajax({
             url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/AddUserDetails/',
             type: 'GET',
