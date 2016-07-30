@@ -82,12 +82,13 @@ var myDB;
 //Open Database Connection
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
+    alert('Device Ready');
     myDB = window.sqlitePlugin.openDatabase({ name: "mySQLite.db", location: 'default' });
     //Create new table
     myDB.transaction(function (transaction) {
         transaction.executeSql('CREATE TABLE IF NOT EXISTS UserDtls (id integer primary key AUTOINCREMENT, name text, address text, email text, mobileno text)', [],
             function (tx, result) { 
-                alert('Database Created Successfully');
+                //alert('Database Created Successfully');
             },
             function (error) {
                 alert("Error occurred while creating the table.");
