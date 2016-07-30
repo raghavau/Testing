@@ -184,7 +184,7 @@ $(document).ready(function () {
                 }
             }, null);
         });
-        var jsonData = JSON.stringify(Adddata);
+        var jsonData = JSON.parse(Adddata);
         $("#txtData").val(jsonData);
         $.ajax({
             url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/AddUserDetails/',
