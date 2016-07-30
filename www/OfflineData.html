@@ -82,12 +82,12 @@
     //Open Database Connection
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
-        myDB = window.sqlitePlugin.openDatabase({ name: "mySQLite.db", location: 'default' });
+        myDB = window.sqlitePlugin.openDatabase({ name: "OfflineData.db", location: 'default' });
         //Create new table
         myDB.transaction(function (transaction) {
             transaction.executeSql('CREATE TABLE IF NOT EXISTS UserDtls (id integer primary key AUTOINCREMENT, name text, address text, email text, mobileno text)', [],
                 function (tx, result) { 
-                    //alert('Database Created Successfully');
+                    alert('Database Created Successfully');
                 },
                 function (error) {
                     alert("Error occurred while creating the table.");
@@ -112,7 +112,11 @@
                 var executeQuery = "INSERT INTO UserDtls (name, address, email, mobileno) VALUES (?,?,?,?)";
                 transaction.executeSql(executeQuery, [$("#txtname").val(), $("#txtaddress").val(), $("#txtemail").val(), $("#txtmobile").val()],
                     function (tx, result) {
-                        alert('Inserted');
+                        $("#txtname").val("");
+                        $("#txtaddress").val("");
+                        $("#txtemail").val("");
+                        $("#txtmobile").val("");
+                        alert('Data Inserted');
                     },
                     function (error) {
                         alert('Error occurred');
