@@ -48,10 +48,11 @@
                 <div class="col-lg-10">
                     <div class="col-lg-4 text-center"><button type="button" id="btnInsert" class="btn btn-custom">Offline Submit</button></div>
                     <div class="col-lg-4 text-center">&nbsp;<button type="button" id="btnSelect" class="btn btn-custom">Show Data</button></div>
-                    <div class="col-lg-4 text-center">&nbsp;<button type="button" id="btnOnline" class="btn btn-custom">Online Submit</button></div>
+                    <div class="col-lg-4 text-center">&nbsp;<button type="button" id="btnSync" class="btn btn-custom">Online Submit</button></div>
                 </div>
             </div>
         </form>
+        <textarea id="txtData" rows="10" style="width: 100%;"></textarea>
         <div id="usrdtls" title="User Details">
             <table class="table">
                 <thead>
@@ -78,95 +79,127 @@
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript">
     var myDB;
-    //Open Database Connection
-    document.addEventListener("deviceready", onDeviceReady, false);
-    function onDeviceReady() {
-        myDB = window.sqlitePlugin.openDatabase({ name: "mySQLite.db", location: 'default' });
-        //Create new table
+//Open Database Connection
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    myDB = window.sqlitePlugin.openDatabase({ name: "mySQLite.db", location: 'default' });
+    //Create new table
+    myDB.transaction(function (transaction) {
+        transaction.executeSql('CREATE TABLE IF NOT EXISTS UserDtls (id integer primary key AUTOINCREMENT, name text, address text, email text, mobileno text)', [],
+            function (tx, result) { },
+            function (error) {
+                alert("Error occurred while creating the table.");
+            });
+    });
+}
+$(document).ready(function () {
+    $("#usrdtls").dialog({
+        modal: true, height: parseInt(document.body.clientHeight) - 10,
+        width: parseInt(document.body.clientWidth) - 20, autoOpen: false,
+        open: function (event, ui) {
+            $('.ui-dialog').css('z-index', 103);
+            $('.ui-widget-overlay').css('z-index', 102);
+        }
+    });
+
+    //Insert New Data
+    $("#btnInsert").click(function () {
         myDB.transaction(function (transaction) {
-            transaction.executeSql('CREATE TABLE IF NOT EXISTS UserDtls (id integer primary key AUTOINCREMENT, name text, address text, email text, mobileno text)', [],
-                function (tx, result) {},
+            var executeQuery = "INSERT INTO UserDtls (name, address, email, mobileno) VALUES (?,?,?,?)";
+            transaction.executeSql(executeQuery, [$("#txtname").val(), $("#txtaddress").val(), $("#txtemail").val(), $("#txtmobile").val()],
+                function (tx, result) {
+                    alert('Inserted');
+                },
                 function (error) {
-                    alert("Error occurred while creating the table.");
+                    alert('Error occurred');
                 });
         });
-    }
-    $(document).ready(function () {
-        $("#usrdtls").dialog({ modal: true, height: parseInt(document.body.clientHeight) - 10,
-            width: parseInt(document.body.clientWidth) - 20, autoOpen: false, 
-            open: function (event, ui) {
-                $('.ui-dialog').css('z-index', 103);
-                $('.ui-widget-overlay').css('z-index', 102);
+    });
+
+    //Display Table Data
+    $("#btnSelect").click(function () {
+        $("#usrdtls").dialog("open");
+        $("#usrData").html("");
+        myDB.transaction(function (transaction) {
+            transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
+                var len = results.rows.length, i;
+                for (i = 0; i < len; i++) {
+                    $("#usrData").append("<tr><td>" + results.rows.item(i).id + "</td><td>" + results.rows.item(i).name +
+                        "</td><td>" + results.rows.item(i).address + "</td><td>" + results.rows.item(i).email +
+                        "</td><td>" + results.rows.item(i).mobileno + "</td></tr>");
+                }
+            }, null);
+        });
+    });
+
+    //Delete Data from Database
+    $(document.body).on('click', '.delete', function () {
+        var id = this.id;
+        myDB.transaction(function (transaction) {
+            var executeQuery = "DELETE FROM UserDtls where id=?";
+            transaction.executeSql(executeQuery, [id],
+                //On Success
+                function (tx, result) { alert('Delete successfully'); },
+                //On Error
+                function (error) { alert('Something went Wrong'); });
+        });
+    });
+
+    //Delete Tables
+    $("#update").click(function () {
+        var id = $("#id").text();
+        var title = $("#title").val();
+        var desc = $("#desc").val()
+        myDB.transaction(function (transaction) {
+            var executeQuery = "UPDATE UserDtls SET title=?, desc=? WHERE id=?";
+            transaction.executeSql(executeQuery, [title, desc, id],
+                //On Success
+                function (tx, result) { alert('Updated successfully'); },
+                //On Error
+                function (error) { alert('Something went Wrong'); });
+        });
+    });
+
+    //Drop Tables
+    $("#DropTable").click(function () {
+        myDB.transaction(function (transaction) {
+            var executeQuery = "DROP TABLE  IF EXISTS UserDtls";
+            transaction.executeSql(executeQuery, [],
+                function (tx, result) { alert('Table deleted successfully.'); },
+                function (error) { alert('Error occurred while droping the table.'); }
+            );
+        });
+    });
+
+    $("#btnSync").click(function () {
+        var Adddata = {};
+        myDB.transaction(function (transaction) {
+            transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
+                var len = results.rows.length, i;
+                for (i = 0; i < len; i++) {                    
+                    Adddata.UserName = results.rows.item(i).name;
+                    Adddata.Address = results.rows.item(i).address;
+                    Adddata.Email = results.rows.item(i).email;
+                    Adddata.MobileNo = results.rows.item(i).mobileno;
+                }
+            }, null);
+        });
+        
+        $.ajax({
+            url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/AddUserDetails/',
+            type: 'GET',
+            data: Adddata,
+            dataType: 'json',
+            success: function (result) {
+                //
+            },
+            statusCode: {
+                404: function () {
+                    alert('Failed');
+                }
             }
         });
 
-        //Insert New Data
-        $("#btnInsert").click(function () {
-            myDB.transaction(function (transaction) {
-                var executeQuery = "INSERT INTO UserDtls (name, address, email, mobileno) VALUES (?,?,?,?)";
-                transaction.executeSql(executeQuery, [$("#txtname").val(), $("#txtaddress").val(), $("#txtemail").val(), $("#txtmobile").val()],
-                    function (tx, result) {
-                        alert('Inserted');
-                    },
-                    function (error) {
-                        alert('Error occurred');
-                    });
-            });
-        });
-
-        //Display Table Data
-        $("#btnSelect").click(function () {
-            $("#usrdtls").dialog("open");
-            $("#usrData").html("");
-            myDB.transaction(function (transaction) {
-                transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
-                    var len = results.rows.length, i;
-                    for (i = 0; i < len; i++) {
-                        $("#usrData").append("<tr><td>" + results.rows.item(i).id + "</td><td>" + results.rows.item(i).name +
-                            "</td><td>" + results.rows.item(i).address + "</td><td>" + results.rows.item(i).email +
-                            "</td><td>" + results.rows.item(i).mobileno + "</td></tr>");
-                    }
-                }, null);
-            });
-        });
-
-        //Delete Data from Database
-        $(document.body).on('click', '.delete', function () {
-            var id = this.id;
-            myDB.transaction(function (transaction) {
-                var executeQuery = "DELETE FROM UserDtls where id=?";
-                transaction.executeSql(executeQuery, [id],
-                //On Success
-                    function (tx, result) { alert('Delete successfully'); },
-                //On Error
-                    function (error) { alert('Something went Wrong'); });
-            });
-        });
-
-        //Delete Tables
-        $("#update").click(function () {
-            var id = $("#id").text();
-            var title = $("#title").val();
-            var desc = $("#desc").val()
-            myDB.transaction(function (transaction) {
-                var executeQuery = "UPDATE UserDtls SET title=?, desc=? WHERE id=?";
-                transaction.executeSql(executeQuery, [title, desc, id],
-                //On Success
-                    function (tx, result) { alert('Updated successfully'); },
-                //On Error
-                    function (error) { alert('Something went Wrong'); });
-            });
-        });
-
-        //Drop Tables
-        $("#DropTable").click(function () {
-            myDB.transaction(function (transaction) {
-                var executeQuery = "DROP TABLE  IF EXISTS UserDtls";
-                transaction.executeSql(executeQuery, [],
-                    function (tx, result) { alert('Table deleted successfully.'); },
-                    function (error) { alert('Error occurred while droping the table.'); }
-                );
-            });
-        });
     });
+});
 </script>
