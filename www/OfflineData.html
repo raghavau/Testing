@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>SQLite DB Plugin</title>
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/loading.css">
+</head>
+
+<body>
+    <div id="header1" class="headerbar">
+        <img alt="logo" class="imglogo" src="img/logo.png"><br>
+        <strong><span class="headertext">KRISHNAPATNAM PORT</span></strong>
+        <!---->
+    </div>
+    <div class="container">
+        <div class="page-header">User Info</div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-lg-2">Name</label>
+                <div class="col-lg-10">
+                    <input type="text" id="txtname" class="inputtext">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2">Address</label>
+                <div class="col-lg-10">
+                    <textarea id="txtaddress" class="inputtext" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2">Email</label>
+                <div class="col-lg-10">
+                    <input type="text" id="txtemail" class="inputtext">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2">Mobile No</label>
+                <div class="col-lg-10">
+                    <input type="text" id="txtmobile" class="inputtext">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2"></label>
+                <div class="col-lg-10">
+                    <div class="col-lg-4 text-center"><button type="button" id="btnInsert" class="btn btn-custom">Offline Submit</button></div>
+                    <div class="col-lg-4 text-center">&nbsp;<button type="button" id="btnSelect" class="btn btn-custom">Show Data</button></div>
+                    <div class="col-lg-4 text-center">&nbsp;<button type="button" id="btnSync" class="btn btn-custom">Online Submit</button></div>
+                </div>
+            </div>
+        </form>
+        <div id="usrdtls" title="User Details">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>Mobile No</th>
+                    </tr>
+                </thead>
+                <tbody id="usrData">
+
+                </tbody>
+            </table>
+        </div>
+        <textarea id="txtData" rows="10" style="width: 100%;"></textarea>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#usrdtls").dialog({
+            modal: true, 
+            height: parseInt(document.body.clientHeight) - 10,
+            width: parseInt(document.body.clientWidth) - 20, 
+            autoOpen: false,
+            open: function (event, ui) {
+                $('.ui-dialog').css('z-index', 103);
+                $('.ui-widget-overlay').css('z-index', 102);
+            }
+        });
+
+        //Select
+        $("#btnSelect").click(function () {
+            $("#usrdtls").dialog("open");
+        });
+    });
+</script>
