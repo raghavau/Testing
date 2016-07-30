@@ -78,7 +78,7 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript">
-    var myDB;
+var myDB;
 //Open Database Connection
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
@@ -172,15 +172,19 @@ $(document).ready(function () {
     });
 
     $("#btnSync").click(function () {
-        var Adddata = [];
+        var Adddata;
         myDB.transaction(function (transaction) {
             transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
                 var len = results.rows.length, i;
-                for (i = 0; i < len; i++) {                    
-                    Adddata.UserName = results.rows.item(i).name;
-                    Adddata.Address = results.rows.item(i).address;
-                    Adddata.Email = results.rows.item(i).email;
-                    Adddata.MobileNo = results.rows.item(i).mobileno;
+                for (i = 0; i < len; i++) {
+                    if(i > 0)
+                        Adddata = Adddata + ",";
+                    Adddata = Adddata + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
+                        + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';
+                    /*Adddata.UserName=r esults.rows.item(i).name;
+                    Adddata.Address=r esults.rows.item(i).address; 
+                    Adddata.Email=r esults.rows.item(i).email; 
+                    Adddata.MobileNo=r esults.rows.item(i).mobileno;*/
                 }
             }, null);
         });
