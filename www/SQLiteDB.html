@@ -94,8 +94,10 @@ function onDeviceReady() {
 }
 $(document).ready(function () {
     $("#usrdtls").dialog({
-        modal: true, height: parseInt(document.body.clientHeight) - 10,
-        width: parseInt(document.body.clientWidth) - 20, autoOpen: false,
+        modal: true, 
+        height: parseInt(document.body.clientHeight) - 10,
+        width: parseInt(document.body.clientWidth) - 20, 
+        autoOpen: false,
         open: function (event, ui) {
             $('.ui-dialog').css('z-index', 103);
             $('.ui-widget-overlay').css('z-index', 102);
