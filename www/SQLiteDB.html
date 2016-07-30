@@ -82,7 +82,7 @@ var myDB;
 //Open Database Connection
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
-    alert('Device Ready');
+    
     myDB = window.sqlitePlugin.openDatabase({ name: "mySQLite.db", location: 'default' });
     //Create new table
     myDB.transaction(function (transaction) {
@@ -96,6 +96,7 @@ function onDeviceReady() {
     });
 }
 $(document).ready(function () {
+    alert('Device Ready');
     $("#usrdtls").dialog({
         modal: true, 
         height: parseInt(document.body.clientHeight) - 10,
