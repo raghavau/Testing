@@ -144,24 +144,24 @@
         $("#btnSync").click(function () {
             $("#txtData").val("Sync Started\n\r");
             //var Adddata = {};
-            myDB.transaction(function (transaction) {
+            /*myDB.transaction(function (transaction) {
                 transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
                     var len = results.rows.length, i;
                     for (i = 0; i < len; i++) {
                         $("#txtData").val($("#txtData").val() 
                             + '\n\r{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
                             + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}');
-                        /*if(i > 0)
+                        if(i > 0)
                             Adddata = Adddata + ",";
                         Adddata = Adddata + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
-                            + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';*/
+                            + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';
                     }
                 }, null);
             });
-            
-            var jsonData = JSON.stringify(Adddata);
+            */
+            /*var jsonData = JSON.stringify(Adddata);
             $("#txtData").val(JSON.stringify($("#txtData").val());
-            /*$.ajax({
+            $.ajax({
                 url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/AddUserDetails',
                 type: 'GET',
                 data: Adddata,
