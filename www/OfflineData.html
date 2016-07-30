@@ -106,6 +106,20 @@
             }
         });
 
+        //Insert
+        $("#btnInsert").click(function () {
+            myDB.transaction(function (transaction) {
+                var executeQuery = "INSERT INTO UserDtls (name, address, email, mobileno) VALUES (?,?,?,?)";
+                transaction.executeSql(executeQuery, [$("#txtname").val(), $("#txtaddress").val(), $("#txtemail").val(), $("#txtmobile").val()],
+                    function (tx, result) {
+                        alert('Inserted');
+                    },
+                    function (error) {
+                        alert('Error occurred');
+                    });
+            });
+        });
+
         //Select
         $("#btnSelect").click(function () {
             $("#usrdtls").dialog("open");
