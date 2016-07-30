@@ -78,6 +78,22 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript">
+    var myDB;
+    //Open Database Connection
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        myDB = window.sqlitePlugin.openDatabase({ name: "mySQLite.db", location: 'default' });
+        //Create new table
+        myDB.transaction(function (transaction) {
+            transaction.executeSql('CREATE TABLE IF NOT EXISTS UserDtls (id integer primary key AUTOINCREMENT, name text, address text, email text, mobileno text)', [],
+                function (tx, result) { 
+                    //alert('Database Created Successfully');
+                },
+                function (error) {
+                    alert("Error occurred while creating the table.");
+                });
+        });
+    }
     $(document).ready(function(){
         $("#usrdtls").dialog({
             modal: true, 
@@ -93,6 +109,17 @@
         //Select
         $("#btnSelect").click(function () {
             $("#usrdtls").dialog("open");
+            $("#usrData").html("");
+            myDB.transaction(function (transaction) {
+                transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
+                    var len = results.rows.length, i;
+                    for (i = 0; i < len; i++) {
+                        $("#usrData").append("<tr><td>" + results.rows.item(i).id + "</td><td>" + results.rows.item(i).name +
+                            "</td><td>" + results.rows.item(i).address + "</td><td>" + results.rows.item(i).email +
+                            "</td><td>" + results.rows.item(i).mobileno + "</td></tr>");
+                    }
+                }, null);
+            });
         });
     });
 </script>
