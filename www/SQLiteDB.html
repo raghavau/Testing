@@ -177,8 +177,8 @@ $(document).ready(function () {
             transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
                 var len = results.rows.length, i;
                 for (i = 0; i < len; i++) {
-                    $("#txtData").val($("#txtData").val()+'\n\r{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
-                        + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}');
+                    /*$("#txtData").val($("#txtData").val()+'\n\r{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
+                        + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}');*/
                     if(i > 0)
                         Adddata = Adddata + ",";
                     Adddata = Adddata + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
@@ -190,7 +190,7 @@ $(document).ready(function () {
                 }
             }, null);
         });
-        alert(len);
+        
         var jsonData = JSON.stringify(Adddata);
         $("#txtData").val(Adddata);
         $.ajax({
