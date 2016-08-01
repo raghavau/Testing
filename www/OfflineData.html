@@ -162,7 +162,8 @@
             });
             
             var jsonData = '[' + $("#txtData").val() + ']';
-            //$("#txtData").val($("#txtData").val() + '\n\r' + JSON.stringify($("#txtData").val()));
+            $("#txtData").val("");
+            $("#txtData").val(jsonData);
             $.ajax({
                 url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/AddUserDetails',
                 type: 'GET',
