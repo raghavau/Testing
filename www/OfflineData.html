@@ -164,7 +164,7 @@
             $.ajax({
                 url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/AddUserDetails',
                 type: 'GET',
-                data: $("#txtData").val(),
+                data: jsonData,
                 dataType: 'json',
                 success: function (result) {
                     alert('Data Synced Successfully');
