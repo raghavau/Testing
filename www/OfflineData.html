@@ -159,11 +159,11 @@
                         Adddata = Adddata + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
                             + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';*/
                         var obj = {
-                        	UserName=results.rows.item(i).name;
-                        	Address=results.rows.item(i).address;
-                        	Email=results.rows.item(i).email;
-                        	MobileNo=results.rows.item(i).mobileno;
-                        }
+                        	UserName=results.rows.item(i).name,
+                        	Address=results.rows.item(i).address,
+                        	Email=results.rows.item(i).email,
+                        	MobileNo=results.rows.item(i).mobileno,
+                        };
                         Adddata.push(obj);
                     }
                 }, null);
