@@ -153,15 +153,15 @@
                         $("#txtData").val($("#txtData").val() 
                             + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
                             + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}');
-                        /*if(i > 0)
+                        if(i > 0)
                             Adddata = Adddata + ",";
                         Adddata = Adddata + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
-                            + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';*/
+                            + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';
                     }
                 }, null);
             });
             
-            var jsonData = '[' + $("#txtData").val() + ']';
+            var jsonData = '[' + Adddata + ']';
             $("#txtData").val("");
             $("#txtData").val(jsonData);
             $.ajax({
