@@ -142,13 +142,14 @@
 
         //Sync
         $("#btnSync").click(function () {
-            //$("#txtData").val("Sync Started...\n\r");
-            var Adddata = {};
+            $("#txtData").val("Sync Started...\n\r");
+            //debugger;
+            var Adddata = [];
             myDB.transaction(function (transaction) {
                 transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
                     var len = results.rows.length, i;
                     for (i = 0; i < len; i++) {
-                        if(i > 0)
+                        /*if(i > 0)
                             $("#txtData").val($("#txtData").val() + ",");
                         $("#txtData").val($("#txtData").val() 
                             + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
@@ -156,24 +157,42 @@
                         if(i > 0)
                             Adddata = Adddata + ",";
                         Adddata = Adddata + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
-                            + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';
+                            + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';*/
+                        var obj = {
+                        	UserName=results.rows.item(i).name;
+                        	Address=results.rows.item(i).address;
+                        	Email=results.rows.item(i).email;
+                        	MobileNo=results.rows.item(i).mobileno;
+                        }
+                        Adddata.push(obj);
                     }
                 }, null);
             });
+            /*for (i = 0; i < 9; i++) {
+                var obj = { 
+                    UserName: "User"+i,
+                    Address: "Address"+i,
+                    Email: "Email"+i,
+                    MobileNo: "Mobileno"+i
+                };
+                Adddata.push(obj);
+            }*/
             
-            var jsonData = '[' + Adddata + ']';
-            $("#txtData").val("");
+            var jsonData = JSON.stringify(Adddata);
             $("#txtData").val(jsonData);
             $.ajax({
                 url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/AddUserDetails',
-                type: 'GET',
-                data: jsonData,
-                dataType: 'json',
+                type: 'POST',
+                contentType : "application/json",
+                dataType: 'json',                
+                data: JSON.stringify(Adddata),
                 success: function (result) {
+                    $("#txtData").val("Data Synced.\n\r");
                     alert('Data Synced Successfully');
                 },
                 statusCode: {
                     404: function () {
+                        $("#txtData").val("Data Sync Failed.\n\r");
                         alert('Failed');
                     }
                 }
