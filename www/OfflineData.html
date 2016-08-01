@@ -148,7 +148,6 @@
             myDB.transaction(function (transaction) {
                 transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
                     var len = results.rows.length, i;
-                    alert(len);
                     for (i = 0; i < len; i++) {
                         /*if(i > 0)
                             $("#txtData").val($("#txtData").val() + ",");
@@ -159,7 +158,6 @@
                             Adddata = Adddata + ",";
                         Adddata = Adddata + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
                             + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';*/
-                        alert(results.rows.item(i).name);
                         var obj = {
                         	UserName : results.rows.item(i).name,
                         	Address : results.rows.item(i).address,
@@ -167,6 +165,7 @@
                         	MobileNo : results.rows.item(i).mobileno
                         };
                         Adddata.push(obj);
+                        alert(Adddata.length);
                     }
                 }, function (error) {
                     alert('Error occurred');
