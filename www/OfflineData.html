@@ -87,7 +87,7 @@
         myDB.transaction(function (transaction) {
             transaction.executeSql('CREATE TABLE IF NOT EXISTS UserDtls (id integer primary key AUTOINCREMENT, name text, address text, email text, mobileno text)', [],
                 function (tx, result) { 
-                    alert('Database Created Successfully');
+                    //alert('Database Created Successfully');
                 },
                 function (error) {
                     alert("Error occurred while creating the table.");
@@ -148,6 +148,7 @@
             myDB.transaction(function (transaction) {
                 transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
                     var len = results.rows.length, i;
+                    alert(len);
                     for (i = 0; i < len; i++) {
                         /*if(i > 0)
                             $("#txtData").val($("#txtData").val() + ",");
@@ -166,7 +167,9 @@
                         };
                         Adddata.push(obj);
                     }
-                }, null);
+                }, function (error) {
+                    alert('Error occurred');
+                });
             });
             /*for (i = 0; i < 9; i++) {
                 var obj = { 
