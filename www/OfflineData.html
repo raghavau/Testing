@@ -159,19 +159,19 @@
                         Adddata = Adddata + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
                             + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';*/
                         //$("#txtData").val($("#txtData").val() + "," + JSON.stringify(results.rows.item(i)));
-                        var obj = {
+                        /*var obj = {
                         	UserName : results.rows.item(i).name,
                         	Address : results.rows.item(i).address,
                         	Email : results.rows.item(i).email,
                         	MobileNo : results.rows.item(i).mobileno
-                        };
+                        };*/
                         Adddata.push({
                         	UserName : results.rows.item(i).name,
                         	Address : results.rows.item(i).address,
                         	Email : results.rows.item(i).email,
                         	MobileNo : results.rows.item(i).mobileno
                         });
-                        $("#txtData").val($("#txtData").val() + "," + JSON.stringify(Adddata));
+                        //$("#txtData").val($("#txtData").val() + "," + JSON.stringify(Adddata));
                     }
                 }, null);
             });
@@ -184,7 +184,7 @@
                 };
                 Adddata.push(obj);
             }*/
-            /*
+            
             var jsonData = JSON.stringify(Adddata);
             $("#txtData").val(jsonData);
             $.ajax({
@@ -203,7 +203,7 @@
                         alert('Failed');
                     }
                 }
-            });*/
+            });
 
         });
     });
