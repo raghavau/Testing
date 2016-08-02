@@ -174,7 +174,7 @@
                     }
                 }, null);
             });
-            for (i = 0; i < 4; i++) {
+            /*for (i = 0; i < 4; i++) {
                 var obj = { 
                     UserName: "User"+i,
                     Address: "Address"+i,
@@ -182,9 +182,9 @@
                     MobileNo: "Mobileno"+i
                 };
                 Adddata.push(obj);
-            }
+            }*/
             var jsonData = JSON.stringify(Adddata);
-            //$("#txtData").val(JSON.stringify(Adddata));
+            $("#txtData").val(JSON.stringify(Adddata));
             $.ajax({
                 url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/AddUserDetails',
                 type: 'POST',
