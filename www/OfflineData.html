@@ -162,7 +162,7 @@
                         type: 'POST',
                         contentType : "application/json",
                         dataType: 'json',                
-                        data: {'':JSON.stringify(Adddata)},
+                        data: JSON.stringify(Adddata),
                         success: function (result) {
                             //$("#txtData").val(result);
                             $("#txtData").val(JSON.stringify(Adddata));
