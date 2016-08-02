@@ -158,6 +158,7 @@
                             Adddata = Adddata + ",";
                         Adddata = Adddata + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
                             + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';*/
+                        alert(results.rows.item(i).name);
                         var obj = {
                         	UserName : results.rows.item(i).name,
                         	Address : results.rows.item(i).address,
@@ -165,13 +166,12 @@
                         	MobileNo : results.rows.item(i).mobileno
                         };
                         Adddata.push(obj);
-                        alert(obj[0].UserName);
                     }
                 }, function (error) {
                     alert('Error occurred');
                 });
             });
-            for (i = 0; i < 9; i++) {
+            /*for (i = 0; i < 9; i++) {
                 var obj = { 
                     UserName: "User"+i,
                     Address: "Address"+i,
@@ -179,7 +179,7 @@
                     MobileNo: "Mobileno"+i
                 };
                 Adddata.push(obj);
-            }
+            }*/
             
             var jsonData = JSON.stringify(Adddata);
             $("#txtData").val(jsonData);
@@ -190,12 +190,12 @@
                 dataType: 'json',                
                 data: JSON.stringify(Adddata),
                 success: function (result) {
-                    $("#txtData").val("Data Synced.\n\r");
+                    $("#txtData").val($("#txtData").val() + "\n\rData Synced.");
                     alert('Data Synced Successfully');
                 },
                 statusCode: {
                     404: function () {
-                        $("#txtData").val("Data Sync Failed.\n\r");
+                        $("#txtData").val($("#txtData").val() + "\n\rData Sync Failed.");
                         alert('Failed');
                     }
                 }
