@@ -145,7 +145,7 @@
             $("#txtData").val("Sync Started...\n\r");
             //debugger;
             var Adddata = [];
-            /*myDB.transaction(function (transaction) {
+            myDB.transaction(function (transaction) {
                 transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
                     var len = results.rows.length, i;
                     for (i = 0; i < len; i++) {
@@ -165,7 +165,7 @@
                         	Email : results.rows.item(i).email,
                         	MobileNo : results.rows.item(i).mobileno
                         };*/
-                        /*Adddata.push({
+                        Adddata.push({
                         	UserName : results.rows.item(i).name.trim(),
                         	Address : results.rows.item(i).address.trim(),
                         	Email : results.rows.item(i).email.trim(),
@@ -173,21 +173,15 @@
                         });
                     }
                 }, null);
-            });*/
-            for (i = 0; i < 9; i++) {
-                /*var obj = { 
+            });
+            /*for (i = 0; i < 9; i++) {
+                var obj = { 
                     UserName: "User"+i,
                     Address: "Address"+i,
                     Email: "Email"+i,
                     MobileNo: "Mobileno"+i
-                };*/
-                Adddata.push({ 
-                    UserName: "User"+i,
-                    Address: "Address"+i,
-                    Email: "Email"+i,
-                    MobileNo: "Mobileno"+i
-                });
-            }            
+                };
+            }*/
             var jsonData = JSON.stringify(Adddata);
             $("#txtData").val(JSON.stringify(Adddata));
             $.ajax({
@@ -195,7 +189,7 @@
                 type: 'POST',
                 //contentType : "application/json",
                 dataType: 'json',                
-                data: JSON.stringify(Adddata),
+                data: {'':Adddata},
                 success: function (result) {
                     //$("#txtData").val(result);
                     alert('Data Synced Successfully');
