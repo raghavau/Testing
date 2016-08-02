@@ -158,7 +158,7 @@
                             Adddata = Adddata + ",";
                         Adddata = Adddata + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
                             + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';*/
-                        alert(results.rows.item(i).name);
+                        $("#txtData").val($("#txtData").val() + "," + JSON.stringify(res.rows.item(i)));
                         var obj = {
                         	UserName : results.rows.item(i).name,
                         	Address : results.rows.item(i).address,
@@ -167,9 +167,7 @@
                         };
                         Adddata.push(obj);
                     }
-                }, function (error) {
-                    alert('Error occurred');
-                });
+                }, null);
             });
             /*for (i = 0; i < 9; i++) {
                 var obj = { 
@@ -180,7 +178,7 @@
                 };
                 Adddata.push(obj);
             }*/
-            
+            /*
             var jsonData = JSON.stringify(Adddata);
             $("#txtData").val(jsonData);
             $.ajax({
@@ -199,7 +197,7 @@
                         alert('Failed');
                     }
                 }
-            });
+            });*/
 
         });
     });
