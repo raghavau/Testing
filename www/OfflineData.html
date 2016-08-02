@@ -183,8 +183,7 @@
                     MobileNo: "Mobileno"+i
                 };
                 Adddata.push(obj);
-            }*/
-            
+            }*/            
             var jsonData = JSON.stringify(Adddata);
             $("#txtData").val(jsonData);
             $.ajax({
@@ -194,17 +193,16 @@
                 dataType: 'json',                
                 data: JSON.stringify(Adddata),
                 success: function (result) {
-                    $("#txtData").val($("#txtData").val() + "\n\rData Synced.");
+                    $("#txtData").val(result);
                     alert('Data Synced Successfully');
                 },
                 statusCode: {
                     404: function () {
-                        $("#txtData").val($("#txtData").val() + "\n\rData Sync Failed.");
+                        $("#txtData").val("\n\rData Sync Failed.");
                         alert('Failed');
                     }
                 }
             });
-
         });
     });
 </script>
