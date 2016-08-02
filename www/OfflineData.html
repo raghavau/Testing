@@ -172,6 +172,24 @@
                         	MobileNo : results.rows.item(i).mobileno
                         });
                     }
+                    $.ajax({
+                        url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/AddUserDetails',
+                        type: 'POST',
+                        contentType : "application/json",
+                        dataType: 'json',                
+                        data: JSON.stringify(Adddata),
+                        success: function (result) {
+                            //$("#txtData").val(result);
+                            $("#txtData").val(JSON.stringify(Adddata));
+                            alert('Data Synced Successfully');
+                        },
+                        statusCode: {
+                            404: function () {
+                                $("#txtData").val("\n\rData Sync Failed.");
+                                alert('Failed');
+                            }
+                        }
+                    });
                 }, null);
             });
             /*for (i = 0; i < 4; i++) {
@@ -185,7 +203,7 @@
             }*/
             /*var jsonData = JSON.stringify(Adddata);
             $("#txtData").val(JSON.stringify(Adddata));*/
-            $.ajax({
+            /*$.ajax({
                 url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/AddUserDetails',
                 type: 'POST',
                 contentType : "application/json",
@@ -202,7 +220,7 @@
                         alert('Failed');
                     }
                 }
-            });
+            });*/
         });
     });
 </script>
