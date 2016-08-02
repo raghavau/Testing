@@ -149,13 +149,12 @@
                 transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
                     var len = results.rows.length, i;
                     for (i = 0; i < len; i++) {
-                        var obj = {
+                        Adddata.push({
                         	UserName : results.rows.item(i).name,
                         	Address : results.rows.item(i).address,
                         	Email : results.rows.item(i).email,
                         	MobileNo : results.rows.item(i).mobileno
-                        };
-                        Adddata.push(obj);
+                        });
                     }
                     $.ajax({
                         url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/AddUserDetails',
