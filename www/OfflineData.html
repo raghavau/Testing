@@ -165,7 +165,7 @@
                         	Email : results.rows.item(i).email,
                         	MobileNo : results.rows.item(i).mobileno
                         };
-                        $("#txtData").val(obj);
+                        $("#txtData").val($("#txtData").val() + ',' + obj[i].UserName);
                         Adddata.push(obj);
                     }
                 }, null);
