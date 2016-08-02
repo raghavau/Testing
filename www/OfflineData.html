@@ -191,9 +191,9 @@
                 type: 'POST',
                 contentType : "application/json",
                 dataType: 'json',                
-                data: JSON.stringify(Adddata),
+                data: $("#txtData").val(),
                 success: function (result) {
-                    $("#txtData").val(result);
+                    //$("#txtData").val(result);
                     alert('Data Synced Successfully');
                 },
                 statusCode: {
