@@ -190,7 +190,7 @@
                 type: 'POST',
                 contentType : "application/json",
                 dataType: 'json',                
-                data: {'':JSON.stringify(Adddata)},
+                data: JSON.stringify(Adddata),
                 success: function (result) {
                     //$("#txtData").val(result);
                     alert('Data Synced Successfully');
