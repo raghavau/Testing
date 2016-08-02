@@ -171,7 +171,7 @@
                         	Email : results.rows.item(i).email,
                         	MobileNo : results.rows.item(i).mobileno
                         });
-                        $("#txtData").val($("#txtData").val() + "," + Adddata);
+                        $("#txtData").val($("#txtData").val() + "," + JSON.stringify(Adddata));
                     }
                 }, null);
             });
