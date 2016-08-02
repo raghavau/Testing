@@ -149,35 +149,20 @@
                 transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
                     var len = results.rows.length, i;
                     for (i = 0; i < len; i++) {
-                        /*if(i > 0)
-                            $("#txtData").val($("#txtData").val() + ",");
-                        $("#txtData").val($("#txtData").val() 
-                            + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
-                            + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}');
-                        if(i > 0)
-                            Adddata = Adddata + ",";
-                        Adddata = Adddata + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
-                            + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';*/
-                        
-                        /*var obj = {
+                        var obj = {
                         	UserName : results.rows.item(i).name,
                         	Address : results.rows.item(i).address,
                         	Email : results.rows.item(i).email,
                         	MobileNo : results.rows.item(i).mobileno
-                        };*/
-                        Adddata.push({
-                        	UserName : results.rows.item(i).name,
-                        	Address : results.rows.item(i).address,
-                        	Email : results.rows.item(i).email,
-                        	MobileNo : results.rows.item(i).mobileno
-                        });
+                        };
+                        Adddata.push(obj);
                     }
                     $.ajax({
                         url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/AddUserDetails',
                         type: 'POST',
                         contentType : "application/json",
                         dataType: 'json',                
-                        data: JSON.stringify(Adddata),
+                        data: Adddata,
                         success: function (result) {
                             //$("#txtData").val(result);
                             $("#txtData").val(JSON.stringify(Adddata));
@@ -192,35 +177,6 @@
                     });
                 }, null);
             });
-            /*for (i = 0; i < 4; i++) {
-                var obj = { 
-                    UserName: "User"+i,
-                    Address: "Address"+i,
-                    Email: "Email"+i,
-                    MobileNo: "Mobileno"+i
-                };
-                Adddata.push(obj);
-            }*/
-            /*var jsonData = JSON.stringify(Adddata);
-            $("#txtData").val(JSON.stringify(Adddata));*/
-            /*$.ajax({
-                url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/AddUserDetails',
-                type: 'POST',
-                contentType : "application/json",
-                dataType: 'json',                
-                data: JSON.stringify(Adddata),
-                success: function (result) {
-                    //$("#txtData").val(result);
-                    $("#txtData").val(JSON.stringify(Adddata));
-                    alert('Data Synced Successfully');
-                },
-                statusCode: {
-                    404: function () {
-                        $("#txtData").val("\n\rData Sync Failed.");
-                        alert('Failed');
-                    }
-                }
-            });*/
         });
     });
 </script>
