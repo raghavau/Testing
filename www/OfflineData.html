@@ -145,7 +145,7 @@
             $("#txtData").val("Sync Started...\n\r");
             //debugger;
             var Adddata = [];
-            /*myDB.transaction(function (transaction) {
+            myDB.transaction(function (transaction) {
                 transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
                     var len = results.rows.length, i;
                     for (i = 0; i < len; i++) {
@@ -158,7 +158,7 @@
                             Adddata = Adddata + ",";
                         Adddata = Adddata + '{"UserName":"' + results.rows.item(i).name + '","Address":"' + results.rows.item(i).address
                             + '","Email":"' + results.rows.item(i).email + '","MobileNo":"' + results.rows.item(i).mobileno + '"}';*/
-                        /*var obj = {
+                        var obj = {
                         	UserName : results.rows.item(i).name,
                         	Address : results.rows.item(i).address,
                         	Email : results.rows.item(i).email,
@@ -170,7 +170,7 @@
                 }, function (error) {
                     alert('Error occurred');
                 });
-            });*/
+            });
             for (i = 0; i < 9; i++) {
                 var obj = { 
                     UserName: "User"+i,
