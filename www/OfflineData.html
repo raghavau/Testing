@@ -166,15 +166,15 @@
                         	MobileNo : results.rows.item(i).mobileno
                         };*/
                         Adddata.push({
-                        	UserName : results.rows.item(i).name.trim(),
-                        	Address : results.rows.item(i).address.trim(),
-                        	Email : results.rows.item(i).email.trim(),
-                        	MobileNo : results.rows.item(i).mobileno.trim()
+                        	UserName : results.rows.item(i).name,
+                        	Address : results.rows.item(i).address,
+                        	Email : results.rows.item(i).email,
+                        	MobileNo : results.rows.item(i).mobileno
                         });
                     }
                 }, null);
             });
-            /*for (i = 0; i < 9; i++) {
+            /*for (i = 0; i < 4; i++) {
                 var obj = { 
                     UserName: "User"+i,
                     Address: "Address"+i,
