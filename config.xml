@@ -1,7 +1,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.raghava.testapp" version="1.0.5">
   <name>Test</name>
   <description>Testing App</description>
-  <author href="http://raghavau.blogspot.com" email="raghava.u@gmail.com">IT Professional</author>
+  <author href="http://www.techjeel.com" email="raghava.u@gmail.com">IT Professional</author>
   <content src="OfflineData.html"/>
   <preference name="phonegap-version" value="cli-5.2.0" />
   <preference name="permissions" value="none"/>
