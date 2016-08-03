@@ -131,10 +131,17 @@
             myDB.transaction(function (transaction) {
                 transaction.executeSql('SELECT * FROM UserDtls', [], function (tx, results) {
                     var len = results.rows.length, i;
-                    for (i = 0; i < len; i++) {
-                        $("#usrData").append("<tr><td>" + results.rows.item(i).id + "</td><td>" + results.rows.item(i).name +
-                            "</td><td>" + results.rows.item(i).address + "</td><td>" + results.rows.item(i).email +
-                            "</td><td>" + results.rows.item(i).mobileno + "</td></tr>");
+                    if(len>0)
+                    {
+                        for (i = 0; i < len; i++) {
+                            $("#usrData").append("<tr><td>" + results.rows.item(i).id + "</td><td>" + results.rows.item(i).name +
+                                "</td><td>" + results.rows.item(i).address + "</td><td>" + results.rows.item(i).email +
+                                "</td><td>" + results.rows.item(i).mobileno + "</td></tr>");
+                        }
+                    }
+                    else
+                    {
+                        $("#usrData").append("<tr><td colspan='5'>No data found.</td></tr>");
                     }
                 }, null);
             });
@@ -164,7 +171,6 @@
                         dataType: 'json',                
                         data: JSON.stringify(Adddata),
                         success: function (result) {
-                            //$("#txtData").val(result);
                             $("#txtData").val(JSON.stringify(Adddata));
                             alert('Data Synced Successfully');
                         },
@@ -174,6 +180,10 @@
                                 alert('Failed');
                             }
                         }
+                    });
+                    myDB.transaction(function (transaction) {
+                        var executeQuery = "DELETE FROM UserDtls";
+                        transaction.executeSql(executeQuery, [], null, null);
                     });
                 }, null);
             });
