@@ -149,7 +149,6 @@
 
         //Sync
         $("#btnSync").click(function () {
-            $("#txtData").val("Sync Started...\n\r");
             //debugger;
             var Adddata = [];
             myDB.transaction(function (transaction) {
@@ -171,7 +170,6 @@
                         dataType: 'json',                
                         data: JSON.stringify(Adddata),
                         success: function (result) {
-                            $("#txtData").val(JSON.stringify(Adddata));
                             alert('Data Synced Successfully');
                         },
                         statusCode: {
