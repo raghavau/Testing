@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <title>Page 2</title>
+        <title>SDS</title>
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="css/loading.css">
@@ -35,11 +35,11 @@
                 0% {
                     opacity: 1;
                 }
-            
+
                 50% {
                     opacity: 0;
                 }
-            
+
                 100% {
                     opacity: 1;
                 }
@@ -48,6 +48,7 @@
     </head>
     <body>
         <input type="hidden" id="hidTruckId">
+        <input type="hidden" id="hidStatusId">
         <div id="loading" class="loading">Loading&#8230;</div>
         <div id="header1" class="headerbar">
             <img alt="logo" class="imglogo" src="img/logo.png"><br>
@@ -107,34 +108,31 @@
                                 <input type="text" id="txtqty" readonly="readonly" class="inputtext-readonly">
                             </div>
                         </div>
+                        <div class="form-group" id="divType">
+                            <label class="col-lg-2" for="selType">Type</label>
+                            <div class="col-lg-10">
+                                <select id="selType" class="inputtext-readonly">
+                                    <option value="0" selected>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="divLoc">
+                            <label class="col-lg-2" for="selLocation">Location</label>
+                            <div class="col-lg-10">
+                                <select id="selLocation" class="inputtext-readonly">
+                                    <option value="0" selected>Select</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group text-center">
                             <div class="col-lg-12">
-                                <button id="btnOfflineSet" type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-circle"></span> Save to Offline</button>
-                                <button id="btnOfflineGet" type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-circle"></span> Get from Offline</button>
+                                <button id="btnSubmit" type="button" class="btn btn-custom"><span class="glyphicon glyphicon-ok-circle"></span> Submit</button>
                             </div>
                         </div>
-                        <!--<div class="form-group">
-                            <label class="col-lg-2" for="txtstatus">Current</label>
-                            <div class="col-lg-10">
-                                <input type="text" id="txtstatus" readonly="readonly" class="inputtext-readonly text-success">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-lg-2" for="txtnewstatus">Next</label>
-                            <div class="col-lg-10">
-                                <div class="input-group">
-                                    <input type="text" id="txtnewstatus" readonly="readonly" class="inputtext-readonly text-danger">
-                                    <span class="input-group-addon">
-                                        <img id="imgtruck" alt="status" src="img/truck_front.PNG" height="20px" width="20px" />
-                                    </span>
-                                </div>
-                            </div>
-                        </div>-->
                     </form>
                 </div>
                 <div class="col-lg-2 text-left"></div>
             </div>
-            <textarea id="txtData" style="overflow: auto; height: 100px; width: 100%;"></textarea>
         </div>
     </body>
 </html>
@@ -146,6 +144,10 @@
     $(document).ready(function () {
         $("#imgtruck").hide();
         $("#loading").hide();
+        $("#divType").hide();
+        $("#divLoc").hide();
+        $("#btnSubmit").hide();
+
         $("#imgSearch").click(function () {
             //debugger;
             $("#loading").show();
@@ -155,6 +157,7 @@
             $("#txtcargo").val("");
             $("#txtqty").val("");
             $("#hidTruckId").val("");
+            $("#hidStatusId").val("");
             $("#txtstatus").text("");
             if ($("#txttruckno").val() == "") {
                 alert('Please Enter Truck No.');
@@ -162,6 +165,7 @@
                 $("#txttruckno").focus();
                 return false;
             }
+
             $.ajax({
                 url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetTruckDetails/' + $("#txttruckno").val().trim(),
                 type: 'GET',
@@ -175,7 +179,12 @@
                         $("#txtqty").val(result[0].Qty);
                         $("#txtstatus").text(result[0].Status);
                         $("#hidTruckId").val(result[0].TruckId);
+                        $("#hidStatusId").val(result[0].StatusId);
                         $("#txtstatus").attr('class', 'text-success');
+                        $("#btnSubmit").show();
+                        $("#btnSubmit").html('<span class="glyphicon glyphicon-ok-circle"></span> ' + result[0].NextStatus);
+                        ShowObjects();
+                        DisableButton(result[0].NextStatus);
                     }
                     else {
                         $("#txtstatus").text("No Data Found");
@@ -192,45 +201,90 @@
             });
             $("#loading").hide();
         });
+
         $("#imgScan").click(function () {
             $("#txtparty").val("");
             $("#txtloc").val("");
             $("#txtcargo").val("");
             $("#txtqty").val("");
             $("#hidTruckId").val("");
+            $("#hidStatusId").val("");
             $("#txtstatus").text("");
             $("#imgtruck").hide();
-            window.localStorage.clear();
             scan();
         });
-        $("#btnOfflineSet").click(function () {
-            //debugger;
-            var obj = {
-                "PartyName": $("#txtparty").val(),
-                "Location": $("#txtloc").val(),
-                "Cargo": $("#txtcargo").val(),
-                "Qty": $("#txtqty").val(),
-                "Status": $("#txtstatus").val(),
-                "Truckno": $("#txttruckno").val(),
-                "TruckId": $("#hidTruckId").val("")
-            };
-            var jsonString = JSON.stringify(obj);
-            if (window.localStorage.getItem('localdata') != "undefined" || window.localStorage.getItem('localdata') != null)
-                window.localStorage.setItem('localdata', window.localStorage.getItem('localdata') + ',' + jsonString);
-            else 
-                window.localStorage.setItem('localdata', jsonString);
-            window.localStorage.setItem('sample', 'Testing');
-        });
-        $("#btnOfflineGet").click(function () {
-            //debugger;
-            var obj = window.localStorage.getItem('sample');
-            var jsonData = window.localStorage.getItem('localdata');
-            /*$.each(jsonData, function (key, value) {
-            window.location.href = 'page2.html?' + value.PartyName;
-            });*/
-            $("#txtData").val('[' + jsonData + ']');
+
+        $("#selType").change(function(){
+            var str = "";
+            $("#selType option:selected").each(function () {
+                str += $(this).text().trim();
+            });
+            $("#selLocation").empty();
+            $("#selLocation").append($("<option>Select</option>"));
+            if (str != "Select"){
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetLocationByType/' + str,
+                    dataType: "json",
+                    data: '{}',
+                    async: false,
+                    success: function (locresult) {
+                        $.each(locresult, function (key, value) {
+                            $("#selLocation").append($("<option></option>").val(value.LocationId).html(value.LocationName));
+                        });
+                    },
+                    error: function (result) {
+                        alert(result.message);
+                    }
+                });
+            }
         });
     });
+
+    function ShowObjects()
+    {
+        $("#selType").empty();
+        $("#selType").append($("<option>Select</option>"));
+        $("#selLocation").empty();
+        $("#selLocation").append($("<option>Select</option>"));
+        if($("#hidStatusId").val() == 5)
+        {
+            $("#divType").show();
+            $("#divLoc").show();
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetLocationType',
+                dataType: "json",
+                data: '{}',
+                async: false,
+                success: function (loctyperesult) {
+                    $.each(loctyperesult, function (key, value) {
+                        $("#selType").append($("<option></option>").val(value.LocationType).html(value.LocationType));
+                    });
+                },
+                error: function (result) {
+                    alert(result.message);
+                }
+            });
+        }
+        else{
+            $("#divType").hide();
+            $("#divLoc").hide();
+        }
+    }
+
+    function DisableButton(obj)
+    {
+        if(obj == 'SDS ACK IN' || obj == 'SDS ACK OUT') {
+            $("#btnSubmit").prop('disabled', true);
+        }
+        else {
+            $("#btnSubmit").prop('disabled', false);
+        }
+    }
+
     function scan() {
         cordova.plugins.barcodeScanner.scan(
                   function (result) {
