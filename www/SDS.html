@@ -141,11 +141,18 @@
 <script type="text/javascript" src="js/jquery.serialize-object.min.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript">
-    window.plugins.uniqueDeviceID.get(success, fail);
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady() {
+        var element = document.getElementById('deviceProperties');
+        $("#txtstatus").text(device.uuid);
+    }
+
+    /*window.plugins.uniqueDeviceID.get(success, fail);
     function success(uuid)
     {
         $("#txtstatus").text(uuid);
-    };
+    };*/
     $(document).ready(function () {
         $("#imgtruck").hide();
         $("#loading").hide();
