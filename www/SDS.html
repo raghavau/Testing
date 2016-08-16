@@ -145,7 +145,7 @@
 
     function onDeviceReady() {
         var element = document.getElementById('deviceProperties');
-        $("#txtstatus").text(device.uuid);
+        $("#txtstatus").text(device.uuid + '--' + device.name);
     }
 
     /*window.plugins.uniqueDeviceID.get(success, fail);
