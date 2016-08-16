@@ -144,15 +144,8 @@
     document.addEventListener("deviceready", onDeviceReady, false);
 
     function onDeviceReady() {
-        var element = document.getElementById('deviceProperties');
-        $("#txtstatus").text(device.uuid + '--' + device.version);
+        $("#txtstatus").text(device.uuid);
     }
-
-    /*window.plugins.uniqueDeviceID.get(success, fail);
-    function success(uuid)
-    {
-        $("#txtstatus").text(uuid);
-    };*/
     $(document).ready(function () {
         $("#imgtruck").hide();
         $("#loading").hide();
