@@ -44,6 +44,7 @@
   <gap:plugin name="org.apache.cordova.vibration"/>
   <gap:plugin name="com.phonegap.plugins.barcodescanner" />
   <gap:plugin name="com.phonegap.plugin.statusbar" />
+  <gap:plugin name="cordova-plugin-uniquedeviceid" source="npm" />
   <plugin name="io.litehelpers.cordova.sqlite" source="pgb" />
   <plugin name="cordova-plugin-whitelist" />
   <icon src="icon.png"/>
