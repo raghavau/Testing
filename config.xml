@@ -45,6 +45,7 @@
   <gap:plugin name="com.phonegap.plugins.barcodescanner" />
   <gap:plugin name="com.phonegap.plugin.statusbar" />
   <plugin name="io.litehelpers.cordova.sqlite" source="pgb" />
+  <plugin name="com.joandilee.imeiplugin" source="pgb" />
   <plugin name="cordova-plugin-whitelist" />
   <icon src="icon.png"/>
   <!--<icon src="www/res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
