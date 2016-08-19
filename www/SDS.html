@@ -145,9 +145,8 @@
 
     function onDeviceReady() {
         $("#txtstatus").text(device.uuid);
+        window.plugins.imeiplugin.getImei(callback);
     }
-
-    window.plugins.imeiplugin.getImei(callback);
 
     function callback(imei) {
         $("#txtstatus").text($("#txtstatus").text() + '-' + imei);
