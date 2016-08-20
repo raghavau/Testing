@@ -130,13 +130,12 @@
 
         $("#btnSubmit").click(function (){
             var _loctype = $("#selLocType option:selected").val();
-            if(_loctype==0){
+            if(_loctype == 0) {
                 $("#selLocType").focus();
                 alert('Please Select Location Type.');
                 return false;
             }
-            else{
-                debugger;
+            else {
                 $("#loading").show();
                 var Adddata = {};
                 Adddata.IMEI = $("#txtimei").val();
@@ -144,8 +143,7 @@
                 Adddata.LocationType = _loctype;
                 Adddata.User = 'admin';
                 $.ajax({
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
+                    type: 'POST',
                     url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/RegisterDevice',
                     dataType: "json",
                     data: Adddata,
