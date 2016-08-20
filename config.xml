@@ -2,7 +2,7 @@
   <name>Test</name>
   <description>Testing App</description>
   <author href="http://www.techjeel.com" email="raghava.u@gmail.com">IT Professional</author>
-  <content src="config.html"/>
+  <content src="index.html"/>
   <preference name="phonegap-version" value="cli-5.2.0" />
   <preference name="permissions" value="none"/>
   <preference name="orientation" value="default"/>
