@@ -66,13 +66,13 @@
                         <div class="form-group">
                             <label class="col-lg-2" for="txtimei">IMEI</label>
                             <div class="col-lg-10">
-                                <input type="text" id="txtimei" readonly="readonly" class="inputtext-readonly">
+                                <input type="text" id="txtimei" readonly="readonly" class="inputtext-readonly" value="355666056403784">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2" for="txtuuid">UUID</label>
                             <div class="col-lg-10">
-                                <input type="text" id="txtuuid" readonly="readonly" class="inputtext-readonly">
+                                <input type="text" id="txtuuid" readonly="readonly" class="inputtext-readonly" value="69db5786cbc164">
                             </div>
                         </div>
                         <div class="form-group" id="divType">
@@ -174,11 +174,11 @@
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetDeviceStatus/',
+            url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetDeviceStatus',
             dataType: "json",
             data: Adddata,
-            async: false,
             success: function (loctyperesult) {
+                debugger;
                 $("#selLocType").empty();
                 if (loctyperesult.length > 0) {
                     $("#selLocType").append($("<option></option>").val(loctyperesult[0].LocationType).html(loctyperesult[0].LocationType));
