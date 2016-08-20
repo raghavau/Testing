@@ -11,28 +11,87 @@
         body{ background-color: cadetblue; }
         #container{
             background-color: floralwhite;
-            width: 500px;
-            height: 300px;
+            width: 700px;
+            height: 500px;
             position: absolute;
+            padding: 10px;
             left: 50%;
             top: 50%;
-            margin-left: -250px;
-            margin-top: -150px;
+            margin-left: -350px;
+            margin-top: -250px;
             z-index: 10000px;
             box-shadow: 3px 3px 2px 0px #757575;
+            overflow: auto;
+        }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: #eaeaea;
+            border-left: 0px solid #ccc;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #aaa;
         }
     </style>
 </head>
 
 <body>
-    <div id="container"></div>
+    <div id="container">
+        <table id="tblEmployeeInfo" class="table table-bordered"></table>
+    </div>
 </body>
 
 </html>
 <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="js/jquery.signalR-2.2.1.min.js"></script>
+<script type="text/javascript" src="http://localhost/SampleWebApi/signalr/hubs"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-    
-});
+    $(function () {
+        // Connection hub url
+        $.connection.hub.url = "http://localhost/SampleWebApi/signalr";
+
+        // Proxy created on the fly
+        var job = $.connection.employeeHub;
+
+        // Declare a function on the job hub so the server can invoke it
+        job.client.displayStatus = function () {
+            getData();
+        };
+
+        // Start the connection
+        $.connection.hub.start();
+        getData();
+    });
+
+    function getData() {
+        var $tbl = $('#tblEmployeeInfo');
+        $.ajax({
+            url: 'http://localhost/SampleWebApi/api/Employee/GetEmployeeDetails',
+            type: 'GET',
+            datatype: 'json',
+            success: function (data) {
+                //debugger;
+                if (data.length > 0) {
+                    $tbl.empty();
+                    $tbl.append('<tr><th>Emp ID</th><th>Name</th><th>Mobile No</th><th>Email</th></tr>');
+                    var rows = [];
+                    for (var i = 0; i < data.length; i++) {
+                        rows.push('<tr><td>' + data[i].Emp_ID + '</td><td>' + data[i].First_Name + ' ' + data[i].Last_Name + '</td><td>' + data[i].Mobile_No + '</td><td>' + data[i].Email + '</td></tr>');
+                    }
+                    $tbl.append(rows.join(''));
+                }
+            },
+            error: function () {
+                $tbl.empty();
+                $tbl.append('<tr><th><span class="text text-warning">Failed to load data.</span></th></tr>');
+            }
+        });
+    }
 </script>
