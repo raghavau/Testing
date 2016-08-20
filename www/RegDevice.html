@@ -97,17 +97,16 @@
 </html>
 <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
-<script type="text/javascript" src="js/jquery.serialize-object.min.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript">
     document.addEventListener("deviceready", onDeviceReady, false);
 
     function onDeviceReady() {
-        $("#txtuuid").text(device.uuid);
+        $("#txtuuid").val(device.uuid);
         window.plugins.imeiplugin.getImei(callback);
     }
     function callback(imei) {
-        $("#txtimei").text(imei);
+        $("#txtimei").val(imei);
     }
     $(document).ready(function () {
         $("#loading").hide();
