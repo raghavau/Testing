@@ -128,9 +128,8 @@
             }
         });
 
-        $("btnSubmit").click(function (){
+        $("#btnSubmit").click(function (){
             var _loctype = $("#selLocType option:selected").val();
-            alert(_loctype);
             if(_loctype=='Select'){
                 $("#selLocType").focus();
                 alert('Please Select Location Type.');
