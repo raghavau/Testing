@@ -110,23 +110,29 @@
     }
     $(document).ready(function () {
         $("#loading").hide();
-
-        $.ajax({
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetLocationType/',
-            dataType: "json",
-            data: '{}',
-            async: false,
-            success: function (loctyperesult) {
-                $.each(loctyperesult, function (key, value) {
-                    $("#selLocType").append($("<option></option>").val(value.LocationType).html(value.LocationType));
-                });
-            },
-            error: function (result) {
-                alert(result.message);
-            }
-        });
+        if(GetDeviceStatus()){
+            $("#btnSubmit").prop('disabled', true);
+        }
+        else{
+            $("#btnSubmit").prop('disabled', false);
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetLocationType/',
+                dataType: "json",
+                data: '{}',
+                async: false,
+                success: function (loctyperesult) {
+                    $("#selLocType").empty();
+                    $.each(loctyperesult, function (key, value) {
+                        $("#selLocType").append($("<option></option>").val(value.LocationType).html(value.LocationType));
+                    });
+                },
+                error: function (result) {
+                    alert(result.message);
+                }
+            });
+        }
 
         $("#btnSubmit").click(function (){
             var _loctype = $("#selLocType option:selected").val();
@@ -149,15 +155,40 @@
                     data: Adddata,
                     success: function (loctyperesult) {
                         alert('Device Registered Successfully');
-                        $("#btnSubmit").hide();
+                        $("#btnSubmit").prop('disabled', true);
                     },
                     error: function (result) {
-                        $("#btnSubmit").show();
-                        $("#loading").hide();
+                        $("#btnSubmit").prop('disabled', false);
                         alert(result.message);
                     }
                 });
             }
+            $("#loading").hide();
         });
     });
+
+    function GetDeviceStatus(){
+        var Adddata = {};
+        Adddata.IMEI = $("#txtimei").val();
+        Adddata.UUID = $("#txtuuid").val();
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetDeviceStatus/',
+            dataType: "json",
+            data: Adddata,
+            async: false,
+            success: function (loctyperesult) {
+                $("#selLocType").empty();
+                if (loctyperesult.length > 0) {
+                    $("#selLocType").append($("<option></option>").val(loctyperesult[0].LocationType).html(loctyperesult[0].LocationType));
+                }
+                return true;
+            },
+            error: function (result) {
+                alert(result.message);
+                return false;
+            }
+        });
+    }
 </script>
