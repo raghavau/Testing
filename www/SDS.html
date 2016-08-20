@@ -141,16 +141,6 @@
 <script type="text/javascript" src="js/jquery.serialize-object.min.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript">
-    document.addEventListener("deviceready", onDeviceReady, false);
-
-    function onDeviceReady() {
-        $("#txtstatus").text(device.uuid);
-        window.plugins.imeiplugin.getImei(callback);
-    }
-
-    function callback(imei) {
-        $("#txtstatus").text($("#txtstatus").text() + '-' + imei);
-    }
     $(document).ready(function () {
         $("#imgtruck").hide();
         $("#loading").hide();
