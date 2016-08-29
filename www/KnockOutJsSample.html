@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KnockoutJS Simple Example</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/loading.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+    <style type="text/css">
+        .FixedContainer
+        {
+            float:left;
+            height: 250px;
+            width:500px;
+            padding:3px;
+            overflow:auto;
+        }
+        .FixedContent
+        {
+            height:224px;
+            overflow:auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!--If the length of the Employees is greater than 0 then visible the Table-->
+        <table data-bind="visible:  Employees().length>0" class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>EmpNo</td>
+                    <td>EmpName</td>
+                    <td>Mobile No</td>
+                    <td>Email</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <!--Iterate through an observableArray using foreach-->
+            <tbody data-bind="foreach: Employees">
+                <tr data-bind="click: $root.getselectedemployee" id="updtr">
+                    <td><span data-bind="text: Emp_ID"></span></td>
+                    <td><span data-bind="text: First_Name"></span></td>
+                    <td><span data-bind="text: Mobile_No"></span></td>
+                    <td><span data-bind="text: Email"></span></td>
+                    <td><button id="show" data-bind="click: $root.show">Show PopUp</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="dialog">
+        <p>
+            Use a modal dialog to explicitly acknowledge information or an action before continuing their work. Set the modal option to true, and specify a primary action (Ok) with the buttons option.
+        </p>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/knockout-3.1.0.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#dialog").dialog({
+            autoOpen: false,
+            height: 400,
+            width: 350,
+            modal: true,
+            open: function (event, ui) {
+                $('.ui-dialog').css('z-index', 103);
+                $('.ui-widget-overlay').css('z-index', 102);
+            }
+        });
+    });
+    var EmpViewModel = function() {
+        //Make the self as 'this' reference
+        var self = this;
+        //Declare observable which will be bind with UI
+        //self.Emp_ID = ko.observable("0");
+        //self.First_Name = ko.observable("");
+        //self.Mobile_No = ko.observable("");
+        //self.Email = ko.observable("");
+
+        //The Object which stored data entered in the observables
+        var EmpData = {
+            Emp_ID: self.Emp_ID,
+            First_Name: self.First_Name,
+            Mobile_No: self.Mobile_No,
+            Email: self.Email
+        };
+
+        //Declare an ObservableArray for Storing the JSON Response
+        self.Employees = ko.observableArray([]);
+
+        //GetEmployees(); //Call the Function which gets all records using ajax call
+
+        //Function to Read All Employees
+        self.getupdatedata = function () {
+            //Ajax Call Get All Employee Records
+            $.ajax({
+                type: "GET",
+                url: "http://61.0.225.169/SampleWebApi/api/Employee/GetEmployeeDetails",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    self.Employees(data); //Put the response in ObservableArray
+                },
+                error: function (error) {
+                    alert(error.status + " <--and--> " + error.statusText);
+                }
+            });
+            //Ends Here
+        }
+
+        self.show = function() {
+            $("#dialog").dialog("open");
+        }
+    };
+    var empModel = new EmpViewModel();
+    window.setInterval(empModel.getupdatedata, 1000);
+    ko.applyBindings(empModel);
+</script>

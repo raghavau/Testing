@@ -70,6 +70,65 @@
     </div>
     <div id="drafts" class="container">
         <h4>Drafts</h4>
+        <table id="tbldml" class="table table-bordered">
+            <tr>
+                <td>First Name</td>
+                <td>
+                    <input type="text" id="txtfname" data-bind="value: $root.First_Name" />
+                </td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td>
+                    <input type="text" id="txtlname" data-bind="value: $root.Last_Name" />
+                </td>
+            </tr>
+            <tr>
+                <td>Sur Name</td>
+                <td>
+                    <input type="text" id="txtsname" data-bind="value: $root.Sur_Name" />
+                </td>
+            </tr>
+            <tr>
+                <td>DOB</td>
+                <td>
+                    <input type="text" id="txtdob" data-bind="value: $root.Dob" />
+                </td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <input type="text" id="txtgender" data-bind="value: $root.Gender" />
+                </td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>
+                    <input type="text" id="txtaddress" data-bind="value: $root.Address" />
+                </td>
+            </tr>
+            <tr>
+                <td>Mobile No</td>
+                <td>
+                    <input type="text" id="txtmobileno" data-bind="value: $root.Mobile_No" />
+                </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="text" id="txtemail" data-bind="value: $root.Email" />
+                </td>
+            </tr>
+            <tr>
+                <!--The click binding has the JavaScirpt methods passed to it-->
+                <td>
+                    <button data-bind="click :$root.save">Save</button>
+                </td>
+                <td>
+                    <button data-bind="click: $root.update">Update</button>
+                </td>
+            </tr>
+        </table>
     </div>
     <div id="sentitems" class="container">
         <h4>Sent Items</h4>
@@ -82,6 +141,7 @@
 </html>
 <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="js/knockout-3.1.0.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#deptData").html("");
@@ -127,4 +187,54 @@
             $("#" + this.hash.substr(1)).show();
         });        
     });
+
+    var EmpViewModel = function() {
+        //Make the self as 'this' reference
+        var self = this;
+        //Declare observable which will be bind with UI
+        //self.Emp_ID = ko.observable("0");
+        self.First_Name = ko.observable("");
+        self.Last_Name = ko.observable("");
+        self.Sur_Name = ko.observable("");
+        self.Dob = ko.observable("");
+        self.Gender = ko.observable("");
+        self.Address = ko.observable("");
+        self.Mobile_No = ko.observable("");
+        self.Email = ko.observable("");
+
+        //The Object which stored data entered in the observables
+        var EmpData = {
+            First_Name: self.First_Name,
+            Last_Name: self.Last_Name,
+            Sur_Name: self.Sur_Name,
+            Dob: self.Dob,
+            Gender: self.Gender,
+            Address: self.Address,
+            Mobile_No: self.Mobile_No,
+            Email: self.Email
+        };
+
+        //Declare an ObservableArray for Storing the JSON Response
+        self.Employees = ko.observableArray([]);
+
+        self.save = function () {
+            //Ajax call to Insert the Employee
+            $.ajax({
+                type: "POST",
+                url: "http://61.0.225.169/SampleWebApi/api/Employee/AddEmployee",
+                data: ko.toJSON(EmpData), //Convert the Observable Data into JSON
+                contentType: "application/json",
+                success: function (data) {
+                    alert("Record Added Successfully");
+                },
+                error: function () {
+                    alert("Failed");
+                }
+            });
+            //Ends Here
+        };
+    };
+    var empModel = new EmpViewModel();
+    window.setInterval(empModel.getupdatedata, 1000);
+    ko.applyBindings(empModel);
 </script>

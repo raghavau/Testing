@@ -7,6 +7,7 @@
     <title>Page 4</title>
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/loading.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
     <style type="text/css">
         body{ background-color: cadetblue; }
         #container{
@@ -42,8 +43,14 @@
 </head>
 
 <body>
+    <button id="show">Show</button>
     <div id="container">
         <table id="tblEmployeeInfo" class="table table-bordered"></table>
+    </div>
+    <div id="dialog">
+        <p>
+            Use a modal dialog to explicitly acknowledge information or an action before continuing their work. Set the modal option to true, and specify a primary action (Ok) with the buttons option.
+        </p>
     </div>
 </body>
 
@@ -52,6 +59,7 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="js/jquery.signalR-2.2.1.min.js"></script>
 <script type="text/javascript" src="http://localhost/SampleWebApi/signalr/hubs"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript">
     $(function () {
         // Connection hub url
@@ -68,12 +76,22 @@
         // Start the connection
         $.connection.hub.start();
         getData();
+
+        $("#dialog").dialog({
+              autoOpen: false,
+              height: 400,
+              width: 350,
+              modal: true
+        });
+        $("#show").click(function(){
+           $("#dialog").dialog("open");
+        });
     });
 
     function getData() {
         var $tbl = $('#tblEmployeeInfo');
         $.ajax({
-            url: 'http://localhost/SampleWebApi/api/Employee/GetEmployeeDetails',
+            url: 'http://61.0.225.169/SampleWebApi/api/Employee/GetEmployeeDetails',
             type: 'GET',
             datatype: 'json',
             success: function (data) {

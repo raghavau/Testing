@@ -7,6 +7,8 @@
         <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="css/loading.css">
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.css">
+        <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Ubuntu'>
         <style type="text/css">
             body{
                 font-family: Ubuntu, Consolas;
@@ -51,8 +53,16 @@
         <input type="hidden" id="hidStatusId">
         <div id="loading" class="loading">Loading&#8230;</div>
         <div id="header1" class="headerbar">
-            <img alt="logo" class="imglogo" src="img/logo.png"><br>
-            <!----><strong><span class="headertext">KRISHNAPATNAM PORT</span></strong>
+            <!--<img alt="logo" class="imglogo" src="img/logo.png"><br>
+            <strong><span class="headertext">KRISHNAPATNAM PORT</span></strong>
+            <span class="text-right"><i class="fa fa-power-off fa-2x"></i></span>-->
+            <table style="background: transparent; width: 100%;">
+                <tr>
+                    <td class="topbar-icon text-left"><a href="default.html"><i class="fa fa-home fa-2x"></i></a></td>
+                    <td class="text-center"><span class="headertext">KRISHNAPATNAM PORT</span></td>
+                    <td class="topbar-icon text-right"><a href="login.html"><i class="fa fa-power-off fa-2x"></i></a></td>
+                </tr>
+            </table>
         </div>
         <br>
         <div class="container">
@@ -66,13 +76,13 @@
                         <div class="form-group">
                             <label class="col-lg-2" for="txtimei">IMEI</label>
                             <div class="col-lg-10">
-                                <input type="text" id="txtimei" readonly="readonly" class="inputtext-readonly" value="355666056403784">
+                                <input type="text" id="txtimei" readonly="readonly" class="inputtext-readonly" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-2" for="txtuuid">UUID</label>
                             <div class="col-lg-10">
-                                <input type="text" id="txtuuid" readonly="readonly" class="inputtext-readonly" value="69db5786cbc164">
+                                <input type="text" id="txtuuid" readonly="readonly" class="inputtext-readonly" value="">
                             </div>
                         </div>
                         <div class="form-group" id="divType">
