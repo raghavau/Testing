@@ -138,7 +138,7 @@
                 Adddata.User = 'admin';
                 $.ajax({
                     type: 'POST',
-                    url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/RegisterDevice',
+                    url: 'http://61.0.225.169/KPCTApi/api/Account/RegisterDevice',
                     dataType: "json",
                     data: Adddata,
                     success: function (loctyperesult) {
@@ -161,7 +161,7 @@
         Adddata.UUID = $("#txtuuid").val();
         $.ajax({
             type: "POST",
-            url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetDeviceStatus',
+            url: 'http://61.0.225.169/KPCTApi/api/Account/GetDeviceStatus',
             dataType: "json",
             data: Adddata,
             success: function (result) {
@@ -176,12 +176,13 @@
                     $.ajax({
                         type: "GET",
                         contentType: "application/json; charset=utf-8",
-                        url: 'http://61.0.225.169/SampleWebApi/api/TruckDetails/GetLocationType/',
+                        url: 'http://61.0.225.169/KPCTApi/api/Location/GetLocationType/',
                         dataType: "json",
                         data: '{}',
                         async: false,
                         success: function (loctyperesult) {
                             $("#selLocType").append($("<option></option>").val('0').html('Select'));
+                            $("#selLocType").append($("<option></option>").val('PARKING').html('PARKING'));
                             $.each(loctyperesult, function (key, value) {
                                 $("#selLocType").append($("<option></option>").val(value.LocationType).html(value.LocationType));
                             });

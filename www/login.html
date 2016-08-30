@@ -69,7 +69,7 @@
                 $("#txtpassword").attr('disabled', true);
                 $.ajax({
                     type: "GET",
-                    url: "http://61.0.225.169/SampleWebApi/api/TruckDetails/CheckUser/" + $("#txtusername").val() + "/" + $("#txtpassword").val(),
+                    url: "http://61.0.225.169/KPCTApi/api/Account/CheckUser/" + $("#txtusername").val() + "/" + $("#txtpassword").val(),
                     data: '{}',
                     contentType: "application/json",
                     success: function () {
