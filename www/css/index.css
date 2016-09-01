@@ -50,7 +50,8 @@ input[type="button"]:focus{
 }
 
 .fa{
-    color: #F1FBFD;
+    color: white;
+    text-shadow: 2px 1px 2px #787878;
 }
 
 .stylebutton{
@@ -257,20 +258,24 @@ input[type="button"]:focus{
 }
 
 ::-webkit-input-placeholder {
-   color: #bdbdbd;
-   font-size: 12px;
+    color: #bdbdbd;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 :-moz-placeholder { /* Firefox 18- */
-   color: #bdbdbd;
-   font-size: 12px;
+    color: #bdbdbd;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 ::-moz-placeholder {  /* Firefox 19+ */
-   color: #bdbdbd;
-   font-size: 12px;
+    color: #bdbdbd;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 :-ms-input-placeholder {  
-   color: #bdbdbd;
-   font-size: 12px;
+    color: #bdbdbd;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 
 ::-webkit-scrollbar {

@@ -49,17 +49,15 @@
         </style>
     </head>
     <body>
-        <input type="hidden" id="hidTruckId">
-        <input type="hidden" id="hidStatusId">
         <div id="loading" class="loading">Loading&#8230;</div>
         <div id="header1" class="headerbar">
             <!--<img alt="logo" class="imglogo" src="img/logo.png"><br>
             <strong><span class="headertext">KRISHNAPATNAM PORT</span></strong>-->
             <table style="background: transparent; width: 100%;">
                 <tr>
-                    <td class="topbar-icon text-left"><a href="default.html"><i class="fa fa-home fa-2x"></i></a></td>
+                    <td class="topbar-icon text-left"><i id="home" class="fa fa-home fa-2x" aria-hidden="true"></i></td>
                     <td class="text-center"><span class="headertext">KRISHNAPATNAM PORT</span></td>
-                    <td class="topbar-icon text-right"><a href="login.html"><i class="fa fa-power-off fa-2x"></i></a></td>
+                    <td class="topbar-icon text-right"><a href="login.html"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a></td>
                 </tr>
             </table>
         </div>
@@ -74,12 +72,14 @@
                 </div>
                 <div class="col-lg-8 text-center">
                     <div class="input-group">
-                        <input type="text" id="txttruckno" class="inputtext" style="text-transform: uppercase;">
-                        <span class="input-group-addon">
-                            <img alt="scan" src="img/scan.PNG" width="25px" height="25px" id="imgScan" />
+                        <input type="text" id="txttruckno" class="inputtext" style="text-transform: uppercase;" placeholder="Enter or Scan Truck No">
+                        <span id="imgScan" class="input-group-addon">
+                            <!--<img alt="scan" src="img/scan.PNG" width="25px" height="25px" />-->
+                            <i class="fa fa-qrcode fa-lg" aria-hidden="true" style="color: #686868"></i>
                         </span>
-                        <span class="input-group-addon">
-                            <img alt="Search" id="imgSearch" src="img/search.PNG" width="20px" height="23px" style="cursor: pointer;" />
+                        <span id="imgSearch" class="input-group-addon">
+                            <!--<img alt="Search" src="img/search.PNG" width="20px" height="23px" style="cursor: pointer;" />-->
+                            <i class="fa fa-search fa-lg" aria-hidden="true" style="color: #686868"></i>
                         </span>
                     </div>
                 </div>
@@ -121,38 +121,32 @@
                             </div>
                         </div>
                         <div class="form-group" id="divType">
-                            <label class="col-lg-2" for="selType">Type</label>
+                            <label class="col-lg-2" for="txtloctype">Location Type</label>
                             <div class="col-lg-10">
-                                <select id="selType" class="inputtext-readonly">
-                                    <option value="0" selected>Select</option>
-                                </select>
+                                <input type="text" id="txtloctype" readonly="readonly" class="inputtext-readonly">
                             </div>
                         </div>
                         <div class="form-group" id="divLoc">
                             <label class="col-lg-2" for="selLocation">Location</label>
                             <div class="col-lg-10">
-                                <select id="selLocation" class="inputtext-readonly">
-                                    <option value="0" selected>Select</option>
-                                </select>
+                                <select id="selLocation" class="inputtext"></select>
                             </div>
                         </div>
                         <div class="form-group" id="divReason">
-                            <label class="col-lg-2" for="selLocation">Reason</label>
+                            <label class="col-lg-2" for="selReason">Reason</label>
                             <div class="col-lg-10">
-                                <select id="selLocation" class="inputtext-readonly">
-                                    <option value="0" selected>Select</option>
-                                </select>
+                                <select id="selReason" class="inputtext"></select>
                             </div>
                         </div>
                         <div class="form-group" id="divRemarks">
-                            <label class="col-lg-2" for="selLocation">Remarks</label>
+                            <label class="col-lg-2" for="txtremarks">Remarks</label>
                             <div class="col-lg-10">
-                                <textarea id="txtremarks" class="inputtext" rows="7"></textarea>
+                                <textarea id="txtremarks" class="inputtext" rows="5" placeholder="Enter Remarks"></textarea>
                             </div>
                         </div>
                         <div class="form-group text-center">
                             <div class="col-lg-12">
-                                <button id="btnSubmit" type="button" class="btn btn-custom"><span class="glyphicon glyphicon-ok-circle"></span> Submit</button>
+                                <button type="button" id="btnSubmit" class="btn btn-custom"><span class="glyphicon glyphicon-ok-circle"></span> Submit</button>
                             </div>
                         </div>
                     </form>
@@ -160,6 +154,18 @@
                 <div class="col-lg-2 text-left"></div>
             </div>
         </div>
+        <input type="hidden" id="hidTruckId">
+        <input type="hidden" id="hidStatusId">
+        <input type="hidden" id="hidusrid">
+        <input type="hidden" id="hidimei" value="355666056403784">
+        <input type="hidden" id="hiduuid" value="69db5786cbc164">
+        <input type="hidden" id="hidfrstflag">
+        <input type="hidden" id="hidprkngflag">
+        <input type="hidden" id="hidscndflag">
+        <input type="hidden" id="hidactlogflag">
+        <input type="hidden" id="hidsdsoutflag">
+        <input type="hidden" id="hidkpctoutflag">
+        <input type="hidden" id="hidfnlflag">
     </body>
 </html>
 <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
@@ -167,12 +173,49 @@
 <script type="text/javascript" src="js/jquery.serialize-object.min.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript">
+    var qsParm = new Array();
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady() {
+        $("#hiduuid").val(device.uuid);
+        window.plugins.imeiplugin.getImei(callback);
+    }
+    function callback(imei) {
+        $("#hidimei").val(imei);
+    }
+    function qs() {
+        var query = window.location.search.substring(1);
+        var parms = query.split('&');
+        for (var i = 0; i < parms.length; i++) {
+            var pos = parms[i].indexOf('=');
+            if (pos > 0) {
+                var key = parms[i].substring(0, pos);
+                var val = parms[i].substring(pos + 1);
+                qsParm[key] = val;
+            }
+        }
+        if (parms.length > 0) {
+            $("#hidusrid").val(atob(qsParm["user"]));
+            return true;
+        }
+        else {
+            window.location.href = 'Login.html';
+            return false;
+        }
+    }
     $(document).ready(function () {
         $("#imgtruck").hide();
         $("#loading").hide();
-        $("#divType").hide();
-        $("#divLoc").hide();
+        //$("#divType").hide();
+        //$("#divLoc").hide();
         $("#btnSubmit").hide();
+        $("#txttruckno").focus();
+        $("#selLocation").prop('disabled', true);
+        qs();
+
+        $("#home").click(function () {
+            window.location.href = 'default.html?user=' + btoa($("#hidusrid").val()) + '';
+        });
 
         $("#imgSearch").click(function () {
             //debugger;
@@ -191,40 +234,9 @@
                 $("#txttruckno").focus();
                 return false;
             }
-
-            $.ajax({
-                url: 'http://61.0.225.169/KPCTApi/api/TruckDetails/GetTruckDetails/' + $("#txttruckno").val().trim(),
-                type: 'GET',
-                data: '{}',
-                dataType: 'json',
-                success: function (result) {
-                    if (result.length > 0) {
-                        $("#txtparty").val(result[0].Party);
-                        $("#txtloc").val(result[0].Loc);
-                        $("#txtcargo").val(result[0].Cargo);
-                        $("#txtqty").val(result[0].Qty);
-                        $("#txtstatus").text(result[0].Status);
-                        $("#hidTruckId").val(result[0].TruckId);
-                        $("#hidStatusId").val(result[0].StatusId);
-                        $("#txtstatus").attr('class', 'text-success');
-                        $("#btnSubmit").show();
-                        $("#btnSubmit").html('<span class="glyphicon glyphicon-ok-circle"></span> ' + result[0].NextStatus);
-                        ShowObjects();
-                        DisableButton(result[0].NextStatus);
-                    }
-                    else {
-                        $("#txtstatus").text("No Data Found");
-                        $("#txtstatus").attr('class', 'text-danger');
-                    }
-                },
-                statusCode: {
-                    404: function () {
-                        alert('Failed');
-                        $("#imgtruck").hide();
-                        $("#loading").hide();
-                    }
-                }
-            });
+            GetDeviceStatus();
+            Reason();
+            GetTruckDetails();
             $("#loading").hide();
         });
 
@@ -240,25 +252,54 @@
             scan();
         });
 
-        $("#selType").change(function(){
+        $("#selReason").change(function (){
             var str = "";
-            $("#selType option:selected").each(function () {
+            $("#selReason option:selected").each(function () {
                 str += $(this).text().trim();
             });
-            $("#selLocation").empty();
-            $("#selLocation").append($("<option>Select</option>"));
-            if (str != "Select"){
+            if(str != "--Select--" && str == "OTHER"){
+                $("#txtremarks").focus();
+            }
+        });
+
+        $("#btnSubmit").click(function (){
+            if(LocationValidations() == false)
+            {
+                return false;
+            }
+            else if(RemarksValidations() == false)
+            {
+                return false;
+            }
+            else
+            {
+                var locType = $("#txtloctype").val();
+                var loc = "";
+                $("#selLocation option:selected").each(function () {
+                    loc += $(this).val().trim();
+                });
+                var reason = "";
+                $("#selReason option:selected").each(function () {
+                    reason += $(this).val().trim();
+                });
+
+                var Adddata = {};
+                Adddata.TruckNo = $("#txttruckno").val();
+                Adddata.LocationName = loc;
+                Adddata.LocationType = locType;
+                Adddata.Qty = $("#txtqty").val();
+                Adddata.ReasonId = reason;
+                Adddata.Remarks = $("#txtremarks").val();
+                Adddata.User = $("#hidusrid").val();
                 $.ajax({
-                    type: "GET",
-                    contentType: "application/json; charset=utf-8",
-                    url: 'http://61.0.225.169/KPCTApi/api/TruckDetails/GetLocationByType/' + str,
+                    type: 'POST',
+                    url: 'http://61.0.225.169/KPCTApi/api/TruckDetails/AddData',
                     dataType: "json",
-                    data: '{}',
-                    async: false,
-                    success: function (locresult) {
-                        $.each(locresult, function (key, value) {
-                            $("#selLocation").append($("<option></option>").val(value.LocationId).html(value.LocationName));
-                        });
+                    data: Adddata,
+                    success: function (result) {
+                        GetDeviceStatus();
+                        Reason();
+                        GetTruckDetails();
                     },
                     error: function (result) {
                         alert(result.message);
@@ -268,17 +309,121 @@
         });
     });
 
+    function GetTruckDetails()
+    {
+        $.ajax({
+            url: 'http://61.0.225.169/KPCTApi/api/TruckDetails/GetTruckDetails/' + $("#txttruckno").val().trim(),
+            type: 'GET',
+            data: '{}',
+            dataType: 'json',
+            success: function (result) {
+                if (result.length > 0) {
+                    $("#txtparty").val(result[0].Party);
+                    $("#txtloc").val(result[0].Loc);
+                    $("#txtcargo").val(result[0].Cargo);
+                    $("#txtqty").val(result[0].Qty);
+                    $("#txtstatus").text(result[0].Status);
+                    $("#hidTruckId").val(result[0].TruckId);
+                    $("#hidStatusId").val(result[0].StatusId);
+                    $("#hidfrstflag").val(result[0].FRSTTRANSIT_FLAG);
+                    $("#hidprkngflag").val(result[0].DBPARKING_FLAG);
+                    $("#hidscndflag").val(result[0].SCNDTRANSIT_FLAG);
+                    $("#hidactlogflag").val(result[0].ACTIVITYLOC_FLAG);
+                    $("#hidsdsoutflag").val(result[0].SDSOUT_FLAG);
+                    $("#hidkpctoutflag").val(result[0].KPCTOUT_FLAG);
+                    $("#hidfnlflag").val(result[0].FINALTRANSIT_FLAG);
+                    $("#txtstatus").attr('class', 'text-success');
+                    $("#btnSubmit").show();
+                    $("#btnSubmit").html('<span class="glyphicon glyphicon-ok-circle"></span> ' + result[0].NextStatus);
+                    $("#hidtrkstatus").val(result[0].NextStatus);
+                    ShowObjects();
+                    DisableButton(result[0].NextStatus);
+                }
+                else {
+                    $("#txtstatus").text("No Data Found");
+                    $("#txtstatus").attr('class', 'text-danger');
+                }
+            },
+            statusCode: {
+                404: function () {
+                    alert('Failed');
+                    $("#imgtruck").hide();
+                    $("#loading").hide();
+                }
+            }
+        });
+    }
+
+    function Reason()
+    {
+        $("#selReason").empty();
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: 'http://61.0.225.169/KPCTApi/api/Reason/GetReasons',
+            dataType: "json",
+            data: '{}',
+            async: false,
+            success: function (locresult) {
+                $.each(locresult, function (key, value) {
+                    $("#selReason").append($("<option></option>").val(value.ReasonId).html(value.Reason));
+                });
+            },
+            error: function (result) {
+                alert(result.message);
+            }
+        });
+    }
+
+    function GetDeviceStatus()
+    {
+        var Adddata = {};
+        Adddata.IMEI = $("#hidimei").val();
+        Adddata.UUID = $("#hiduuid").val();
+        $.ajax({
+            type: "POST",
+            url: 'http://61.0.225.169/KPCTApi/api/Account/GetDeviceStatus',
+            dataType: "json",
+            data: Adddata,
+            async: false,
+            success: function (result) {
+                $("#txtloctype").val(result);
+                if (result != null) {
+                    $("#selLocation").empty();
+                    $("#selLocation").append($("<option>--Select--</option>"));
+                    $.ajax({
+                        type: "GET",
+                        contentType: "application/json; charset=utf-8",
+                        url: 'http://61.0.225.169/KPCTApi/api/Location/GetLocationByType/' + result,
+                        dataType: "json",
+                        data: '{}',
+                        async: false,
+                        success: function (locresult) {
+                            $.each(locresult, function (key, value) {
+                                $("#selLocation").append($("<option></option>").val(value.LocationId).html(value.LocationName));
+                            });
+                        },
+                        error: function (result) {
+                            alert(result.message);
+                        }
+                    });
+                }
+            },
+            error: function (result) {
+                alert(result.message);
+            }
+        });
+    }
+
     function ShowObjects()
     {
-        $("#selType").empty();
-        $("#selType").append($("<option>Select</option>"));
-        $("#selLocation").empty();
-        $("#selLocation").append($("<option>Select</option>"));
+        //$("#selLocation").empty();
+        //$("#selLocation").append($("<option>Select</option>"));
         if($("#hidStatusId").val() == 5)
         {
             $("#divType").show();
             $("#divLoc").show();
-            $.ajax({
+            /*$.ajax({
                 type: "GET",
                 contentType: "application/json; charset=utf-8",
                 url: 'http://61.0.225.169/KPCTApi/api/TruckDetails/GetLocationType',
@@ -286,32 +431,35 @@
                 data: '{}',
                 async: false,
                 success: function (loctyperesult) {
-                    $.each(loctyperesult, function (key, value) {
-                        $("#selType").append($("<option></option>").val(value.LocationType).html(value.LocationType));
-                    });
+                    $("#txtloctype").val(value.LocationType);
                 },
                 error: function (result) {
-                    alert(result.message);
+                    alert(result.message + "::Error");
                 }
-            });
+            });*/
         }
         else{
-            $("#divType").hide();
-            $("#divLoc").hide();
+            //$("#divType").hide();
+            //$("#divLoc").hide();
         }
     }
 
     function DisableButton(obj)
     {
-        if(obj == 'SDS ACK IN' || obj == 'SDS ACK OUT') {
+        if(obj == 'SDS ACK IN' || obj == 'SDS-OUT ACK' || obj == 'FINAL TRANSIT') {
             $("#btnSubmit").prop('disabled', true);
+        }
+        else if (obj == 'WH-ACTIVITY START' || obj == 'CT-YARD IN') {
+            $("#selLocation").prop('disabled', false);
         }
         else {
             $("#btnSubmit").prop('disabled', false);
+            $("#selLocation").prop('disabled', true);
         }
     }
 
-    function scan() {
+    function scan()
+    {
         cordova.plugins.barcodeScanner.scan(
                   function (result) {
                       if (!result.cancelled) {
@@ -322,5 +470,60 @@
                       alert("Scanning failed: " + error);
                   }
               );
+    }
+
+    function LocationValidations()
+    {
+        if($("#hidStatusId").val() == 4)
+        {
+            var loc = "";
+            $("#selLocation option:selected").each(function () {
+                loc += $(this).text().trim();
+            });
+
+            if(loc == "--Select--")
+            {
+                alert('Please Select Location');
+                $("#selLocation").focus();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function RemarksValidations()
+    {
+        var reason = "";
+        $("#selReason option:selected").each(function () {
+            reason += $(this).text().trim();
+        });
+
+        if(($("#hidStatusId").val() == 1 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
+        ||($("#hidStatusId").val() == 2 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
+        ||($("#hidStatusId").val() == 3 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
+        ||($("#hidStatusId").val() == 4 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
+        ||($("#hidStatusId").val() == 5 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
+        ||($("#hidStatusId").val() == 6 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
+        ||($("#hidStatusId").val() == 7 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W')))
+        {
+            if(reason == "--Select--")
+            {
+                alert('Please Select Reason');
+                $("#selReason").focus();
+                return false;
+            }
+        }
+
+        if(reason == "OTHER")
+        {
+            if($("#txtremarks").val()=="")
+            {
+                alert('Enter Remarks');
+                $("#txtremarks").focus();
+                return false;
+            }
+        }
+
+        return true;
     }
 </script>
