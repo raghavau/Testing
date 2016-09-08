@@ -80,7 +80,7 @@ body{
     text-shadow: 1px 1px 2px #9D9C9C;
 }
 .fa{
-    text-shadow: 2px 1px 2px #787878;
+    /*text-shadow: 2px 1px 2px #787878;*/
 }
 ::-webkit-input-placeholder {
     color: #CCCACA;

@@ -51,7 +51,7 @@ input[type="button"]:focus{
 
 .fa{
     color: white;
-    text-shadow: 2px 1px 2px #787878;
+    /*text-shadow: 2px 1px 2px #787878;*/
 }
 
 .stylebutton{
@@ -165,6 +165,30 @@ input[type="button"]:focus{
     background-color: #f2f2f2;
 }
 
+.gridinputtext {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #e1e1e1;
+    font-size: 15px;
+    font-family: 'Ubuntu', sans-serif;
+    width: 100%;
+    padding: 3px;
+    outline: none;
+    /* For Safari 3.0+ */
+    -webkit-transition-property: border, background;
+    -webkit-transition-duration: .5s, .9s;
+    -webkit-animation: ease-in-out;
+    /* Standard syntax */
+    transition-property: border, background;
+    transition-duration: .7s, .9s;
+    animation: ease-in-out;
+    resize: none;
+}
+.gridinputtext:focus {
+    border-bottom: 1px solid #16997E; /* f8646e, 56caca */
+    background-color: #fff;
+}
+
 .inputtext-readonly {
     background-color: transparent;
     border: none;
@@ -173,6 +197,18 @@ input[type="button"]:focus{
     font-family: 'Ubuntu', sans-serif;
     width: 100%;
     padding: 10px;
+    outline: none;
+    resize: none;
+}
+
+.gridinputtext-readonly {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #e1e1e1;
+    font-size: 15px;
+    font-family: 'Ubuntu', sans-serif;
+    width: 100%;
+    padding: 3px;
     outline: none;
     resize: none;
 }
@@ -231,6 +267,22 @@ input[type="button"]:focus{
 
 .btn-custom-sm:hover{
     color: white;
+}
+
+.btn-custom-icon {
+    border-radius: 3px;
+    border: none;
+    background-color: #BDC3C7;
+    color: #000;
+    vertical-align: middle;
+    width: 100%;
+    outline: none;
+    padding: 6px;
+    /*box-shadow: 1px 1px 5px #f0030f;*/
+    /*border-bottom: 3px solid #16997E;*/
+    font-weight: bold;
+    font-size: 15px;
+    text-shadow: 1px 1px 2px #9D9C9C;
 }
 
 .input-group-btn select {
