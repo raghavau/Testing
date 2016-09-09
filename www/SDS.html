@@ -264,6 +264,7 @@
         });
 
         $("#btnSubmit").click(function (){
+            var $btn = $("#btnSubmit");
             if(LocationValidations() == false)
             {
                 return false;
@@ -274,6 +275,9 @@
             }
             else
             {
+                $btn.html("<i class='fa fa-spinner fa-spin'></i>data is submitting please wait...");
+                $btn.attr('disabled', true);
+                $btn.attr('class', 'btn btn-custom-icon');
                 var locType = $("#txtloctype").val();
                 var loc = "";
                 $("#selLocation option:selected").each(function () {
@@ -298,9 +302,7 @@
                     dataType: "json",
                     data: Adddata,
                     success: function (result) {
-                        GetDeviceStatus();
-                        Reason();
-                        GetTruckDetails();
+                        window.location.href = 'SDS.html?user=' + btoa($("#hidusrid").val()) + '';
                     },
                     error: function (result) {
                         alert(result.message);
@@ -335,7 +337,7 @@
                     $("#hidfnlflag").val(result[0].FINALTRANSIT_FLAG);
                     $("#txtstatus").attr('class', 'text-success');
                     $("#btnSubmit").show();
-                    $("#btnSubmit").html('<span class="glyphicon glyphicon-ok-circle"></span> ' + result[0].NextStatus);
+                    /*$("#btnSubmit").html("<i class='fa fa-check'></i> " + result[0].NextStatus);*/
                     $("#hidtrkstatus").val(result[0].NextStatus);
                     ShowObjects();
                     DisableButton(result[0].NextStatus);

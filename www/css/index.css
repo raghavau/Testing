@@ -43,7 +43,7 @@ input[type="button"]:focus{
 
 .headertext{
     color: white;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: bold;
     text-align: center;
     text-shadow: 2px 1px 2px #9D9C9C;
@@ -173,6 +173,7 @@ input[type="button"]:focus{
     font-family: 'Ubuntu', sans-serif;
     width: 100%;
     padding: 3px;
+    padding-right: 8px;
     outline: none;
     /* For Safari 3.0+ */
     -webkit-transition-property: border, background;

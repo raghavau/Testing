@@ -1,6 +1,8 @@
+var qsParm = new Array();
 $(document).ready(function (){
     $("#loading").hide();
     $("#btnSubmit").hide();
+    //qs();
     GetCargoCondition();
     GetWeatherCondition();
     GetHandledCompany();
@@ -17,16 +19,16 @@ $(document).ready(function (){
         if(headrowCount == 0)
             $("#tbldata").append("<thead><tr><th class='text-center'>Slno</th><th class='text-center'>Width</th><th class='text-center'>x</th><th class='text-center'>Height</th><th class='text-center'>=</th><th class='text-center'>Total</th><th></th></tr></thead>");
         if(footrowCount == 0)
-            $('#tbldata').append("<tfoot><tr><td></td><td colspan='4'></td><td><input type='text' class='gridinputtext-readonly lt' readonly></td><td></td></tr></tfoot>");
+            $('#tbldata').append("<tfoot><tr><td></td><td colspan='4'></td><td><input type='text' class='gridinputtext-readonly text-right lt' readonly></td><td></td></tr></tfoot>");
         rowCount = $("#tbldata tbody tr").length;
         if(rowCount <= 9)
         {
             if(rowCount == 9)
                 $("#add").find("i.fa").css('color', '#E4E4E4');
             else $("#add").find("i.fa").css('color', '#5cb85c');
-            $("#tbldata").append("<tbody style='border: 0px;'><tr><td>"+ (rowCount + 1) +"</td><td><input type='text' class='gridinputtext wd' maxlength='3'></td><td>x</td>" +
-                                 "<td><input type='text' class='gridinputtext ht' maxlength='3'></td><td>=</td>" +
-                                 "<td><input type='text' class='gridinputtext-readonly tt' readonly></td>" +
+            $("#tbldata").append("<tbody style='border: 0px;'><tr><td>"+ (rowCount + 1) +"</td><td><input type='text' class='gridinputtext text-right wd' maxlength='3'></td><td>x</td>" +
+                                 "<td><input type='text' class='gridinputtext text-right ht' maxlength='3'></td><td>=</td>" +
+                                 "<td><input type='text' class='gridinputtext-readonly text-right tt' readonly></td>" +
                                  "<td><span class='remCF'><i class='fa fa-remove fa-lg' style='color: #d9534f;' aria-hidden='true'></i></span></td></tr></tbody>");
             $("#tbldata tbody tr:eq(" + rowCount + ") td:eq(1)").find("input").focus();
         }
@@ -58,10 +60,11 @@ $(document).ready(function (){
         {
             var tt = Math.abs(wd) * Math.abs(ht);
             $(this).closest('tr').find('td:eq(5)').find("input").val(tt);
-            TotalQty();
         }
         else
             $(this).closest('tr').find('td:eq(5)').find("input").val(0);
+
+        TotalQty();
     });
     $("#tbldata").on('keypress', '.wd', function (e) {
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
@@ -75,10 +78,11 @@ $(document).ready(function (){
         {
             var tt = Math.abs(wd) * Math.abs(ht);
             $(this).closest('tr').find('td:eq(5)').find("input").val(tt);
-            TotalQty();
         }
         else
             $(this).closest('tr').find('td:eq(5)').find("input").val(0);
+
+        TotalQty();
     });
     $("#tbldata").on('keypress', '.ht', function (e) {
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
@@ -148,6 +152,30 @@ $(document).ready(function (){
         }
     });
 });
+
+function qs() {
+    var query = window.location.search.substring(1);
+    var parms = query.split('&');
+    for (var i = 0; i < parms.length; i++) {
+        var pos = parms[i].indexOf('=');
+        if (pos > 0) {
+            var key = parms[i].substring(0, pos);
+            var val = parms[i].substring(pos + 1);
+            qsParm[key] = val;
+        }
+    }
+    if (parms.length > 0) {
+        $("#hidusrid").val(atob(qsParm["user"]));
+        $("#hidtrkid").val(atob(qsParm["trkid"]));
+        $("#hidloctype").val(atob(qsParm["loctype"]));
+        return true;
+    }
+    else {
+        window.location.href = 'Login.html';
+        return false;
+    }
+}
+
 function TotalQty()
 {
     var rowCount = $("#tbldata tr").length;
@@ -162,8 +190,8 @@ function TotalQty()
 
 function GetLocations()
 {
-    $("#selOPLoc").empty();
-    $("#selOPLoc").append($("<option></option>").val(0).html("Select"));
+    $("#selloc").empty();
+    $("#selloc").append($("<option></option>").val(0).html("Select"));
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
@@ -173,7 +201,7 @@ function GetLocations()
         async: false,
         success: function (result) {
             $.each(result, function (key, value) {
-                $("#selOPLoc").append($("<option></option>").val(value.Id).html(value.Name));
+                $("#selloc").append($("<option></option>").val(value.Id).html(value.Name));
             });
         },
         error: function (result) {
@@ -247,7 +275,11 @@ function GetHandledCompany()
 }
 function Validations()
 {
-    var cargo = "", weather = "", hndledcomp = "", hndledtype = "", total = 0;
+    var loc = "", cargo = "", weather = "", hndledcomp = "", hndledtype = "", total = 0;
+    $("#selloc option:selected").each(function () {
+        loc += $(this).val();
+    });
+
     $("#selcargo option:selected").each(function () {
         cargo += $(this).val();
     });
@@ -266,7 +298,13 @@ function Validations()
 
     total = $('#tbldata tfoot tr td:eq(2)').find("input").val();
 
-    if(cargo == 0)
+    if(loc == 0)
+    {
+        alert('Please Select Location');
+        $("#selloc").focus();
+        return false;
+    }
+    else if(cargo == 0)
     {
         alert('Please Select Cargo Condition');
         $("#selcargo").focus();
@@ -293,7 +331,10 @@ function Validations()
     else if(total == 0)
     {
         alert('Please Enter Width and Height.');
-        $("#selhndtype").focus();
+        if($("#tbldata tbody tr:eq(0) td:eq(1)").find("input").val() == "")
+            $("#tbldata tbody tr:eq(0) td:eq(1)").find("input").focus();
+        else if($("#tbldata tbody tr:eq(0) td:eq(3)").find("input").val() == "")
+            $("#tbldata tbody tr:eq(0) td:eq(3)").find("input").focus();
         return false;
     }
 
