@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2" for="txtloc">Location</label>
+                            <label class="col-lg-2" for="txtloc">Actual Location</label>
                             <div class="col-lg-10">
                                 <input type="text" id="txtloc" readonly="readonly" class="inputtext-readonly">
                             </div>
@@ -167,6 +167,7 @@
         <input type="hidden" id="hidsdsoutflag">
         <input type="hidden" id="hidkpctoutflag">
         <input type="hidden" id="hidfnlflag">
+        <input type="hidden" id="hidloc">
     </body>
 </html>
 <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
@@ -195,8 +196,19 @@
                 qsParm[key] = val;
             }
         }
-        if (parms.length > 0) {
+
+        if (parms.length == 1) {
             $("#hidusrid").val(atob(qsParm["user"]));
+            return true;
+        }
+        else if(parms.length > 1) {
+            $("#hidusrid").val(atob(qsParm["user"]));
+            $("#txttruckno").val(atob(qsParm["trkno"]));
+            $("#txtqty").val(atob(qsParm["qty"]));
+            $("#hidloc").val(atob(qsParm["loc"]));
+            $("#btnSubmit").html("<i class='fa fa-check'></i> Submit");
+            $("#btnSubmit").attr('disabled', false);
+            $("#btnSubmit").attr('class', 'btn btn-custom');
             return true;
         }
         else {
@@ -213,7 +225,9 @@
         $("#txttruckno").focus();
         $("#selLocation").prop('disabled', true);
         qs();
-
+        GetDeviceStatus();
+        GetTruckDetails($("#txttruckno").val().trim());
+        Reason();
         $("#home").click(function () {
             window.location.href = 'default.html?user=' + btoa($("#hidusrid").val()) + '';
         });
@@ -229,15 +243,15 @@
             $("#hidTruckId").val("");
             $("#hidStatusId").val("");
             $("#txtstatus").text("");
-            if ($("#txttruckno").val() == "") {
+            /*if ($("#txttruckno").val() == "") {
                 alert('Please Enter Truck No.');
                 $("#loading").hide();
                 $("#txttruckno").focus();
                 return false;
-            }
+            }*/
             GetDeviceStatus();
+            GetTruckDetails($("#txttruckno").val().trim());
             Reason();
-            GetTruckDetails();
             $("#loading").hide();
         });
 
@@ -269,6 +283,10 @@
             {
                 return false;
             }
+            else if($("#hidStatusId").val() == 5)
+            {
+                window.location.href = 'TallySheet.html?user=' + btoa($("#hidusrid").val()) + '&trkid=' + btoa($("#hidTruckId").val()) + '&trkno=' + btoa($("#txttruckno").val().trim()) + '&loctype=' + btoa($("#txtloctype").val()) + '';
+            }
             else if(RemarksValidations() == false)
             {
                 return false;
@@ -279,10 +297,10 @@
                 $btn.attr('disabled', true);
                 $btn.attr('class', 'btn btn-custom-icon');
                 var locType = $("#txtloctype").val();
-                var loc = "";
-                $("#selLocation option:selected").each(function () {
+                var loc = $("#hidloc").val();
+                /*$("#selLocation option:selected").each(function () {
                     loc += $(this).val().trim();
-                });
+                });*/
                 var reason = "";
                 $("#selReason option:selected").each(function () {
                     reason += $(this).val().trim();
@@ -302,59 +320,72 @@
                     dataType: "json",
                     data: Adddata,
                     success: function (result) {
-                        window.location.href = 'SDS.html?user=' + btoa($("#hidusrid").val()) + '';
+                        window.location.href = 'SDS.html?user=' + btoa($("#hidusrid").val());
                     },
                     error: function (result) {
-                        alert(result.message);
+                        alert('Error occurred while saving the data.');
+                        $btn.html("<i class='fa fa-check'></i> Submit");
+                        $btn.attr('disabled', false);
+                        $btn.attr('class', 'btn btn-custom-icon');
                     }
                 });
             }
         });
     });
 
-    function GetTruckDetails()
+    function GetTruckDetails(truckno)
     {
-        $.ajax({
-            url: 'http://61.0.225.169/KPCTApi/api/TruckDetails/GetTruckDetails/' + $("#txttruckno").val().trim(),
-            type: 'GET',
-            data: '{}',
-            dataType: 'json',
-            success: function (result) {
-                if (result.length > 0) {
-                    $("#txtparty").val(result[0].Party);
-                    $("#txtloc").val(result[0].Loc);
-                    $("#txtcargo").val(result[0].Cargo);
-                    $("#txtqty").val(result[0].Qty);
-                    $("#txtstatus").text(result[0].Status);
-                    $("#hidTruckId").val(result[0].TruckId);
-                    $("#hidStatusId").val(result[0].StatusId);
-                    $("#hidfrstflag").val(result[0].FRSTTRANSIT_FLAG);
-                    $("#hidprkngflag").val(result[0].DBPARKING_FLAG);
-                    $("#hidscndflag").val(result[0].SCNDTRANSIT_FLAG);
-                    $("#hidactlogflag").val(result[0].ACTIVITYLOC_FLAG);
-                    $("#hidsdsoutflag").val(result[0].SDSOUT_FLAG);
-                    $("#hidkpctoutflag").val(result[0].KPCTOUT_FLAG);
-                    $("#hidfnlflag").val(result[0].FINALTRANSIT_FLAG);
-                    $("#txtstatus").attr('class', 'text-success');
-                    $("#btnSubmit").show();
-                    /*$("#btnSubmit").html("<i class='fa fa-check'></i> " + result[0].NextStatus);*/
-                    $("#hidtrkstatus").val(result[0].NextStatus);
-                    ShowObjects();
-                    DisableButton(result[0].NextStatus);
+        var trkno = truckno == "" ? "" : truckno;
+        if(trkno != "")
+        {
+            $.ajax({
+                url: 'http://61.0.225.169/KPCTApi/api/TruckDetails/GetTruckDetails/' + trkno,
+                type: 'GET',
+                data: '{}',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.length > 0) {
+                        $("#txtparty").val(result[0].Party);
+                        $("#txtloc").val(result[0].Loc);
+                        $("#txtcargo").val(result[0].Cargo);
+                        //$("#txtqty").val(result[0].Qty);
+                        $("#txtstatus").text(result[0].Status);
+                        $("#hidTruckId").val(result[0].TruckId);
+                        $("#hidStatusId").val(result[0].StatusId);
+                        $("#hidfrstflag").val(result[0].FRSTTRANSIT_FLAG);
+                        $("#hidprkngflag").val(result[0].DBPARKING_FLAG);
+                        $("#hidscndflag").val(result[0].SCNDTRANSIT_FLAG);
+                        $("#hidactlogflag").val(result[0].ACTIVITYLOC_FLAG);
+                        $("#hidsdsoutflag").val(result[0].SDSOUT_FLAG);
+                        $("#hidkpctoutflag").val(result[0].KPCTOUT_FLAG);
+                        $("#hidfnlflag").val(result[0].FINALTRANSIT_FLAG);
+                        $("#txtstatus").attr('class', 'text-success');
+                        $("#btnSubmit").show();
+                        /*$("#btnSubmit").html("<i class='fa fa-check'></i> " + result[0].NextStatus);*/
+                        $("#hidtrkstatus").val(result[0].NextStatus);
+                        if($("#hidStatusId").val() == 5)
+                        {
+                            $("#btnSubmit").html("<i class='fa fa-check'></i> Tally Sheet");
+                            $("#btnSubmit").attr('disabled', false);
+                            $("#btnSubmit").attr('class', 'btn btn-custom');
+                        }
+                        ShowObjects();
+                        DisableButton(result[0].NextStatus);
+                    }
+                    else {
+                        $("#txtstatus").text("No Data Found");
+                        $("#txtstatus").attr('class', 'text-danger');
+                    }
+                },
+                statusCode: {
+                    404: function () {
+                        alert('Failed');
+                        $("#imgtruck").hide();
+                        $("#loading").hide();
+                    }
                 }
-                else {
-                    $("#txtstatus").text("No Data Found");
-                    $("#txtstatus").attr('class', 'text-danger');
-                }
-            },
-            statusCode: {
-                404: function () {
-                    alert('Failed');
-                    $("#imgtruck").hide();
-                    $("#loading").hide();
-                }
-            }
-        });
+            });
+        }
     }
 
     function Reason()
@@ -464,15 +495,15 @@
     function scan()
     {
         cordova.plugins.barcodeScanner.scan(
-                  function (result) {
-                      if (!result.cancelled) {
-                          $("#txttruckno").val(result.text);
-                      }
-                  },
-                  function (error) {
-                      alert("Scanning failed: " + error);
-                  }
-              );
+            function (result) {
+                if (!result.cancelled) {
+                    $("#txttruckno").val(result.text);
+                }
+            },
+            function (error) {
+                alert("Scanning failed: " + error);
+            }
+        );
     }
 
     function LocationValidations()
@@ -502,12 +533,12 @@
         });
 
         if(($("#hidStatusId").val() == 1 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
-        ||($("#hidStatusId").val() == 2 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
-        ||($("#hidStatusId").val() == 3 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
-        ||($("#hidStatusId").val() == 4 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
-        ||($("#hidStatusId").val() == 5 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
-        ||($("#hidStatusId").val() == 6 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
-        ||($("#hidStatusId").val() == 7 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W')))
+         ||($("#hidStatusId").val() == 2 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
+         ||($("#hidStatusId").val() == 3 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
+         ||($("#hidStatusId").val() == 4 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
+         ||($("#hidStatusId").val() == 5 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
+         ||($("#hidStatusId").val() == 6 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W'))
+         ||($("#hidStatusId").val() == 7 && ($("#hidStatusId").val() == 'C' || $("#hidStatusId").val() == 'W')))
         {
             if(reason == "--Select--")
             {

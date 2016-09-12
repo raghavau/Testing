@@ -94,11 +94,14 @@ $(document).ready(function (){
         var $btn = $("#btnSubmit");
         if(Validations())
         {
-            var cargo = "", weather = "", hndledcomp = "", hndledtype = "", total = 0;
+            var loc = "", cargo = "", weather = "", hndledcomp = "", hndledtype = "", total = 0;
             $btn.find("i.fa").attr('class', 'fa fa-spinner fa-spin fa-lg');
             $btn.find("span").text("data is submitting please wait...");
             $btn.attr('disabled', true);
             $btn.attr('class', 'btn btn-custom-icon');
+            $("#selloc option:selected").each(function () {
+                loc += $(this).val();
+            });
             $("#selcargo option:selected").each(function () {
                 cargo += $(this).val();
             });
@@ -115,21 +118,24 @@ $(document).ready(function (){
                 hndledtype += $(this).text().trim();
             });
 
-            total = $('#tbldata tfoot tr td:eq(1)').find("input").val();
+            total = $('#tbldata tfoot tr td:eq(2)').find("input").val();
 
             var Adddata = [];
             $("#tbldata tbody tr").each(function () {
                 var t = $(this).find('td:eq(5)').find("input").val();
+                debugger;
                 if($.isNumeric(t) && Math.abs(t) > 0)
                 {
                     var obj = {
-                        TruckId : $("#txttruckno").val(),
+                        TruckId : $("#hidtrkid").val(),
                         Width : $(this).find('td:eq(1)').find("input").val(),
                         Height : $(this).find('td:eq(3)').find("input").val(),
                         CargoCondition : cargo,
                         WeatherCondition : weather,
                         HandlingType : hndledtype,
                         HandledCompany : hndledcomp,
+                        Qty : total,
+                        Location : loc,
                         User : $("#hidusrid").val()
                     };
                     Adddata.push(obj);
@@ -143,7 +149,7 @@ $(document).ready(function (){
                 contentType : "application/json",
                 data: JSON.stringify(Adddata),
                 success: function (result) {
-                    window.location.href = 'TallySheet.html';
+                    window.location.href = 'SDS.html?user=' + btoa($("#hidusrid").val()) + '&trkno=' + btoa($("#txttruckno").val()) + '&qty=' + btoa(total) + '&loc=' + btoa(loc) + '';
                 },
                 error: function (result) {
                     alert(result);
@@ -167,7 +173,8 @@ function qs() {
     if (parms.length > 0) {
         $("#hidusrid").val(atob(qsParm["user"]));
         $("#hidtrkid").val(atob(qsParm["trkid"]));
-        $("#hidloctype").val(atob(qsParm["loctype"]));
+        $("#txttruckno").val(atob(qsParm["trkno"]));
+        $("#hidloctype").val(atob(qsParm["loc"]));
         return true;
     }
     else {
