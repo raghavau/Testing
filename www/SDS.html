@@ -322,7 +322,7 @@
                     success: function (result) {
                         window.location.href = 'SDS.html?user=' + btoa($("#hidusrid").val());
                     },
-                    error: function (result) {
+                    error: function () {
                         alert('Error occurred while saving the data.');
                         $btn.html("<i class='fa fa-check'></i> Submit");
                         $btn.attr('disabled', false);
@@ -377,12 +377,10 @@
                         $("#txtstatus").attr('class', 'text-danger');
                     }
                 },
-                statusCode: {
-                    404: function () {
-                        alert('Failed');
-                        $("#imgtruck").hide();
-                        $("#loading").hide();
-                    }
+                error: function () {
+                    alert('Error occurred while loading Truck details.');
+                    $("#imgtruck").hide();
+                    $("#loading").hide();
                 }
             });
         }
@@ -403,8 +401,8 @@
                     $("#selReason").append($("<option></option>").val(value.ReasonId).html(value.Reason));
                 });
             },
-            error: function (result) {
-                alert(result.message);
+            error: function () {
+                alert("Error occurred while loading Reasons.");
             }
         });
     }
@@ -438,13 +436,13 @@
                             });
                         },
                         error: function (result) {
-                            alert(result.message);
+                            alert('Error occurred  while loading Location Types.');
                         }
                     });
                 }
             },
-            error: function (result) {
-                alert(result.message);
+            error: function () {
+                alert("Error occurred while getting device details.");
             }
         });
     }

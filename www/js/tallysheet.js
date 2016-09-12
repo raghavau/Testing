@@ -151,8 +151,8 @@ $(document).ready(function (){
                 success: function (result) {
                     window.location.href = 'SDS.html?user=' + btoa($("#hidusrid").val()) + '&trkno=' + btoa($("#txttruckno").val()) + '&qty=' + btoa(total) + '&loc=' + btoa(loc) + '';
                 },
-                error: function (result) {
-                    alert(result);
+                error: function () {
+                    alert('Error occurred while submitting data.');
                 }
             });
         }
@@ -211,8 +211,8 @@ function GetLocations()
                 $("#selloc").append($("<option></option>").val(value.Id).html(value.Name));
             });
         },
-        error: function (result) {
-            alert(result.message);
+        error: function () {
+            alert('Error occurred while loading Locations');
         }
     });
 }
@@ -233,8 +233,8 @@ function GetCargoCondition()
                 $("#selcargo").append($("<option></option>").val(value.Id).html(value.Name));
             });
         },
-        error: function (result) {
-            alert(result.message);
+        error: function () {
+            alert('Error occurred while loading Cargo Conditions');
         }
     });
 }
@@ -254,8 +254,8 @@ function GetWeatherCondition()
                 $("#selweather").append($("<option></option>").val(value.Id).html(value.Name));
             });
         },
-        error: function (result) {
-            alert(result.message);
+        error: function () {
+            alert('Error occurred while loading Weather Conditions');
         }
     });
 }
@@ -275,8 +275,8 @@ function GetHandledCompany()
                 $("#selhndcomp").append($("<option></option>").val(value.Id).html(value.Name));
             });
         },
-        error: function (result) {
-            alert(result.message);
+        error: function () {
+            alert('Error occurred while loading Handling Company');
         }
     });
 }
