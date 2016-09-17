@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <title>QRCode Reader APP</title>
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <style type="text/css">
+            #txtData {
+                resize: none;
+                overflow: auto;
+                height: 200px;
+                width: fill-available;
+            }
+            .img-thumbnail {
+                box-shadow: 2px 2px 3px #e1e1e1;
+            }            
+        </style>
+    </head>
+    <body>
+        <!--<div class="backbar" style="display: none;">
+            <a class="btn btn-default btn-xs back" href="index.html"><span class="glyphicon glyphicon-menu-left"></span></a>
+        </div>-->
+        <div class="container text-center">
+            <img alt="scan" class="img-thumbnail" src="img/scan.PNG" width="50px" height="50px" id="btnScan" />
+            <!--<br><br>
+            <textarea id="txtData" class="form-control text-left" style="height: fill-available;"></textarea>
+            <br><br>
+            <form role="form" class="form-horizontal text-left" style="display: none;">
+                <div class="form-group">
+                    <label for="productid" class="col-lg-2 control-label">Product Id</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="productid" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="productname" class="col-lg-2 control-label">Product Name</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="productname" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="supplierid" class="col-lg-2 control-label">Supplier Id</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="supplierid" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="categoryid" class="col-lg-2 control-label">Category Id</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="categoryid" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="qtyperunit" class="col-lg-2 control-label">Qty. Per Unit</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="qtyperunit" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="unitprice" class="col-lg-2 control-label">Unit Price</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="unitprice" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="instock" class="col-lg-2 control-label">Units In Stock</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="instock" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="onorder" class="col-lg-2 control-label">Units On Order</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="onorder" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reorderlevel" class="col-lg-2 control-label">ReOrderLevel</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="reorderlevel" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="discontinued" class="col-lg-2 control-label">Discontinued</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="discontinued" class="form-control">
+                    </div>
+                </div>
+            </form>-->
+        </div>
+        <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
+        <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript">
+            function scan() {
+                cordova.plugins.barcodeScanner.scan(
+                    function (result) {
+                        if (!result.cancelled) {
+                            /*$("#txtData").val("");
+                            var res = result.text.split(",");
+                            
+                            for (i = 0; i <= res.length - 1; i++) {
+                                $("#txtData").val($("#txtData").val() + res[i] + "\n\r");
+                            }*/
+                            
+                            /*var Obj = JSON.parse(result.text);
+                            $("#productid").val(Obj.ProductID);
+                            $("#productname").val(Obj.ProductName);
+                            $("#supplierid").val(Obj.SupplierID);
+                            $("#categoryid").val(Obj.CategoryID);
+                            $("#qtyperunit").val(Obj.QuantityPerUnit);
+                            $("#unitprice").val(Obj.UnitPrice);
+                            $("#instock").val(Obj.UnitsInStock);
+                            $("#onorder").val(Obj.UnitsOnOrder);
+                            $("#reorderlevel").val(Obj.ReorderLevel);
+                            $("#discontinued").val(Obj.Discontinued);*/
+                            window.location.href = 'barcode.html?reqid=' + result;
+                        }
+                    },
+                    function (error) {
+                        alert("Scanning failed: " + error);
+                    }
+               );
+            }
+            $(document).ready(function () {
+                $("#btnScan").click(function () {
+                    scan();
+                });
+            });
+        </script>
+    </body>
+</html>

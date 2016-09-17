@@ -1,134 +1,223 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <title>QRCode Reader APP</title>
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <style type="text/css">
-            #txtData {
-                resize: none;
-                overflow: auto;
-                height: 200px;
-                width: fill-available;
+<html lang="en">
+<head>
+    <title>KPCL Visitor Request</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Fit Health App Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android  Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() {setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <meta charset utf="8">
+    <!--font-awsome-css-->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!--bootstrap-->
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!--custom css-->
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/percircle.css">
+    <!--component-css-->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/Chart.js"></script>
+    <!--script-->
+    <script src="js/bigSlide.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript">
+        function qs() {
+            var query = window.location.search.substring(1);
+            var parms = query.split('&');
+            for (var i = 0; i < parms.length; i++) {
+                var pos = parms[i].indexOf('=');
+                if (pos > 0) {
+                    var key = parms[i].substring(0, pos);
+                    var val = parms[i].substring(pos + 1);
+                    qsParm[key] = val;
+                }
             }
-            .img-thumbnail {
-                box-shadow: 2px 2px 3px #e1e1e1;
-            }            
-        </style>
-    </head>
-    <body>
-        <div class="backbar" style="display: none;">
-            <a class="btn btn-default btn-xs back" href="index.html"><span class="glyphicon glyphicon-menu-left"></span></a>
-        </div>
-        <div class="container text-center">
-            <img alt="scan" class="img-thumbnail" src="img/scan.PNG" width="50px" height="50px" id="btnScan" />
-            <br><br>
-            <textarea id="txtData" class="form-control text-left" style="height: fill-available;"></textarea>
-            <br><br>
-            <form role="form" class="form-horizontal text-left" style="display: none;">
-                <div class="form-group">
-                    <label for="productid" class="col-lg-2 control-label">Product Id</label>
-                    <div class="col-lg-10">
-                        <input type="text" id="productid" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="productname" class="col-lg-2 control-label">Product Name</label>
-                    <div class="col-lg-10">
-                        <input type="text" id="productname" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="supplierid" class="col-lg-2 control-label">Supplier Id</label>
-                    <div class="col-lg-10">
-                        <input type="text" id="supplierid" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="categoryid" class="col-lg-2 control-label">Category Id</label>
-                    <div class="col-lg-10">
-                        <input type="text" id="categoryid" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="qtyperunit" class="col-lg-2 control-label">Qty. Per Unit</label>
-                    <div class="col-lg-10">
-                        <input type="text" id="qtyperunit" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="unitprice" class="col-lg-2 control-label">Unit Price</label>
-                    <div class="col-lg-10">
-                        <input type="text" id="unitprice" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="instock" class="col-lg-2 control-label">Units In Stock</label>
-                    <div class="col-lg-10">
-                        <input type="text" id="instock" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="onorder" class="col-lg-2 control-label">Units On Order</label>
-                    <div class="col-lg-10">
-                        <input type="text" id="onorder" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="reorderlevel" class="col-lg-2 control-label">ReOrderLevel</label>
-                    <div class="col-lg-10">
-                        <input type="text" id="reorderlevel" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="discontinued" class="col-lg-2 control-label">Discontinued</label>
-                    <div class="col-lg-10">
-                        <input type="text" id="discontinued" class="form-control">
-                    </div>
-                </div>
-            </form>
-        </div>
-        <script type="text/javascript" src="js/jquery1.11.1-min.js"></script>
-        <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript">
-            function scan() {
-                cordova.plugins.barcodeScanner.scan(
-                    function (result) {
-                        if (!result.cancelled) {
-                            $("#txtData").val("");
-                            var res = result.text.split(",");
-                            
-                            for (i = 0; i <= res.length - 1; i++) {
-                                $("#txtData").val($("#txtData").val() + res[i] + "\n\r");
-                            }
 
-                            /*var Obj = JSON.parse(result.text);
-                            $("#productid").val(Obj.ProductID);
-                            $("#productname").val(Obj.ProductName);
-                            $("#supplierid").val(Obj.SupplierID);
-                            $("#categoryid").val(Obj.CategoryID);
-                            $("#qtyperunit").val(Obj.QuantityPerUnit);
-                            $("#unitprice").val(Obj.UnitPrice);
-                            $("#instock").val(Obj.UnitsInStock);
-                            $("#onorder").val(Obj.UnitsOnOrder);
-                            $("#reorderlevel").val(Obj.ReorderLevel);
-                            $("#discontinued").val(Obj.Discontinued);*/
-                        }
-                    },
-                    function (error) {
-                        alert("Scanning failed: " + error);
-                    }
-               );
+            if (parms.length == 1) {
+                $("#hidreqid").val(qsParm["reqid"]);
+                return true;
             }
-            $(document).ready(function () {
-                $("#btnScan").click(function () {
-                    scan();
-                });
+        }
+        $(document).ready(function () {
+            //$('.menu-link').bigSlide();
+            qs();
+            $.ajax({
+                url: 'http://61.0.225.169/VPMSApi/api/VisitorDetails/GetVisitorDetailsByReqId/' + $("#hidreqid").val(),
+                type: 'GET',
+                data: '{}',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.length > 0) {
+                        $("#name").val(result[0].FirstName + " " + result[0].LastName);
+                        $("#email").val(result[0].Email);
+                        $("#mobileno").val(result[0].MobileNo);
+                        $("#company").text(result[0].Company);
+                        $("#visitdate").val(result[0].VisitDate);
+                        $("#dept").val(result[0].VisitDepartment);
+                        $("#purpose").val(result[0].VisitPurpose);
+                        $("#prooftype").val(result[0].IdProofType);
+                        $("#proof").val(result[0].ProofId);
+                        $("#vehicle").val(result[0].VehNumber);
+                    }
+                },
+                error: function () {
+                    alert('Error occurred while loading Details.');
+                }
             });
-        </script>
-    </body>
+        });
+    </script>
+    <!--script-->
+    <!--script-->
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+        rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <input type="hidden" id="hidreqid">
+    <div class="body-back">
+        <div class="masthead pdng-stn1">
+            <!--<div id="menu" class="panel" role="navigation">
+                <div class="wrap-content">
+                    <div class="search">
+                        <form>
+                        <input type="search" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"
+                            required="">
+                        <input type="submit" value=" ">
+                        </form>
+                    </div>
+                </div>
+            </div>-->
+            <div class="phone-box wrap push">
+                <div class="menu-notify">
+                    
+                    <div class="Profile-mid">
+                        <img src="images/logo.png" alt=" " />   
+                            
+                    </div>
+                    <div class="clearfix">
+                    </div>
+                </div>
+                <div class="details-grid">
+                    <div class="details-shade" style="padding-bottom: 20px;padding-top: 20px">
+                        <div class="col-md-6 details-left">
+                            <img class="img-circle border-effect" src="images/pic3.jpg" alt=" " />
+                        </div>
+                        <div class="col-md-6 details-right">
+                            <h3>
+                                <span id="name"></span></h3>                            
+                            <p>
+                                <span id="email"></span></p>
+                            <p>&nbsp;
+                                </p>
+                            <p>
+                                <span id="mobileno"></span></p>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                    <div class="follow">
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                                Company</h3>
+                        </div>
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                                <span id="company"></span> </h3>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+                        <div class="follow">
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                                Visit Date</h3>
+                        </div>
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                            <span id="visitdate"></span>
+                                </h3>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+                        <div class="follow">
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                                Visit Department</h3>
+                        </div>
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                                <span id="dept"></span></h3>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+                        <div class="follow">
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                                Visit Purpose</h3>
+                        </div>
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                                <span id="purpose"></span></h3>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+                   
+
+                      <div class="follow">
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                                ID Proof</h3>
+                        </div>
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                                <span id="prooftype"></span></h3>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+                      <div class="follow">
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                                Proof Number</h3>
+                        </div>
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                                <span id="proof"></span></h3>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                       <div class="follow">
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                                Vehical Number</h3>
+                        </div>
+                        <div class="col-sm-6 follow-left">
+                            <h3>
+                                <span id="vehicle"></span></h3>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.nicescroll.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
 </html>
