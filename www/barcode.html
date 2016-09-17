@@ -67,6 +67,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         $("#vehicle").text(result[0].VehNumber);
                         $("#imgperson").attr('src', result[0].PhotoUrl)
                     }
+                    else {
+                        alert('No data found.');
+                    }
                 },
                 error: function () {
                     alert('Error occurred while loading Details.');
