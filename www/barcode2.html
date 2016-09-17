@@ -118,7 +118,9 @@
                             $("#onorder").val(Obj.UnitsOnOrder);
                             $("#reorderlevel").val(Obj.ReorderLevel);
                             $("#discontinued").val(Obj.Discontinued);*/
-                            window.location.href = 'barcode.html?reqid=' + result;
+                            
+                            $("#txtData").val(result);
+                            //window.location.href = 'barcode.html?reqid=' + result;
                         }
                     },
                     function (error) {
