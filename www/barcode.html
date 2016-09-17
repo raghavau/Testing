@@ -55,16 +55,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 dataType: 'json',
                 success: function (result) {
                     if (result.length > 0) {
-                        $("#name").val(result[0].FirstName + " " + result[0].LastName);
-                        $("#email").val(result[0].Email);
-                        $("#mobileno").val(result[0].MobileNo);
+                        $("#name").text(result[0].FirstName + " " + result[0].LastName);
+                        $("#email").text(result[0].Email);
+                        $("#mobileno").text(result[0].MobileNo);
                         $("#company").text(result[0].Company);
-                        $("#visitdate").val(result[0].VisitDate);
-                        $("#dept").val(result[0].VisitDepartment);
-                        $("#purpose").val(result[0].VisitPurpose);
-                        $("#prooftype").val(result[0].IdProofType);
-                        $("#proof").val(result[0].ProofId);
-                        $("#vehicle").val(result[0].VehNumber);
+                        $("#visitdate").text(result[0].VisitDate);
+                        $("#dept").text(result[0].VisitDepartment);
+                        $("#purpose").text(result[0].VisitPurpose);
+                        $("#prooftype").text(result[0].IdProofType);
+                        $("#proof").text(result[0].ProofId);
+                        $("#vehicle").text(result[0].VehNumber);
                         $("#imgperson").attr('src', result[0].PhotoUrl)
                     }
                 },
@@ -107,7 +107,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="details-grid">
                     <div class="details-shade" style="padding-bottom: 20px;padding-top: 20px">
                         <div class="col-md-6 details-left">
-                            <img class="img-circle border-effect" src="images/pic3.jpg" alt=" " id="imgperson" width="100px" height="170px" />
+                            <img class="img-circle border-effect" src="" alt=" " id="imgperson" width="100px" height="170px" />
                         </div>
                         <div class="col-md-6 details-right">
                             <h3>
