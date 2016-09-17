@@ -28,6 +28,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="js/bigSlide.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
+        var qsParm = new Array();
         function qs() {
             var query = window.location.search.substring(1);
             var parms = query.split('&');
@@ -64,6 +65,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         $("#prooftype").val(result[0].IdProofType);
                         $("#proof").val(result[0].ProofId);
                         $("#vehicle").val(result[0].VehNumber);
+                        $("#imgperson").attr('src', result[0].PhotoUrl)
                     }
                 },
                 error: function () {
@@ -96,7 +98,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="menu-notify">
                     
                     <div class="Profile-mid">
-                        <img src="images/logo.png" alt=" " />   
+                        <img src="images/logo.png" alt=" "/>   
                             
                     </div>
                     <div class="clearfix">
@@ -105,7 +107,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="details-grid">
                     <div class="details-shade" style="padding-bottom: 20px;padding-top: 20px">
                         <div class="col-md-6 details-left">
-                            <img class="img-circle border-effect" src="images/pic3.jpg" alt=" " />
+                            <img class="img-circle border-effect" src="images/pic3.jpg" alt=" " id="imgperson" width="100px" height="170px" />
                         </div>
                         <div class="col-md-6 details-right">
                             <h3>
