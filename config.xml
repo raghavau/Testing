@@ -26,7 +26,7 @@
     <preference name="StatusBarStyle" value="lightcontent" />
     <plugin name="cordova-sqlite-storage" source="npm" />
     
-    <plugin name="org.apache.cordova.console" source="pgb" spec="0.2.13" />
+    <plugin name="cordova-plugin-console" source="npm" />
     <plugin name="org.apache.cordova.contacts" source="pgb" spec="0.2.16" />
     <plugin name="cordova-plugin-whitelist" />
     <plugin name="cordova-plugin-battery-status" source="npm" />
