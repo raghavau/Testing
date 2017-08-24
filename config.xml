@@ -24,8 +24,7 @@
     <preference name="StatusBarOverlaysWebView" value="false" /> 
     <preference name="StatusBarBackgroundColor" value="#ff6a00" />
     <preference name="StatusBarStyle" value="lightcontent" />
-    <plugin name="cordova-sqlite-storage" source="npm" />
-    
+    <!--<plugin name="cordova-sqlite-storage" source="npm" />-->    
     <plugin name="cordova-plugin-console" source="npm" />
     <plugin name="cordova-plugin-contacts" source="npm" />
     <plugin name="cordova-plugin-whitelist" />
