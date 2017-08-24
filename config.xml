@@ -4,6 +4,7 @@
     <author href="#" email="raghava.u@gmail.com">IT Professional</author>
     <content src="qrscan.html"/>
     <preference name="phonegap-version" value="cli-6.5.0" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="permissions" value="none"/>
     <preference name="orientation" value="default"/>
     <preference name="target-device" value="universal"/>
