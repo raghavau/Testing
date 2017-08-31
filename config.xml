@@ -3,12 +3,8 @@
     <description>Testing App</description>
     <author href="#" email="raghava.u@gmail.com">IT Professional</author>
     <content src="qrscan.html"/>
-<<<<<<< HEAD
-    <preference name="phonegap-version" value="cli-5.2.0" />
-=======
     <preference name="phonegap-version" value="cli-6.5.0" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
->>>>>>> b1d8c647e81262ce49e9d24544bfd8b41d1a8282
     <preference name="permissions" value="none"/>
     <preference name="orientation" value="default"/>
     <preference name="target-device" value="universal"/>
@@ -29,16 +25,9 @@
     <preference name="StatusBarOverlaysWebView" value="false" /> 
     <preference name="StatusBarBackgroundColor" value="#ff6a00" />
     <preference name="StatusBarStyle" value="lightcontent" />
-<<<<<<< HEAD
-    <plugin name="io.litehelpers.cordova.sqlite" source="pgb" spec="0.7.10" />
-    
-    <plugin name="org.apache.cordova.console" source="pgb" spec="0.2.13" />
-    <plugin name="org.apache.cordova.contacts" source="pgb" spec="0.2.16" />
-=======
     <plugin name="cordova-sqlite-storage" source="npm" />
     <plugin name="cordova-plugin-console" source="npm" />
     <plugin name="cordova-plugin-contacts" source="npm" />
->>>>>>> b1d8c647e81262ce49e9d24544bfd8b41d1a8282
     <plugin name="cordova-plugin-whitelist" />
     <plugin name="cordova-plugin-battery-status" source="npm" />
     <plugin name="cordova-plugin-camera" source="npm" />
@@ -74,17 +63,6 @@
     <allow-intent href="sms:*"/>
     <allow-intent href="mailto:*"/>
     <allow-intent href="geo:*"/>
-<<<<<<< HEAD
-    <platform name="android">
-        <allow-intent href="market:*"/>
-    </platform>
-    <platform name="ios">
-        <allow-intent href="itms:*"/>
-        <allow-intent href="itms-apps:*"/>
-    </platform>
-    <!--<platform name="winphone" />-->
-</widget>
-=======
     <feature name="SmsPlugin">
     <param name="android-package" value="com.applegrew.cordova.android.plugin.sms.SmsPlugin" />
     </feature>
@@ -97,4 +75,3 @@
     </platform>
     <!--<platform name="winphone" />-->
 </widget>
->>>>>>> b1d8c647e81262ce49e9d24544bfd8b41d1a8282
